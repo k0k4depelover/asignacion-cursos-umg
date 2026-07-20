@@ -76,14 +76,14 @@
   gap: 10px;
   cursor: pointer;
   font-size: 0.95rem;
-  color: #374151;
+  color: #2c3138;
 }
 
 .badge-assigned {
   margin-left: auto;
   font-size: 0.75rem;
   background: #e5e7eb;
-  color: #6b7280;
+  color: rgb(44, 49, 59);
   padding: 2px 8px;
   border-radius: 99px;
 }
@@ -95,7 +95,7 @@
 }
 
 .btn-primary {
-  background: #4f46e5;
+  background: #9a2626;
   color: white;
   border: none;
   padding: 8px 18px;
@@ -107,11 +107,11 @@
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #4338ca;
+  background: #9a2626;
 }
 
 .btn-primary:disabled {
-  background: #a5b4fc;
+  background: #8f3a3a;
   cursor: not-allowed;
 }
 
