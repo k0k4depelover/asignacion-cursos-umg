@@ -25,7 +25,7 @@ namespace Asignacion.Web.Models
         public required string TipoEspacioSalon { get; set; }
 
         [Column("nivel_salon")]
-        public required string NivelSalon { get; set; }
+        public required int NivelSalon { get; set; }
 
         [Column("id_edificio")]
         public required int IdEdificio { get; set; }

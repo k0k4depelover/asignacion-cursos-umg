@@ -18,7 +18,7 @@ namespace Asignacion.Web.Models
         public required string CodigoCarrera { get; set; }
 
         [Column("total_ciclos_carrera")]
-        public required string TotalCodigoCarrera { get; set; }
+        public required int TotalCiclosCarrera { get; set; }
 
         [Column("estado_carrera")]
         public required string EstadoCarrera { get; set; }
@@ -26,7 +26,7 @@ namespace Asignacion.Web.Models
         [Column("id_facultad")]
         public required int IdFacultad { get; set; }
 
-        [ForeignKey("IdFacultad")]
+        [ForeignKey(nameof(IdFacultad))]
         public Facultad? Facultad { get; set; }
 
         public List<Pensum>? Pensums { get; set; }

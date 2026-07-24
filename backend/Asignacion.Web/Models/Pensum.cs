@@ -27,6 +27,8 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdCarrera))]
         public Carrera? Carrera { get; set; }
 
+        public List<Estudiante>? Estudiantes { get; set; } = new();
+
         public List<PensumCurso>? PensumCursos { get; set; } = new();
 
     }

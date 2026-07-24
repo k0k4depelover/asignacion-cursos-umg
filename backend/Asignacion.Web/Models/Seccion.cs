@@ -42,5 +42,9 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdSalon))]
         public Salon? Salon { get; set; }
 
+        public List<SeccionLaboratorio>? SeccionesLaboratorio { get; set; } = new();
+
+        public List<DetalleAsignacion>? DetalleAsignaciones { get; set; } = new();
+
     }
 }

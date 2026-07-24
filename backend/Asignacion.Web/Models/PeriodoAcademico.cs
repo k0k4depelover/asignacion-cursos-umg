@@ -35,5 +35,7 @@ namespace Asignacion.Web.Models
 
         public List<Seccion> Secciones { get; set; } = new();
 
+        public List<Inscripcion> Inscripciones { get; set; } = new();
+
     }
 }

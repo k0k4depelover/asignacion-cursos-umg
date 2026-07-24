@@ -23,19 +23,29 @@ namespace Asignacion.Web.Models
         public required string DpiEstudiante { get; set; }
 
         [Column("fecha_nacimiento_estudiante")]
-        public required string FechaNacimientoEstudiante { get; set; }
+        public required DateTime FechaNacimientoEstudiante { get; set; }
 
         [Column("direccion_estudiante")]
         public required string DireccionEstudiante { get; set; }
 
         [Column("telefono_estudiante")]
         public required string TelefonoEstudiante { get; set; }
+
+        [Column ("ciclo_estudiante")]
+        public required int CicloEstudiante { get; set; }
+
         [Column("id_usuario")]
         public int IdUsuario { get; set; }
 
         [ForeignKey(nameof(IdUsuario))]
         public Usuario? Usuario { get; set; }
 
+        [Column("id_pensum")]
+        public int IdPensum { get; set; }
+        [ForeignKey(nameof(IdPensum))]
+        public Pensum? Pensum { get; set; }
+
+        public List<Inscripcion>? Inscripciones { get; set; } = new();
 
     }
 }

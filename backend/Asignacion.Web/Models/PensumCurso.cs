@@ -11,13 +11,13 @@ namespace Asignacion.Web.Models
         public int IdPensumCurso { get; set; }
 
         [Column("id_pensum")]
-        public required string IdPensum { get; set; }
+        public required int IdPensum { get; set; }
         [ForeignKey(nameof(IdPensum))]
         public Pensum? Pensum { get; set; }
 
 
         [Column("id_curso")]
-        public required string IdCurso { get; set; }
+        public required int IdCurso { get; set; }
         [ForeignKey(nameof(IdCurso))]
         public Curso? Curso { get; set; }
 
