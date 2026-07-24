@@ -22,7 +22,7 @@ namespace Asignacion.Web.Models
         public required string EstadoAsignacion { get; set; }
 
         [Column("id_inscripcion")]
-        public required string IdInscripcion { get; set; }
+        public int IdInscripcion { get; set; }
 
         [ForeignKey(nameof(IdInscripcion))]
         public Inscripcion? Inscripcion { get; set; }

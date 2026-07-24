@@ -6,6 +6,7 @@ namespace Asignacion.Web.Models
     [Table("curso")]
     public class Curso
     {
+        [Key]
         [Column("id_curso")]
         public int IdCurso { get; set; }
 

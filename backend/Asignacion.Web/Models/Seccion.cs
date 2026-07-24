@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asignacion.Web.Models
 {
+    [Table("seccion")]
     public class Seccion 
     {
+        [Key]
         [Column("id_seccion")]
         public int IdSeccion { get; set; }
 
@@ -45,6 +47,8 @@ namespace Asignacion.Web.Models
         public List<SeccionLaboratorio>? SeccionesLaboratorio { get; set; } = new();
 
         public List<DetalleAsignacion>? DetalleAsignaciones { get; set; } = new();
+
+        public List<HorarioSeccion>? HorarioSecciones { get; set; } = new();
 
     }
 }

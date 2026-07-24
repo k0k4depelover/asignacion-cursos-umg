@@ -11,7 +11,7 @@ namespace Asignacion.Web.Models
         public int IdPeriodoAcademico { get; set; }
 
         [Column("codigo_periodo_academico")]
-        public int CodigoPeriodoAcademico { get; set; }
+        public required string CodigoPeriodoAcademico { get; set; }
 
         [Column("descripcion_periodo_academico")]
         public required string DescripcionPeriodoAcademico { get; set; }

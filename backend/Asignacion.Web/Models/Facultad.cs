@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asignacion.Web.Models
 {
-    [Table("Facultad")]
+    [Table("facultad")]
     public class Facultad
     {
         [Key]
