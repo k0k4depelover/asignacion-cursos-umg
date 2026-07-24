@@ -7,7 +7,7 @@ namespace Asignacion.Web.Models
     public class RequisitoCurso
     {
         [Key]
-        [Column("id_requisito_curso")]
+        [Column("id_requisito")]
         public int IdRequisitoCurso { get; set; }
 
         [Column("id_pensum_curso")]

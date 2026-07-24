@@ -17,14 +17,14 @@ namespace Asignacion.Web.Models
         [Column("codigo_carrera")]
         public required string CodigoCarrera { get; set; }
 
-        [Column("total_ciclos_carrera")]
-        public required int TotalCiclosCarrera { get; set; }
+        [Column("total_ciclos")]
+        public required int TotalCiclos { get; set; }
 
         [Column("estado_carrera")]
         public required string EstadoCarrera { get; set; }
 
         [Column("id_facultad")]
-        public required int IdFacultad { get; set; }
+        public int IdFacultad { get; set; }
 
         [ForeignKey(nameof(IdFacultad))]
         public Facultad? Facultad { get; set; }

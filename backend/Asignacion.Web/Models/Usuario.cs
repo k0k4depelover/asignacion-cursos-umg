@@ -17,8 +17,8 @@ namespace Asignacion.Web.Models
         [Column("correo_recuperacion")]
         public required string CorreoRecuperacionUsuario { get; set; }
 
-        [Column("contrasena_hash_usuario")]
-        public required string ContrasenaHashUsuario { get; set; }
+        [Column("contrasena_hash")]
+        public required string ContrasenaHash { get; set; }
 
         [Column("tiene_pass_temporal")]
         public required bool TienePassTemporal { get; set; } = false;
