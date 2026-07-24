@@ -12,8 +12,6 @@ namespace Asignacion.Web.Models
         public int IdUsuario { get; set; }
         [Column("nombre_usuario")]
         public required string NombreUsuario { get; set; }
-        [Column("apellido_usuario")]
-        public required string ApellidoUsuario { get; set; }
         [Column("correo_login")]
         public required string CorreoLoginUsuario { get; set; }
         [Column("correo_recuperacion")]

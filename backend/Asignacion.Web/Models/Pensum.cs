@@ -22,7 +22,7 @@ namespace Asignacion.Web.Models
         public required string JornadaPensum { get; set; }
 
         [Column("id_carrera")]
-        public required string IdCarrera { get; set; }
+        public int IdCarrera { get; set; }
 
         [ForeignKey(nameof(IdCarrera))]
         public Carrera? Carrera { get; set; }

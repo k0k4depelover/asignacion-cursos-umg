@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asignacion.Web.Models
 {
-    internal class HorarioSeccion
+    [Table("horario_seccion")]
+    public class HorarioSeccion
     {
+        [Column("id_horario")]
+        public int IdHorario { get; set; }
+
+        [Column("dia_semana")]
+        public required string DiaSemana { get; set; }
+
+        [Column("hora_inicio")]
+        public required string HoraInicio { get; set; }
+        [Column("hora_fin")]
+        public required string HoraFin { get; set; }
+
+        [Column("id_seccion")]
+        public required int IdSeccion { get; set; }
+        [ForeignKey(nameof(IdSeccion))]
+        public Seccion? Seccion { get; set; }
+
     }
 }

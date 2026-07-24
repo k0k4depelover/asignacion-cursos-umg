@@ -19,7 +19,7 @@ namespace Asignacion.Web.Models
         public required string EstadoLaboratorio { get; set; }
 
         [Column("id_salon")]
-        public required string IdSalon { get; set; }
+        public int IdSalon { get; set; }
 
         [ForeignKey(nameof(IdSalon))]
         public Salon? Salon { get; set; }

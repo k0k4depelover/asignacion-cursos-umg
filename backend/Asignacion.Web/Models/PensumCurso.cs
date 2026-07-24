@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asignacion.Web.Models
 {
-    [Table("PensumCurso")]
+    [Table("pensum_curso")]
     public class PensumCurso
     {
         [Key]

@@ -23,13 +23,13 @@ namespace Asignacion.Web.Models
 		public required decimal MontoMensual { get; set; }
 
 		[Column("ciclo_inscrito")]
-		public required string CicloInscrito { get; set; }
+		public int CicloInscrito { get; set; }
 
 		[Column("estado_solvencia")]
 		public required string EstadoSolvencia { get; set; }
 
 		[Column("id_estudiante")]
-		public required string IdEstudiante { get; set; }
+		public int IdEstudiante { get; set; }
 
 		[ForeignKey(nameof(IdEstudiante))]
 		public Estudiante? Estudiante { get; set; }

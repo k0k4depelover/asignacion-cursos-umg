@@ -13,13 +13,16 @@ namespace Asignacion.Web.Models
         public required string DiaSemana { get; set; }
 
         [Column("hora_inicio")]
-        public string? HoraInicio { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+
+        [Column("hora_fin")]
+        public TimeSpan HoraFin { get; set; }
 
         [Column("costo_extra")]
-        public required decimal CostoExtra { get; set; }
+        public decimal CostoExtra { get; set; }
 
         [Column("id_seccion")]
-        public required string IdSeccion { get; set; }
+        public int IdSeccion { get; set; }
 
         [ForeignKey(nameof(IdSeccion))]
         public Seccion? Seccion { get; set; }
