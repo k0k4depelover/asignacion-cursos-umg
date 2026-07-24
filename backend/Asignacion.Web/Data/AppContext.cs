@@ -54,7 +54,7 @@ public class AppDbContext : DbContext
 
         // ------------------------------------------------------------------
         // Usuario 1:1 opcional con Estudiante y con Catedratico
-        // (un usuario puede o no tener un perfil de cada tipo, segÃºn su rol)
+        // (un usuario puede o no tener un perfil de cada tipo, según su rol)
         // ------------------------------------------------------------------
         modelBuilder.Entity<Usuario>()
             .HasOne(u => u.Estudiante)
@@ -67,7 +67,7 @@ public class AppDbContext : DbContext
             .HasForeignKey<Catedratico>(c => c.IdUsuario);
 
         // ------------------------------------------------------------------
-        // Inscripcion 1:1 con Asignacion (una inscripciÃ³n genera una asignaciÃ³n)
+        // Inscripcion 1:1 con Asignacion (una inscripción genera una asignación)
         // ------------------------------------------------------------------
         modelBuilder.Entity<Inscripcion>()
             .HasOne(i => i.Asignacion)
@@ -76,7 +76,7 @@ public class AppDbContext : DbContext
 
         // ------------------------------------------------------------------
         // pensum_curso: N:M con columnas propias -> evitar borrado en cascada
-        // mÃºltiple (MySQL no permite mÃ¡s de un camino de cascada hacia la
+        // múltiple (MySQL no permite más de un camino de cascada hacia la
         // misma tabla en algunos casos); lo dejamos en Restrict por seguridad
         // ------------------------------------------------------------------
         modelBuilder.Entity<PensumCurso>()
@@ -93,7 +93,7 @@ public class AppDbContext : DbContext
 
         // ------------------------------------------------------------------
         // requisito_curso: dos caminos distintos hacia Curso
-        // (uno indirecto vÃ­a PensumCurso, otro directo vÃ­a CursoRequerido)
+        // (uno indirecto vía PensumCurso, otro directo vía CursoRequerido)
         // Restrict evita ciclos de cascada ambiguos
         // ------------------------------------------------------------------
         modelBuilder.Entity<RequisitoCurso>()
@@ -168,7 +168,7 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         // ------------------------------------------------------------------
-        // PrecisiÃ³n decimal explÃ­cita (evita el default decimal(65,30))
+        // Precisión decimal explícita (evita el default decimal(65,30))
         // ------------------------------------------------------------------
         modelBuilder.Entity<SeccionLaboratorio>().Property(sl => sl.CostoExtra).HasColumnType("decimal(10,2)");
         modelBuilder.Entity<Inscripcion>().Property(i => i.CostoInscripcion).HasColumnType("decimal(10,2)");
