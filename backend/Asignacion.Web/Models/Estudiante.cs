@@ -31,8 +31,11 @@ namespace Asignacion.Web.Models
         [Column("telefono_estudiante")]
         public required string TelefonoEstudiante { get; set; }
 
-        [Column ("ciclo_estudiante")]
-        public required int CicloEstudiante { get; set; }
+        [Column ("ciclo_actual")]
+        public int CicloEstudiante { get; set; }
+
+        [Column("estado_estudiante")]
+        public required string EstadoEstudiante { get; set; }
 
         [Column("id_usuario")]
         public int IdUsuario { get; set; }

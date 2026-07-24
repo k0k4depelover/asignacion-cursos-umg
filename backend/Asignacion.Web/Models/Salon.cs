@@ -19,16 +19,16 @@ namespace Asignacion.Web.Models
         public required string EstadoSalon { get; set; }
 
         [Column("capacidad_salon")]
-        public required int CapacidadSalon { get; set; }
+        public int CapacidadSalon { get; set; }
 
-        [Column("tipo_espacio_salon")]
-        public required string TipoEspacioSalon { get; set; }
+        [Column("tipo_espacio")]
+        public required string TipoEspacio { get; set; }
 
         [Column("nivel_salon")]
-        public required int NivelSalon { get; set; }
+        public int NivelSalon { get; set; }
 
         [Column("id_edificio")]
-        public required int IdEdificio { get; set; }
+        public int IdEdificio { get; set; }
 
         [ForeignKey(nameof(IdEdificio))]
         public Edificio? Edificio { get; set; }

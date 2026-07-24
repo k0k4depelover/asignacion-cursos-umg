@@ -13,11 +13,11 @@ namespace Asignacion.Web.Models
         [Column("codigo_seccion")]
         public required string CodigoSeccion { get; set; }
 
-        [Column("jornada_seccion")]
-        public required string JornadaSeccion { get; set; }
+        [Column("jornada")]
+        public required string Jornada { get; set; }
 
-        [Column("cupo_maximo_seccion")]
-        public int CupoMaximoSeccion { get; set; }
+        [Column("cupo_maximo")]
+        public int CupoMaximo { get; set; }
 
         [Column("estado_seccion")]
         public required string EstadoSeccion { get; set; }
@@ -27,9 +27,9 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdCurso))]
         public Curso? Curso { get; set; }
 
-        [Column("id_periodo_academico")]
-        public int IdPeriodoAcademico { get; set; }
-        [ForeignKey(nameof(IdPeriodoAcademico))]
+        [Column("id_periodo")]
+        public int IdPeriodo { get; set; }
+        [ForeignKey(nameof(IdPeriodo))]
         public PeriodoAcademico? PeriodoAcademico { get; set; }
 
 

@@ -21,8 +21,8 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdCurso))]
         public Curso? Curso { get; set; }
 
-        [Column("ciclo_pensum_curso")]
-        public int CicloPensumCurso { get; set; }
+        [Column("ciclo")]
+        public int Ciclo { get; set; }
 
         [Column("es_obligatorio")]
         public bool EsObligatorio { get; set; }
