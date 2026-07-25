@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<HorarioSeccion>> ObtenerTodosHorariosSeccionesAsync();
 
-        Task<HorarioSeccion?> ObtenerHorarioSeccionPorId(int idHorarioSeccion);
+        Task<HorarioSeccion?> ObtenerHorarioSeccionPorIdAsync(int idHorarioSeccion);
 
         Task<HorarioSeccion> CrearHorarioSeccionAsync(HorarioSeccion horarioSeccion);
 

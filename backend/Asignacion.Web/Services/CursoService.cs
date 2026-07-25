@@ -19,7 +19,7 @@ namespace Asignacion.Web.Services
             return await _context.Curso.ToListAsync();
         }
 
-        public async Task<Curso?> ObtenerCursoPorId(int idCurso)
+        public async Task<Curso?> ObtenerCursoPorIdAsync(int idCurso)
         {
             return await _context.Curso.FindAsync(idCurso);
         }

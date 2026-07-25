@@ -19,7 +19,7 @@ namespace Asignacion.Web.Services
             return await _context.Catedratico.ToListAsync();
         }
 
-        public async Task<Catedratico?> ObtenerCatedraticoPorId(int idCatedratico)
+        public async Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
             return await _context.FindAsync(idCatedratico)
         }

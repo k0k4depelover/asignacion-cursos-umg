@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Carrera>> ObtenerTodasCarrerasAsync();
 
-        Task<Carrera?> ObtenerCarreraPorId(int idCarrera);
+        Task<Carrera?> ObtenerCarreraPorIdAsync(int idCarrera);
 
         Task<Carrera> CrearCarreraAsync(Carrera carrera);
 

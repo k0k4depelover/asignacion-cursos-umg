@@ -18,14 +18,14 @@ namespace Asignacion.Web.Services
             return await _context.Asignacion.ToListAsync();
         }
 
-        public async Task<Asignacion?> ObtenerAsignacionPorId(int idAsignacion)
+        public async Task<Asignacion?> ObtenerAsignacionPorIdAsync(int idAsignacion)
         {
             return await _context.Asignacion.FindAsync(idAsignacion);
         }
 
         public async Task<Asignacion> CrearAsignacionAsync(Asignacion asignacion)
         {
-            _context.Asignacion.Add(asignacion);
+            _context.Asignacion.AddAsync(asignacion);
             await _context.SaveChangesAsync();
             return asignacion;
         }

@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Facultad>> ObtenerTodasFacultadesAsync();
 
-        Task<Facultad?> ObtenerFacultadPorId(int idFacultad);
+        Task<Facultad?> ObtenerFacultadPorIdAsync(int idFacultad);
 
         Task<Facultad> CrearFacultadAsync(Facultad facultad);
 

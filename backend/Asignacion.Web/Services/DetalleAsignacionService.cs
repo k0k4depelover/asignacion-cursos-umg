@@ -19,7 +19,7 @@ namespace Asignacion.Web.Services
             return await _context.DetalleAsignacion.ToListAsync();
         }
 
-        public async Task<DetalleAsignacion?> ObtenerDetalleAsignacionPorId(int idDetalleAsignacion)
+        public async Task<DetalleAsignacion?> ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion)
         {
             return await _context.DetalleAsignacion.FindAsync(idDetalleAsignacion);
         }

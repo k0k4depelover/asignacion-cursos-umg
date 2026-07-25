@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Permiso>> ObtenerTodosPermisosAsync();
 
-        Task<RequisitoCurso?> ObtenerPermisoPorId(int idPermiso);
+        Task<RequisitoCurso?> ObtenerPermisoPorIdAsync(int idPermiso);
 
         Task<RequisitoCurso> CrearPermisoAsync(Permiso permiso);
 

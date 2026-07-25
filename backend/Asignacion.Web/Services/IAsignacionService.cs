@@ -5,7 +5,7 @@ namespace Asignacion.Web.Services
 	public interface IAsignacionService {
 		Task<List<Asignacion>> ObtenerTodasAsignacionesAsync();
 
-		Task<Asignacion?> ObtenerAsignacionPorId(int idAsignacion);
+		Task<Asignacion?> ObtenerAsignacionPorIdAsync(int idAsignacion);
 
 		Task<Asignacion> CrearAsignacionAsync(Asignacion asignacion);
 
