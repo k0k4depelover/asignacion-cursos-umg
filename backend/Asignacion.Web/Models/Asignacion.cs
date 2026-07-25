@@ -13,7 +13,7 @@ namespace Asignacion.Web.Models
         public required DateTime FechaAsignacion { get; set; }
 
         [Column("subtotal_laboratorios")]
-        public decimal? SubtotalLaboratorios { get; set; }
+        public decimal? SubTotalLaboratorios { get; set; }
 
         [Column("total_pago")]
         public required decimal TotalPago { get; set; }
