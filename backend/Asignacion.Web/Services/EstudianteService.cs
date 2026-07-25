@@ -19,7 +19,7 @@ namespace Asignacion.Web.Services
             return await _context.Estudiante.ToListAsync();
         }
 
-        public async Task<Estudiante?> ObtenerEstudiantePorId(int idEstudiante)
+        public async Task<Estudiante?> ObtenerEstudiantePorIdAsync(int idEstudiante)
         {
             return await _context.Estudiante.FindAsync(idEstudiante);
         }

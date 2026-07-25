@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<DetalleAsignacion>> ObtenerTodosDetallesAsignacionesAsync();
 
-        Task<DetalleAsignacion?> ObtenerDetalleAsignacionPorId(int idDetalleAsignacion);
+        Task<DetalleAsignacion?> ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion);
 
         Task<DetalleAsignacion> CrearDetalleAsignacionAsync(DetalleAsignacion detalleAsignacion);
 

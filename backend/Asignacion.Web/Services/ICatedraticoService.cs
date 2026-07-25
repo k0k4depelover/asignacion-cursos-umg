@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Catedratico>> ObtenerTodosCatedraticosAsync();
 
-        Task<Catedratico?> ObtenerCatedraticoPorId(int idCatedratico);
+        Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico);
 
         Task<Catedratico> CrearCatedraticoAsync(Catedratico catedratico);
 

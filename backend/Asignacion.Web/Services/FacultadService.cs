@@ -18,7 +18,7 @@ namespace Asignacion.Web.Services
             return await _context.Facultad.ToListAsync();
         }
 
-        public async Task<Facultad?> ObtenerFacultadPorId(int idFacultad) {
+        public async Task<Facultad?> ObtenerFacultadPorIdAsync(int idFacultad) {
             return await _context.Facultad.FindAsync(idFacultad);
         }
 

@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<PeriodoAcademico>> ObtenerTodosPeriodosAcademicosAsync();
 
-        Task<PeriodoAcademico?> ObtenerPeriodoAcademicoPorId(int idPeriodoAcademico);
+        Task<PeriodoAcademico?> ObtenerPeriodoAcademicoPorIdAsync(int idPeriodoAcademico);
 
         Task<PeriodoAcademico> CrearPeriodoAcademicoAsync(PeriodoAcademico periodoAcademico);
 

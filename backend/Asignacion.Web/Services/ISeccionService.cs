@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Seccion>> ObtenerTodasSeccionesAsync();
 
-        Task<Seccion?> ObtenerSeccionPorId(int idSalon);
+        Task<Seccion?> ObtenerSeccionPorIdAsync(int idSalon);
 
         Task<Seccion> CrearSeccionAsync(Seccion seccion);
 

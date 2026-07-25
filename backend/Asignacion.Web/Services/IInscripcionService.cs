@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Inscripcion>> ObtenerTodasInscripcionesAsync();
 
-        Task<Inscripcion?> ObtenerInscripcionPorId(int idInscripcion);
+        Task<Inscripcion?> ObtenerInscripcionPorIdAsync(int idInscripcion);
 
         Task<Inscripcion> CrearInscripcionAsync(Inscripcion inscripcion);
 

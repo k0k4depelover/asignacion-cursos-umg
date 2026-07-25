@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Salon>> ObtenerTodosSalonesAsync();
 
-        Task<Salon?> ObtenerSalonPorId(int idSalon);
+        Task<Salon?> ObtenerSalonPorIdAsync(int idSalon);
 
         Task<Salon> CrearSalonAsync(Salon salon);
 
