@@ -48,6 +48,7 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdPensum))]
         public Pensum? Pensum { get; set; }
 
+
         public List<Inscripcion>? Inscripciones { get; set; } = new();
 
     }
