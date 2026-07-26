@@ -4,14 +4,59 @@ using Asignacion.Web.Models;
 
 namespace Asignacion.Web.Services
 {
-    public class AsignacionService : IAsignacionService
+    public class PensumService : IPensumService
     {
         private readonly AppContext _context
 
 
-            public AsignacionService(AppContext context)
+            public PensumService(AppContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Pensum>> ObtenerTodosPensumsAsync()
+        {
+            return await _context.Pensum.ToListAsync();
+        }
+
+        public async Task<Pensum?> ObtenerPensumPorIdAsync(int idPensum)
+        {
+            return await _context.Pensum.FindAsync(idPensum);
+        }
+
+        public async Task<Pensum> CrearPensumAsync(Pensum pensum)
+        {
+            _context.Pensum.AddAsync(pensum);
+            await _context.SaveChangesAsync();
+            return pensum;
+        }
+
+        public async Task<bool> ActualizarPensumAsync(int idPensum, Pensum pensum)
+        {
+            var pensumExistente = _context.Pensum.FindAsync(idPensum);
+            if (pensumExistente == null)
+            {
+                return false;
+            }
+            pensumExistente.IdPensum = pensum.IdPensum;
+            pensumExistente.CodigoPensum = pensum.CodigoPensum;
+            pensumExistente.AnioPensum = pensum.AnioPensum;
+            pensumExistente.EstadoPensum = pensum.EstadoPensum;
+            pensumExistente.JornadaPensum = pensum.JornadaPensum;
+            pensumExistente.IdCarrera = pensum.IdCarrera;
+            return true
+        }
+
+        public async Task<bool> EliminarPensumAsync(int idPensum)
+        {
+            var pensumExistente = _context.Pensum.FindAsync(idPensum);
+            if (pensumExistente == null)
+            {
+                return false;
+            }
+            _context.Pensum.Remove(pensumExistente);
+            await _context.SaveChangesAsync();
+            return true
         }
 
     }

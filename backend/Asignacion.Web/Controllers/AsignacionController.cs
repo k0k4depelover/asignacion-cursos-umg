@@ -11,7 +11,7 @@ namespace Asignacion.Web.Controllers
     {
         private readonly IAsignacionService asignacionService;
 
-        public AsignacionController(IAsignacionService asignacionService){
+        public AsignacionController(IAsignacionService asignacionService) {
             _asignacionService = asignacionService;
         }
 
@@ -41,8 +41,8 @@ namespace Asignacion.Web.Controllers
 
             return CreatedAtAction(nameof(ObtenerAsignacionPorIdAsync), new { id = asignacionCreada.idAsignacion }); // 201 CREATED
         }
-        {
         
+
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarAsignacionAsync(int idAsignacion, Asignacion asignacion)
         {
@@ -62,11 +62,12 @@ namespace Asignacion.Web.Controllers
         {
             var asignacionEliminada = await _asignacionService.EliminarAsignacionAsync(idAsignacion);
 
-            if (!asignacionActualizada)
+            if (!asignacionEliminada)
             {
                 return NoFound();
             }
 
             return NoContent(); // 204 NO CONTENT 
         }
+    }
 }
