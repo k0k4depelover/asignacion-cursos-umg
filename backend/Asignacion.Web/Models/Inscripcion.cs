@@ -34,7 +34,7 @@ namespace Asignacion.Web.Models
 		[ForeignKey(nameof(IdEstudiante))]
 		public Estudiante? Estudiante { get; set; }
 
-		[Column("id_periodo_academico")]
+		[Column("id_periodo")]
 		public int IdPeriodoAcademico { get; set; }
 		[ForeignKey(nameof(IdPeriodoAcademico))]
 		public PeriodoAcademico? PeriodoAcademico { get; set; }

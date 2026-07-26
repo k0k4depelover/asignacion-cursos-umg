@@ -16,10 +16,10 @@ namespace Asignacion.Web.Models
         [Column("codigo_edificio")]
         public required string CodigoEdificio { get; set; }
 
-        [Column("sede_edificio")]
+        [Column("sede")]
         public required string SedeEdificio { get; set; }
 
-        [Column("ubicacion_edificio")]
+        [Column("ubicacion")]
         public required string UbicacionEdificio { get; set; }
 
         [Column("estado_edificio")]
