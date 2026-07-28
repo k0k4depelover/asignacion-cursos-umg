@@ -9,6 +9,7 @@ namespace Asignacion.Web.Controllers
     public class RolPermisoController : ControllerBase
     {
         private readonly IRolPermisoService _rolPermisoService;
+
         public RolPermisoController(IRolPermisoService rolPermisoService)
         {
             _rolPermisoService = rolPermisoService;
@@ -32,18 +33,34 @@ namespace Asignacion.Web.Controllers
             return Ok(rolPermisoDb);
         }
 
+        [HttpGet("rol/{idRol}")]
+        public async Task<ActionResult<List<RolPermiso>>> ObtenerPorRolAsync(int idRol)
+        {
+            var permisosDelRol = await _rolPermisoService.ObtenerPorRolAsync(idRol);
+            return Ok(permisosDelRol);
+        }
+
+        [HttpGet("permiso/{idPermiso}")]
+        public async Task<ActionResult<List<RolPermiso>>> ObtenerPorPermisoAsync(int idPermiso)
+        {
+            var rolesDelPermiso = await _rolPermisoService.ObtenerPorPermisoAsync(idPermiso);
+            return Ok(rolesDelPermiso);
+        }
+
         [HttpPost]
         public async Task<ActionResult<RolPermiso>> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
             var rolPermisoCreado = await _rolPermisoService.CrearRolPermisoAsync(rolPermiso);
-            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { idRol = rolPermisoCreado.IdRol, idPermiso = rolPermisoCreado.IdPermiso }, rolPermisoCreado);
+            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync),
+                new { idRol = rolPermisoCreado.IdRol, idPermiso = rolPermisoCreado.IdPermiso },
+                rolPermisoCreado);
         }
 
         [HttpDelete("{idRol}/{idPermiso}")]
         public async Task<IActionResult> EliminarRolPermisoAsync(int idRol, int idPermiso)
         {
-            var rolPermisoEliminado = await _rolPermisoService.EliminarRolPermisoAsync(idRol, idPermiso);
-            if (!rolPermisoEliminado)
+            var eliminado = await _rolPermisoService.EliminarRolPermisoAsync(idRol, idPermiso);
+            if (!eliminado)
             {
                 return NotFound();
             }

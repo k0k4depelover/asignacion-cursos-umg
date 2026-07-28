@@ -15,41 +15,54 @@ namespace Asignacion.Web.Services
 
         public async Task<List<RolPermiso>> ObtenerTodosRolesPermisosAsync()
         {
-            return await _context.RolPermisos.ToListAsync();
+            return await _context.RolPermiso
+                .Include(rp => rp.Rol)
+                .Include(rp => rp.Permiso)
+                .ToListAsync();
         }
 
         public async Task<RolPermiso?> ObtenerRolPermisoPorIdAsync(int idRol, int idPermiso)
         {
-            return await _context.RolPermisos.FindAsync(idRol, idPermiso);
+            return await _context.RolPermiso
+                .Include(rp => rp.Rol)
+                .Include(rp => rp.Permiso)
+                .FirstOrDefaultAsync(rp => rp.IdRol == idRol && rp.IdPermiso == idPermiso);
+        }
+
+        public async Task<List<RolPermiso>> ObtenerPorRolAsync(int idRol)
+        {
+            return await _context.RolPermiso
+                .Include(rp => rp.Permiso)
+                .Where(rp => rp.IdRol == idRol)
+                .ToListAsync();
+        }
+
+        public async Task<List<RolPermiso>> ObtenerPorPermisoAsync(int idPermiso)
+        {
+            return await _context.RolPermiso
+                .Include(rp => rp.Rol)
+                .Where(rp => rp.IdPermiso == idPermiso)
+                .ToListAsync();
         }
 
         public async Task<RolPermiso> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
-            _context.RolPermisos.Add(rolPermiso);
+            _context.RolPermiso.Add(rolPermiso);
             await _context.SaveChangesAsync();
             return rolPermiso;
         }
 
-        public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
+        public async Task<bool> EliminarRolPermisoAsync(int idRol, int idPermiso)
         {
-            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
-            if (permisoExistente == null)
-            {
-                return false;
-            }
-            permisoExistente.IdPermiso = permiso.IdPermiso;
-            permisoExistente.IdRol = permiso.IdRol;
-            return true;
-        }
+            var existente = await _context.RolPermiso
+                .FirstOrDefaultAsync(rp => rp.IdRol == idRol && rp.IdPermiso == idPermiso);
 
-        public async Task<bool> EliminarRolPermisoAsync(int idPermiso)
-        {
-            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
-            if (permisoExistente == null)
+            if (existente == null)
             {
                 return false;
             }
-            _context.RolPermisos.Remove(rolPermisoExistente);
+
+            _context.RolPermiso.Remove(existente);
             await _context.SaveChangesAsync();
             return true;
         }

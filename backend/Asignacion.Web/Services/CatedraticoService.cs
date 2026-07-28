@@ -15,17 +15,17 @@ namespace Asignacion.Web.Services
 
         public async Task<List<Catedratico>> ObtenerTodosCatedraticosAsync()
         {
-            return await _context.Catedraticos.ToListAsync();
+            return await _context.Catedratico.ToListAsync();
         }
 
         public async Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
-            return await _context.FindAsync(idCatedratico);
+            return await _context.Catedratico.FindAsync(idCatedratico);
         }
 
         public async Task<Catedratico> CrearCatedraticoAsync(Catedratico catedratico)
         {
-            _context.Catedraticos.Add(catedratico);
+            _context.Catedratico.Add(catedratico);
             await _context.SaveChangesAsync();
             return catedratico;
         }
@@ -52,12 +52,12 @@ namespace Asignacion.Web.Services
 
         public async Task<bool> EliminarCatedraticoAsync(int idCatedratico)
         {
-            var catedraticoExistente = await _context.Catedraticos.FindAsync(idCatedratico);
+            var catedraticoExistente = await _context.Catedratico.FindAsync(idCatedratico);
             if (catedraticoExistente == null)
             {
                 return false;
             }
-            _context.Catedraticos.Remove(catedraticoExistente);
+            _context.Catedratico.Remove(catedraticoExistente);
             await _context.SaveChangesAsync();
             return true;
         }

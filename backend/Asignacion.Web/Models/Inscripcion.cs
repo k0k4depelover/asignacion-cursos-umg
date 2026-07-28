@@ -39,7 +39,7 @@ namespace Asignacion.Web.Models
 		[ForeignKey(nameof(IdPeriodoAcademico))]
 		public PeriodoAcademico? PeriodoAcademico { get; set; }
 
-		public Asignacion Asignacion { get; set; }
+		public Asignacion? Asignacion { get; set; }
 
 	}
 }

@@ -28,7 +28,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<AsignacionModel>> ObtenerAsignacionPorIdAsync(int idAsignacion)
         {
             var asignacionDb = await _asignacionService.ObtenerAsignacionPorIdAsync(idAsignacion);
-            if (asiignacionDb == null) {
+            if (asignacionDb == null) {
                 return NotFound(); // Codigo 404 
             }
 
