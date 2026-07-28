@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idPermiso}")]
         public async Task<ActionResult<Permiso>> ObtenerPermisoPorIdAsync(int idPermiso)
         {
-            var permisoDb = await _permisoService.ObtenerPermisoPorIdAsync(int idPermiso);
+            var permisoDb = await _permisoService.ObtenerPermisoPorIdAsync(idPermiso);
             if (permisoDb == null)
             {
                 return NotFound(); // Código 404
@@ -34,14 +34,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Permiso>> CrearPermisoAsync(Permiso permiso)
         {
-            var permisoCreado = await _permisoService.CrearPermisoAsync(Permiso permiso);
+            var permisoCreado = await _permisoService.CrearPermisoAsync(permiso);
             return CreatedAtAction(nameof(ObtenerPermisoPorIdAsync), new { id = permisoCreado.IdPermiso }); // 201 CREATED
         }
 
         [HttpPut("{idPermiso}")]
         public async Task<IActionResult> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
         {
-            var permisoActualizado = await _permisoService.ActualizarPermisoAsync(int idPermiso, Permiso permiso);
+            var permisoActualizado = await _permisoService.ActualizarPermisoAsync(idPermiso, permiso);
             if (!permisoActualizado)
             {
                 return NotFound(); // Código 404

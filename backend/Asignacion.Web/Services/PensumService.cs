@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PensumService : IPensumService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public PensumService(AppContext context)
@@ -44,7 +44,7 @@ namespace Asignacion.Web.Services
             pensumExistente.EstadoPensum = pensum.EstadoPensum;
             pensumExistente.JornadaPensum = pensum.JornadaPensum;
             pensumExistente.IdCarrera = pensum.IdCarrera;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarPensumAsync(int idPensum)
@@ -56,7 +56,7 @@ namespace Asignacion.Web.Services
             }
             _context.Pensum.Remove(pensumExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

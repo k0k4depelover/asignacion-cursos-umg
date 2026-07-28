@@ -37,7 +37,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Asignacion>> CrearAsignacionAsync(Asignacion asignacion)
         {
-            var asignacionCreada = await _asignacionService.CrearAsignacionAsync(Asignacion asignacion);
+            var asignacionCreada = await _asignacionService.CrearAsignacionAsync(asignacion);
 
             return CreatedAtAction(nameof(ObtenerAsignacionPorIdAsync), new { id = asignacionCreada.idAsignacion }); // 201 CREATED
         }

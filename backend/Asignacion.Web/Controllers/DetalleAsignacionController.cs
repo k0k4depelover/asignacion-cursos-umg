@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idDetalleAsignacion}")]
         public async Task<ActionResult<DetalleAsignacion>> ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion)
         {
-            var detalleAsignacionDb = await _detalleAsignacionService.ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion);
+            var detalleAsignacionDb = await _detalleAsignacionService.ObtenerDetalleAsignacionPorIdAsync(idDetalleAsignacion);
             if (detalleAsignacionDb == null)
             {
                 return NotFound(); // Código 404
@@ -39,7 +39,7 @@ namespace Asignacion.Web.Controllers
         [HttpPut("{idDetalleAsignacion}")]
         public async Task<IActionResult> ActualizarDetalleAsignacionAsync(int idDetalleAsignacion, DetalleAsignacion detalleAsignacion)
         {
-            var detalleAsignacionActualizado = await _detalleAsignacionService.ActualizarDetalleAsignacionAsync(idDetalleAsignacion, DetalleAsignacion detalleAsignacion);
+            var detalleAsignacionActualizado = await _detalleAsignacionService.ActualizarDetalleAsignacionAsync(idDetalleAsignacion, detalleAsignacion);
             if (!detalleAsignacionActualizado)
             {
                 return NotFound(); // Código 404

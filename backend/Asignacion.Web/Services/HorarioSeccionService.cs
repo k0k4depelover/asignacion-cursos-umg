@@ -40,7 +40,11 @@ namespace Asignacion.Web.Services
             }
 
             horarioSeccionExistente.DiaSemana = horarioSeccion.DiaSemana;
-            horarioSeccionExistente
+            horarioSeccionExistente.HoraInicio = horarioSeccion.HoraInicio;
+            horarioSeccionExistente.HoraFin = horarioSeccion.HoraFin;
+            horarioSeccionExistente.TipoSesion= horarioSeccion.TipoSesion;
+            horarioSeccionExistente.IdSeccion = idHorarioSeccion.IdSeccion;
+            return true;
         }
 
         public async Task<bool> EliminarHorarioSeccionAsync(int idHorarioSeccion)

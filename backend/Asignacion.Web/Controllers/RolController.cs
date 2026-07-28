@@ -24,7 +24,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idRol}")]
         public async Task<ActionResult<Rol>> ObtenerRolPorIdAsync(int idRol)
         {
-            var rolDb = await _rolService.ObtenerRolPorIdAsync(int idRol);
+            var rolDb = await _rolService.ObtenerRolPorIdAsync(idRol);
             if (rolDb == null)
             {
                 return NotFound(); // Código 404
@@ -35,14 +35,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Rol>> CrearRolAsync(Rol rol)
         {
-            var rolCreado = await _rolService.CrearRolAsync(Rol rol);
+            var rolCreado = await _rolService.CrearRolAsync(rol);
             return CreatedAtAction(nameof(ObtenerRolPorIdAsync), new { id = rolCreado.IdRol }); // 201 CREATED
         }
 
         [HttpPut("{idRol}")]
         public async Task<IActionResult> ActualizarRolAsync(int idRol, Rol rol)
         {
-            var rolActualizado = await _rolService.ActualizarRolAsync(int idRol, Rol rol);
+            var rolActualizado = await _rolService.ActualizarRolAsync(idRol, rol);
             if (!rolActualizado)
             {
                 return NotFound(); // Código 404

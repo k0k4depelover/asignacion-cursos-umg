@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class FacultadService : IFacultadService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public FacultadService(AppContext context)

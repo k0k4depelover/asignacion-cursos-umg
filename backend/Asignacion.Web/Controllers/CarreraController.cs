@@ -37,14 +37,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Carrera>> CrearCarreraAsync(Carrera carrera)
         {
-            var carreraCreada = await _carreraService.CrearCarreraAsync(Carrera carrera);
+            var carreraCreada = await _carreraService.CrearCarreraAsync(carrera);
 
             return CreatedAtAction(nameof(ObtenerCarreraPorIdAsync), new { id = carreraCreada.IdCarrera }, carreraCreada); // 201 CREATED
         }
         [HttpPut("{idCarrera}")]
         public async Task<IActionResult> ActualizarCarreraAsync(int idCarrera, Carrera carrera)
         {
-            var carreraActualizada = await _carreraService.ActualizarCarreraAsync(int idCarrera, Carrera carrera);
+            var carreraActualizada = await _carreraService.ActualizarCarreraAsync(idCarrera, carrera);
 
             if (!carreraActualizada)
             {

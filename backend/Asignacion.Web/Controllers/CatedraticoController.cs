@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idCatedratico}")]
         public async Task<ActionResult<Catedratico>> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
-            var catedraticoDb = await _catedraticoService.ObtenerCatedraticoPorIdAsync(int idCatedratico);
+            var catedraticoDb = await _catedraticoService.ObtenerCatedraticoPorIdAsync(idCatedratico);
             if (catedraticoDb == null)
             {
                 return NotFound(); // Código 404
@@ -40,7 +40,7 @@ namespace Asignacion.Web.Controllers
         [HttpPut("{idCatedratico}")]
         public async Task<IActionResult> ActualizarCatedraticoAsync(int idCatedratico, Catedratico catedratico)
         {
-            var catedraticoActualizado = await _catedraticoService.ActualizarCatedraticoAsync(Int idCatedratico, Catedratico catedratico);
+            var catedraticoActualizado = await _catedraticoService.ActualizarCatedraticoAsync(idCatedratico, catedratico);
             if (!catedraticoActualizado)
             {
                 return NotFound(); // Código 404

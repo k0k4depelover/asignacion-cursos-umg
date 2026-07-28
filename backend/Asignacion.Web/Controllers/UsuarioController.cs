@@ -43,7 +43,7 @@ namespace Asignacion.Web.Controllers
         [HttpPut("{idUsuario}")]
         public async Task<IActionResult> ActualizarUsuarioAsync(int idUsuario, Usuario usuario)
         {
-            var usuarioActualizado = await _usuarioService.ActualizarUsuarioAsync(int idUsuario, Usuario usuario);
+            var usuarioActualizado = await _usuarioService.ActualizarUsuarioAsync(idUsuario, usuario);
             if (!usuarioActualizado)
             {
                 return NotFound(); // Código 404

@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PermisoService : IPermisoService // ¿Afectara que tenga el mismo nombre que el de PermisoService.cs?
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public PermisoService(AppContext context)
@@ -40,19 +40,19 @@ namespace Asignacion.Web.Services
             }
             permisoExistente.IdPermiso = permiso.IdPermiso;
             permisoExistente.IdRol = permiso.IdRol;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarPermisoAsync(int idPermiso)
         {
             var permisoExistente = _context.Permiso.FindAsync(idPermiso);
-            if permisoExistente == null)
+            if (permisoExistente == null)
             {
                 return false;
             }
             _context.Permiso.Remove(permisoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

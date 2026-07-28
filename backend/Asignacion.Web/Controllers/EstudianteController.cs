@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idEstudiante}")]
         public async Task<ActionResult<Estudiante>> ObtenerEstudiantePorIdAsync(int idEstudiante)
         {
-            var estudianteDb = await _estudianteService.ObtenerEstudiantePorIdAsync(int idEstudiante);
+            var estudianteDb = await _estudianteService.ObtenerEstudiantePorIdAsync(idEstudiante);
             if (estudianteDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,17 +33,18 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Estudiante>> CrearEstudianteAsync(Estudiante estudiante)
         {
-            var estudianteCreado = await _estudianteService.CrearEstudianteAsync(Estudiante estudiante);
+            var estudianteCreado = await _estudianteService.CrearEstudianteAsync(estudiante);
             return CreatedAtAction(nameof(ObtenerEstudiantePorIdAsync), new { id = estudianteCreado.IdEstudiante }); // 201 CREATED
         }
         [HttpPut("{idEstudiante}")]
         public async Task<IActionResult> ActualizarEstudianteAsync(int idEstudiante, Estudiante estudiante)
         {
-            var estudianteActualizado = await _estudianteService.ActualizarEstudianteAsync(int idEstudiante, Estudiante estudiante);
+            var estudianteActualizado = await _estudianteService.ActualizarEstudianteAsync(idEstudiante, estudiante);
             if (!estudianteActualizado)
             {
                 return NotFound(); // Código 404
             }
+
             return NoContent(); // 204 NO CONTENT
         }
         [HttpDelete("{idEstudiante}")]

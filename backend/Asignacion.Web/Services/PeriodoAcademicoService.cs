@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PeriodoAcademicoService : IPeriodoAcademicoService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public PeriodoAcademicoService(AppContext context)
@@ -47,7 +47,7 @@ namespace Asignacion.Web.Services
             periodoAcademicoExistente.PermiteInscripcion = periodoAcademico.PermiteInscripcion;
             periodoAcademicoExistente.PermiteAsignacion = periodoAcademico.PermiteAsignacion;
             periodoAcademicoExistente.EstadoPeriodo = periodoAcademico.EstadoPeriodo;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarPeriodoAcademicoAsync(int idPeriodoAcademico)
@@ -59,7 +59,7 @@ namespace Asignacion.Web.Services
             }
             _context.PeriodoAcademico.Remove(periodoAcademicoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }
