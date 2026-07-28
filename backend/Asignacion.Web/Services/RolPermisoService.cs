@@ -49,10 +49,10 @@ namespace Asignacion.Web.Services
         {
             _context.RolPermiso.Add(rolPermiso);
             await _context.SaveChangesAsync();
-            return permiso;
+            return rolPermiso;
         }
 
-        public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
+        public async Task<bool> EliminarRolPermisoAsync(int idRol, int idPermiso)
         {
             var existente = await _context.RolPermiso
                 .FirstOrDefaultAsync(rp => rp.IdRol == idRol && rp.IdPermiso == idPermiso);

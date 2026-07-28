@@ -28,6 +28,10 @@ namespace Asignacion.Web.Services
             _context.Catedratico.Add(catedratico);
             await _context.SaveChangesAsync();
             return catedratico;
+        }
+
+
+        public async Task<bool> ActualizarCatedraticoAsync(int idCatedratico ,Catedratico catedratico) { 
             var catedraticoExistente = await _context.Catedratico.FindAsync(idCatedratico);
             if(catedraticoExistente == null)
             {
