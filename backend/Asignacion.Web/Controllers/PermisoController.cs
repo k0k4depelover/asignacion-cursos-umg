@@ -34,7 +34,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Permiso>> CrearPermisoAsync(Permiso permiso)
         {
-            var permisoCreado = await _permisoService.CrearPermisoAsync(Permiso permiso);
+            var permisoCreado = await _permisoService.CrearPermisoAsync(permiso);
             return CreatedAtAction(nameof(ObtenerPermisoPorIdAsync), new { id = permisoCreado.IdPermiso }); // 201 CREATED
         }
 

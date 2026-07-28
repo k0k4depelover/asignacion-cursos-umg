@@ -35,7 +35,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Rol>> CrearRolAsync(Rol rol)
         {
-            var rolCreado = await _rolService.CrearRolAsync(Rol rol);
+            var rolCreado = await _rolService.CrearRolAsync(rol);
             return CreatedAtAction(nameof(ObtenerRolPorIdAsync), new { id = rolCreado.IdRol }); // 201 CREATED
         }
 

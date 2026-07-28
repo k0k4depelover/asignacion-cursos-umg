@@ -33,7 +33,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Seccion>> CrearSeccionAsync(Seccion seccion)
         {
-            var seccionCreada = await _seccionService.CrearSeccionAsync(Seccion seccion);
+            var seccionCreada = await _seccionService.CrearSeccionAsync(seccion);
             return CreatedAtAction(nameof(ObtenerSeccionPorIdAsync), new { id = seccionCreada.IdSeccion }); // 201 CREATED
         }
 

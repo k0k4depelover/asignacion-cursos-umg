@@ -35,7 +35,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<RequisitoCurso>> CrearRequisitoCursoAsync(RequisitoCurso requisitoCurso)
         {
-            var requisitoCursoCreado = await _requisitoCursoService.CrearRequisitoCursoAsync(RequisitoCurso requisitoCurso);
+            var requisitoCursoCreado = await _requisitoCursoService.CrearRequisitoCursoAsync(requisitoCurso);
             return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { id = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
         }
 

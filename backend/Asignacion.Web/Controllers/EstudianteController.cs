@@ -33,7 +33,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Estudiante>> CrearEstudianteAsync(Estudiante estudiante)
         {
-            var estudianteCreado = await _estudianteService.CrearEstudianteAsync(Estudiante estudiante);
+            var estudianteCreado = await _estudianteService.CrearEstudianteAsync(estudiante);
             return CreatedAtAction(nameof(ObtenerEstudiantePorIdAsync), new { id = estudianteCreado.IdEstudiante }); // 201 CREATED
         }
         [HttpPut("{idEstudiante}")]
