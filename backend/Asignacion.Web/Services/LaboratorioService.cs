@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class LaboratorioService : ILaboratorioService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context;
 
         public LaboratorioService(AppDbContext context)
         {

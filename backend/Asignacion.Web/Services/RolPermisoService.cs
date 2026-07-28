@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class RolPermisoService : IRolPermisoService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context;
 
         public RolPermisoService(AppDbContext context)
         {
@@ -27,7 +27,19 @@ namespace Asignacion.Web.Services
         {
             _context.RolPermisos.Add(rolPermiso);
             await _context.SaveChangesAsync();
-            return rolPermiso;
+            return permiso;
+        }
+
+        public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
+        {
+            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
+            if (permisoExistente == null)
+            {
+                return false;
+            }
+            permisoExistente.IdPermiso = permiso.IdPermiso;
+            permisoExistente.IdRol = permiso.IdRol;
+            return true;
         }
 
         public async Task<bool> EliminarRolPermisoAsync(int idRol, int idPermiso)

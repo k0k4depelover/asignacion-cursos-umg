@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class EdificioService : IEdificioService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context;
 
         public EdificioService(AppDbContext context)
         {
