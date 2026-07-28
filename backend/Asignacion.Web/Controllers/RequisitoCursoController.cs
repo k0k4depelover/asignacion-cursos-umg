@@ -37,6 +37,10 @@ namespace Asignacion.Web.Controllers
         {
             var requisitoCursoCreado = await _requisitoCursoService.CrearRequisitoCursoAsync(requisitoCurso);
             return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { id = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { idRequisitoCurso = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
+=========
+            return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { id = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
+>>>>>>>>> Temporary merge branch 2
         }
 
         [HttpPut("{idRequisitoCurso}")]

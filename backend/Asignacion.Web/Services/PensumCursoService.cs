@@ -7,6 +7,10 @@ namespace Asignacion.Web.Services
     public class PensumCursoService : IPensumCursoService
     {
         private readonly AppDbContext _context;
+        private readonly AppDbContext _context;
+=========
+        private readonly AppContext _context;
+>>>>>>>>> Temporary merge branch 2
 
         public PensumCursoService(AppDbContext context)
         {
@@ -39,10 +43,13 @@ namespace Asignacion.Web.Services
             }
 
             pensumCursoExistente.IdPensumCurso = pensumCursoExistente.IdPensumCurso;
-            pensumCursoExistente.IdPensum = pensumCurso.IdPensum;
             pensumCursoExistente.IdCurso = pensumCurso.IdCurso;
             pensumCursoExistente.Ciclo = pensumCurso.Ciclo;
             pensumCursoExistente.EsObligatorio = pensumCurso.EsObligatorio;
+<<<<<<<<< Temporary merge branch 1
+            await _context.SaveChangesAsync();
+=========
+>>>>>>>>> Temporary merge branch 2
             return true;
         }
 
