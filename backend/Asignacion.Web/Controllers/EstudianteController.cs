@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class EstudianteController : ControllerBase
     {
-        private readonly IEstudianteService estudianteService;
+        private readonly IEstudianteService _estudianteService;
         public EstudianteController(IEstudianteService estudianteService)
         {
             _estudianteService = estudianteService;
@@ -34,7 +34,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<Estudiante>> CrearEstudianteAsync(Estudiante estudiante)
         {
             var estudianteCreado = await _estudianteService.CrearEstudianteAsync(estudiante);
-            return CreatedAtAction(nameof(ObtenerEstudiantePorIdAsync), new { id = estudianteCreado.IdEstudiante }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerEstudiantePorIdAsync), new { idEstudiante = estudianteCreado.IdEstudiante }); // 201 CREATED
         }
         [HttpPut("{idEstudiante}")]
         public async Task<IActionResult> ActualizarEstudianteAsync(int idEstudiante, Estudiante estudiante)

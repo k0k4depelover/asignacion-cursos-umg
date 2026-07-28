@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class DetalleAsignacionController : ControllerBase
     {
-        private readonly IDetalleAsignacionService detalleAsignacionService;
+        private readonly IDetalleAsignacionService _detalleAsignacionService;
         public DetalleAsignacionController(IDetalleAsignacionService detalleAsignacionService)
         {
             _detalleAsignacionService = detalleAsignacionService;
@@ -34,7 +34,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<DetalleAsignacion>> CrearDetalleAsync(DetalleAsignacion detalleAsignacion)
         {
             var detalleAsignacionCreado = await _detalleAsignacionService.CrearDetalleAsignacionAsync(detalleAsignacion);
-            return CreatedAtAction(nameof(ObtenerDetalleAsignacionPorIdAsync), new { id = detalleAsignacionCreado.IdDetalleAsignacion }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerDetalleAsignacionPorIdAsync), new { idDetalleAsignacion = detalleAsignacionCreado.IdDetalleAsignacion }); // 201 CREATED
         }
         [HttpPut("{idDetalleAsignacion}")]
         public async Task<IActionResult> ActualizarDetalleAsignacionAsync(int idDetalleAsignacion, DetalleAsignacion detalleAsignacion)

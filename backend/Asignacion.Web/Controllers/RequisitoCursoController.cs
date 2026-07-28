@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class RequisitoCursoController : ControllerBase
     {
-        private readonly IRequisitoCursoService requisitoCursoService;
+        private readonly IRequisitoCursoService _requisitoCursoService;
         public RequisitoCursoController(IRequisitoCursoService requisitoCursoService)
         {
             _requisitoCursoService = requisitoCursoService;
@@ -36,7 +36,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<RequisitoCurso>> CrearRequisitoCursoAsync(RequisitoCurso requisitoCurso)
         {
             var requisitoCursoCreado = await _requisitoCursoService.CrearRequisitoCursoAsync(requisitoCurso);
-            return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { id = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { idRequisitoCurso = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
         }
 
         [HttpPut("{idRequisitoCurso}")]

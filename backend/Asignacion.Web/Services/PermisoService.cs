@@ -8,39 +8,40 @@ namespace Asignacion.Web.Services
     {
         private readonly AppContext _context;
 
-
-            public PermisoService(AppContext context)
+        public PermisoService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Permiso>> ObtenerTodosPermisosAsync()
         {
-            return await _context.Permiso.ToListAsync();
+            return await _context.Permisos.ToListAsync();
         }
 
         public async Task<Permiso?> ObtenerPermisoPorIdAsync(int idPermiso)
         {
-            return await _context.Permiso.FindAsync(idPermiso);
+            return await _context.Permisos.FindAsync(idPermiso);
         }
 
         public async Task<Permiso> CrearPermisoAsync(Permiso permiso)
         {
-            _context.Permiso.AddAsync(permiso);
+            _context.Permisos.Add(permiso);
             await _context.SaveChangesAsync();
             return permiso;
         }
 
         public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
         {
-            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
+            var permisoExistente = await _context.Permisos.FindAsync(idPermiso);
             if (permisoExistente == null)
             {
                 return false;
             }
-            permisoExistente.IdPermiso = permiso.IdPermiso;
+
+            permisoExistente.IdPermiso = permisoExistente.IdPermiso;
             permisoExistente.NombrePermiso = permiso.NombrePermiso;
             permisoExistente.DescripcionPermiso = permiso.DescripcionPermiso;
+            await _context.SaveChangesAsync();
             return true;
         }
 
@@ -51,10 +52,9 @@ namespace Asignacion.Web.Services
             {
                 return false;
             }
-            _context.Permiso.Remove(permisoExistente);
+            _context.Permisos.Remove(permisoExistente);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }

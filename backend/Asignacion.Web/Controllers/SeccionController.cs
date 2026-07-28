@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class SeccionController : ControllerBase
     {
-        private readonly ISeccionService seccionService;
+        private readonly ISeccionService _seccionService;
         public SeccionController(ISeccionService seccionService)
         {
             _seccionService = seccionService;
@@ -34,7 +34,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<Seccion>> CrearSeccionAsync(Seccion seccion)
         {
             var seccionCreada = await _seccionService.CrearSeccionAsync(seccion);
-            return CreatedAtAction(nameof(ObtenerSeccionPorIdAsync), new { id = seccionCreada.IdSeccion }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerSeccionPorIdAsync), new { idSeccion = seccionCreada.IdSeccion }); // 201 CREATED
         }
 
         [HttpPut("{idSeccion}")]

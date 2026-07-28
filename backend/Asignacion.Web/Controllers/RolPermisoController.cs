@@ -6,14 +6,14 @@ namespace Asignacion.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
-    public class RolPermisoController : ControllerBase // Revisar Implementación y Controladores de Permiso y Rol Permiso
+    public class RolPermisoController : ControllerBase
     {
-        private readonly IRolPermisoService rolPermisoService;
+        private readonly IRolPermisoService _rolPermisoService;
         public RolPermisoController(IRolPermisoService rolPermisoService)
         {
             _rolPermisoService = rolPermisoService;
         }
+
         [HttpGet]
         public async Task<ActionResult<List<RolPermiso>>> ObtenerTodosRolesPermisosAsync()
         {
@@ -21,13 +21,13 @@ namespace Asignacion.Web.Controllers
             return Ok(rolesPermisosDb);
         }
 
-        [HttpGet("{idRolPermiso}")]
-        public async Task<ActionResult<RolPermiso>> ObtenerRolPermisoPorIdAsync(int idRolPermiso)
+        [HttpGet("{idRol}/{idPermiso}")]
+        public async Task<ActionResult<RolPermiso>> ObtenerRolPermisoPorIdAsync(int idRol, int idPermiso)
         {
-            var rolPermisoDb = await _rolPermisoService.ObtenerRolPermisoPorIdAsync(int idRolPermiso);
+            var rolPermisoDb = await _rolPermisoService.ObtenerRolPermisoPorIdAsync(idRol, idPermiso);
             if (rolPermisoDb == null)
             {
-                return NotFound(); // Código 404
+                return NotFound();
             }
             return Ok(rolPermisoDb);
         }
@@ -35,30 +35,19 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<RolPermiso>> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
-            var rolPermisoCreado = await _rolPermisoService.CrearRolPermisoAsync(RolPermiso rolPermiso);
-            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { id = rolPermisoCreado.IdRolPermiso }); // 201 CREATED
+            var rolPermisoCreado = await _rolPermisoService.CrearRolPermisoAsync(rolPermiso);
+            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { idRol = rolPermisoCreado.IdRol, idPermiso = rolPermisoCreado.IdPermiso }, rolPermisoCreado);
         }
 
-        [HttpPut("{idRolPermiso}")]
-        public async Task<IActionResult> ActualizarRolPermisoAsync(int idRolPermiso, RolPermiso rolPermiso)
+        [HttpDelete("{idRol}/{idPermiso}")]
+        public async Task<IActionResult> EliminarRolPermisoAsync(int idRol, int idPermiso)
         {
-            var rolPermisoActualizado = await _rolPermisoService.ActualizarRolPermisoAsync(int idRolPermiso, RolPermiso rolPermiso);
-            if (!rolPermisoActualizado)
-            {
-                return NotFound(); // Código 404
-            }
-            return NoContent(); // 204 NO CONTENT
-        }
-
-        [HttpDelete("{idRolPermiso}")]
-        public async Task<IActionResult> EliminarRolPermisoAsync(int idRolPermiso)
-        {
-            var rolPermisoEliminado = await _rolPermisoService.EliminarRolPermisoAsync(idRolPermiso);
+            var rolPermisoEliminado = await _rolPermisoService.EliminarRolPermisoAsync(idRol, idPermiso);
             if (!rolPermisoEliminado)
             {
-                return NotFound(); // Código 404
+                return NotFound();
             }
-            return NoContent(); // 204 NO CONTENT
+            return NoContent();
         }
     }
 }

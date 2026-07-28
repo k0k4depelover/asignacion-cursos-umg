@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class PermisoController : ControllerBase
     {
-        private readonly IPermisoService permisoService;
+        private readonly IPermisoService _permisoService;
         public PermisoController(IPermisoService permisoService)
         {
             _permisoService = permisoService;
@@ -35,7 +35,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<Permiso>> CrearPermisoAsync(Permiso permiso)
         {
             var permisoCreado = await _permisoService.CrearPermisoAsync(permiso);
-            return CreatedAtAction(nameof(ObtenerPermisoPorIdAsync), new { id = permisoCreado.IdPermiso }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerPermisoPorIdAsync), new { idPermiso = permisoCreado.IdPermiso }); // 201 CREATED
         }
 
         [HttpPut("{idPermiso}")]

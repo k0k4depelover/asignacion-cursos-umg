@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class EdificioController : ControllerBase
     {
-        private readonly IEdificioService edificioService;
+        private readonly IEdificioService _edificioService;
 
         public EdificioController(IEdificioService edificioService)
         {
@@ -39,7 +39,7 @@ namespace Asignacion.Web.Controllers
         {
             var edificioCreado = await _edificioService.CrearEdificioAsync(edificio);
 
-            return CreatedAtAction(nameof(ObtenerEdificioPorIdAsync), new { id = edificioCreado.IdEdificio }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerEdificioPorIdAsync), new { idEdificio = edificioCreado.IdEdificio }); // 201 CREATED
         }
         [HttpPut("{idEdificio}")]
         public async Task<IActionResult> ActualizarEdificioAsync(int idEdificio, Edificio edificio)

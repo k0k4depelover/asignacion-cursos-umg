@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class CatedraticoController : ControllerBase
     {
-        private readonly ICatedraticoService catedraticoService;
+        private readonly ICatedraticoService _catedraticoService;
         public CatedraticoController(ICatedraticoService catedraticoService)
         {
             _catedraticoService = catedraticoService;
@@ -34,7 +34,7 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<Catedratico>> CrearCatedraticoAsync(Catedratico catedratico)
         {
             var catedraticoCreado = await _catedraticoService.CrearCatedraticoAsync(catedratico);
-            return CreatedAtAction(nameof(ObtenerCatedraticoPorIdAsync), new { id = catedraticoCreado.IdCatedratico }, catedraticoCreado); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerCatedraticoPorIdAsync), new { idCatedratico = catedraticoCreado.IdCatedratico }, catedraticoCreado); // 201 CREATED
         }
 
         [HttpPut("{idCatedratico}")]
