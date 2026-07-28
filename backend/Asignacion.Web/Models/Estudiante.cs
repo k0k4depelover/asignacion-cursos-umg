@@ -22,7 +22,7 @@ namespace Asignacion.Web.Models
         [Column("dpi_estudiante")]
         public required string DpiEstudiante { get; set; }
 
-        [Column("fecha_nacimiento_estudiante")]
+        [Column("fecha_nacimiento")]
         public required DateTime FechaNacimientoEstudiante { get; set; }
 
         [Column("direccion_estudiante")]

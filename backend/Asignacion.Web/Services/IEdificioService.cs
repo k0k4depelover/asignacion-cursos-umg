@@ -6,11 +6,11 @@ namespace Asignacion.Web.Services
     {
         Task<List<Edificio>> ObtenerTodosEdificiosAsync();
 
-        Task<Edificio?> ObtenerEdificioPorId(int idEdificio);
+        Task<Edificio?> ObtenerEdificioPorIdAsync(int idEdificio);
 
-        Task<Edificio> CrearEdificionAsync(Edificio edificio);
+        Task<Edificio> CrearEdificioAsync(Edificio edificio);
 
-        Task<bool> ActualizarEdificionAsync(int idEdificio, Edificio edificio);
+        Task<bool> ActualizarEdificioAsync(int idEdificio, Edificio edificio);
 
         Task<bool> EliminarEdificioAsync(int idEdificio);
     }

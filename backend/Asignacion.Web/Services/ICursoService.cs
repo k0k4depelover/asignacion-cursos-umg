@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Curso>> ObtenerTodosCursosAsync();
 
-        Task<Curso?> ObtenerCursoPorId(int idCurso);
+        Task<Curso?> ObtenerCursoPorIdAsync(int idCurso);
 
         Task<Curso> CrearCursoAsync(Curso curso);
 

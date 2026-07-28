@@ -1,49 +1,49 @@
 import { useState } from "react";
-import '../styles/FakeLogin.css'
+import "../styles/FakeLogin.css";
 
-export default function FakeLogin({onLogin}){
-    const [email, setEmail] = useState("eaguila2@umg.edu.gt");
-    const [password, setPassword] = useState("password");
-    const [loading, setLoading] = useState(false);
+export default function FakeLogin({ onLogin }) {
+  const [email, setEmail] = useState("eaguila2@umg.edu.gt");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        setLoading(true);
-        setTimeout( () =>{
-            e.preventDefault;
-            setLoading(true);
-            onLogin({email, name: "Esduardo del Aguila"});
-        }, 800)
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      onLogin({ email, name: "Eduardo del Aguila" });
+    }, 500);
+  };
 
-    return(
-        <form onSubmit={handleSubmit} className="login-container">
-            <h2 className="login-title">
-                Iniciar Sesión
-            </h2>
+  return (
+    <div className="login-page">
+      <form onSubmit={handleSubmit} className="login-container">
+        <h2 className="login-title">Asignación de Cursos UMG</h2>
+        <p className="login-subtitle">Inicia sesión para continuar</p>
 
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={{ display: "block", width: "100%", marginBottom: 10 }}
-                className="login-input"
-            />
-            <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={{display: "block", width: '100%', marginBottom:10}}
-                className="login-input"    
-            />
+        <label className="login-label" htmlFor="email">Correo</label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="login-input"
+          required
+        />
 
-            <button type="submit" disabled={loading} className= "login-button" >
-                {loading ? "Ingresando... ": "Entrar"}
-                
-            </button>
+        <label className="login-label" htmlFor="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="login-input"
+          required
+        />
 
-        </form>
-
-    );
-
+        <button type="submit" disabled={loading} className="login-button">
+          {loading ? "Ingresando..." : "Entrar"}
+        </button>
+      </form>
+    </div>
+  );
 }

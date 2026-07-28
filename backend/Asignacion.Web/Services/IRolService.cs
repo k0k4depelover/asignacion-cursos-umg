@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Rol>> ObtenerTodosRolesAsync();
 
-        Task<Rol?> ObtenerRolPorId(int idRol);
+        Task<Rol?> ObtenerRolPorIdAsync(int idRol);
 
         Task<Rol> CrearRolAsync(Rol rol);
 

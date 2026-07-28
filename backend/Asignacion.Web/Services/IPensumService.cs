@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Pensum>> ObtenerTodosPensumsAsync();
 
-        Task<Pensum?> ObtenerPensumPorId(int idPensum);
+        Task<Pensum?> ObtenerPensumPorIdAsync(int idPensum);
 
         Task<Pensum> CrearPensumAsync(Pensum pensum);
 

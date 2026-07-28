@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
     {
         Task<List<Usuario>> ObtenerTodosUsuariosAsync();
 
-        Task<Usuario?> ObtenerUsuarioPorId(int idUsuario);
+        Task<Usuario?> ObtenerUsuarioPorIdAsync(int idUsuario);
 
         Task<Usuario> CrearUsuarioAsync(Usuario usuario);
 

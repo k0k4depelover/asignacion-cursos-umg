@@ -1,58 +1,80 @@
-.login-container{
-    max-width: 400;
-    margin: 70px auto;
-    padding: 30px;
-    background-color: brown;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif';
+.login-page {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a2e;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 360px;
+  margin: 20px;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-title {
-    text-align: center;
-    color: #ffffff;
-    margin-bottom: 24px;
-    font-size: 24px;
+  text-align: center;
+  color: #1a1a2e;
+  margin: 0 0 4px 0;
+  font-size: 1.4rem;
 }
 
+.login-subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin: 0 0 24px 0;
+  font-size: 0.85rem;
+}
+
+.login-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
 
 .login-input {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 16px;
-    border: 1px solid #cccccc;
-    border-radius: 6px;
-    font-size: 14px;
-    box-sizing: border-box; /* Evita que el input se salga de los bordes */
-    transition: border-color 0.3s ease;
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
 }
 
-
 .login-input:focus {
-    border-color: #e8e8e8;
-    outline: none;
+  border-color: #9a2626;
+  outline: none;
 }
 
 .login-button {
-    width: 100%;
-    padding: 12px;
-    background-color: rgba(255, 255, 255, 0.333);
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background-color: #9a2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.login-button:hover {
-    background-color: #667ebb;
+.login-button:hover:not(:disabled) {
+  background-color: #7f1f1f;
 }
 
-/* Estilo cuando el botón está desactivado (mientras carga) */
 .login-button:disabled {
-    background-color: #a0a4a9;
-    cursor: not-allowed;
+  background-color: #a0a4a9;
+  cursor: not-allowed;
 }
