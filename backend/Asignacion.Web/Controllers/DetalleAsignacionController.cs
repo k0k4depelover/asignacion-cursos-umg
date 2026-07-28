@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class DetalleAsignacionController : ControllerBase
     {
-        private readonly IDetalleAsignacionService detalleAsignacionService;
+        private readonly IDetalleAsignacionService _detalleAsignacionService;
         public DetalleAsignacionController(IDetalleAsignacionService detalleAsignacionService)
         {
             _detalleAsignacionService = detalleAsignacionService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idDetalleAsignacion}")]
         public async Task<ActionResult<DetalleAsignacion>> ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion)
         {
-            var detalleAsignacionDb = await _detalleAsignacionService.ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion);
+            var detalleAsignacionDb = await _detalleAsignacionService.ObtenerDetalleAsignacionPorIdAsync(idDetalleAsignacion);
             if (detalleAsignacionDb == null)
             {
                 return NotFound(); // Código 404
@@ -34,12 +34,12 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<DetalleAsignacion>> CrearDetalleAsync(DetalleAsignacion detalleAsignacion)
         {
             var detalleAsignacionCreado = await _detalleAsignacionService.CrearDetalleAsignacionAsync(detalleAsignacion);
-            return CreatedAtAction(nameof(ObtenerDetalleAsignacionPorIdAsync), new { id = detalleAsignacionCreado.IdDetalleAsignacion }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerDetalleAsignacionPorIdAsync), new { idDetalleAsignacion = detalleAsignacionCreado.IdDetalleAsignacion }); // 201 CREATED
         }
         [HttpPut("{idDetalleAsignacion}")]
         public async Task<IActionResult> ActualizarDetalleAsignacionAsync(int idDetalleAsignacion, DetalleAsignacion detalleAsignacion)
         {
-            var detalleAsignacionActualizado = await _detalleAsignacionService.ActualizarDetalleAsignacionAsync(idDetalleAsignacion, DetalleAsignacion detalleAsignacion);
+            var detalleAsignacionActualizado = await _detalleAsignacionService.ActualizarDetalleAsignacionAsync(idDetalleAsignacion, detalleAsignacion);
             if (!detalleAsignacionActualizado)
             {
                 return NotFound(); // Código 404
