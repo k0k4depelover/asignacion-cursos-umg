@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class PeriodoAcademicoController : ControllerBase
     {
-        private readonly IPeriodoAcademicoService periodoAcademicoService;
+        private readonly IPeriodoAcademicoService _periodoAcademicoService;
         public PeriodoAcademicoController(IPeriodoAcademicoService periodoAcademicoService)
         {
             _periodoAcademicoService = periodoAcademicoService;
@@ -22,28 +22,28 @@ namespace Asignacion.Web.Controllers
             return Ok(periodoAcademicoDb);
         }
 
-        [HttpGet("{idPeriodo}")]
+        [HttpGet("{idPeriodoAcademico}")]
         public async Task<ActionResult<PeriodoAcademico>> ObtenerPeriodoAcademicoPorIdAsync(int idPeriodoAcademico)
         {
-            var periodoAcademicoDb = await _periodoAcademicoService.ObtenerPeriodoAcademicoPorIdAsync(int idPeriodoAcademico);
+            var periodoAcademicoDb = await _periodoAcademicoService.ObtenerPeriodoAcademicoPorIdAsync(idPeriodoAcademico);
             if (periodoAcademicoDb == null)
             {
                 return NotFound(); // Código 404
             }
-            return Ok(periodoDb);
+            return Ok(periodoAcademicoDb);
         }
 
         [HttpPost]
         public async Task<ActionResult<PeriodoAcademico>> CrearPeriodoAcademicoAsync(PeriodoAcademico periodoAcademico)
         {
-            var periodoAcademicoCreado = await _periodoAcademicoService.CrearPeriodoAcademicoAsync(PeriodoAcademico periodoAcademico);
-            return CreatedAtAction(nameof(ObtenerPeriodoAcademicoPorIdAsync), new { id = periodoCreado.IdPeriodoAcademico }); // 201 CREATED
+            var periodoAcademicoCreado = await _periodoAcademicoService.CrearPeriodoAcademicoAsync(periodoAcademico);
+            return CreatedAtAction(nameof(ObtenerPeriodoAcademicoPorIdAsync), new { idPeriodoAcademico = periodoAcademicoCreado.IdPeriodo }, periodoAcademicoCreado); // 201 CREATED
         }
 
         [HttpPut("{idPeriodo}")]
         public async Task<IActionResult> ActualizarPeriodoAcademicoAsync(int idPeriodo, PeriodoAcademico periodoAcademico)
         {
-            var periodoAcademicoActualizado = await _periodoAcademicoService.ActualizarPeriodoAsync(int idPeriodoAcademico, PeriodoAcademico periodoAcademico);
+            var periodoAcademicoActualizado = await _periodoAcademicoService.ActualizarPeriodoAcademicoAsync(idPeriodo, periodoAcademico);
             if (!periodoAcademicoActualizado)
             {
                 return NotFound(); // Código 404

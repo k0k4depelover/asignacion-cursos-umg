@@ -6,39 +6,39 @@ namespace Asignacion.Web.Services
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
-
-            public UsuarioService(AppContext context)
+        public UsuarioService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Usuario>> ObtenerTodosUsuariosAsync()
         {
-            return await _context.Usuario.ToListAsync();
+            return await _context.Usuarios.ToListAsync();
         }
 
         public async Task<Usuario?> ObtenerUsuarioPorIdAsync(int idUsuario)
         {
-            return await _context.Usuario.FindAsync(idUsuario);
+            return await _context.Usuarios.FindAsync(idUsuario);
         }
 
         public async Task<Usuario> CrearUsuarioAsync(Usuario usuario)
         {
-            _context.Usuario.Addsync(usuario);
+            _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
             return usuario;
         }
 
         public async Task<bool> ActualizarUsuarioAsync(int idUsuario, Usuario usuario)
         {
-            var usuarioExistente = await _context.Usuario.FindAsync(idUsuario);
+            var usuarioExistente = await _context.Usuarios.FindAsync(idUsuario);
             if (usuarioExistente == null)
             {
                 return false;
             }
-            usuarioExistente.IdUsuario = usuario.IdUsuario;
+
+            usuarioExistente.IdUsuario = usuarioExistente.IdUsuario;
             usuarioExistente.NombreUsuario = usuario.NombreUsuario;
             usuarioExistente.CorreoLoginUsuario = usuario.CorreoLoginUsuario;
             usuarioExistente.CorreoRecuperacionUsuario = usuario.CorreoRecuperacionUsuario;
@@ -47,20 +47,20 @@ namespace Asignacion.Web.Services
             usuarioExistente.EstadoUsuario = usuario.EstadoUsuario;
             usuarioExistente.FechaRegistroUsuario = usuario.FechaRegistroUsuario;
             usuarioExistente.IdRol = usuario.IdRol;
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarUsuarioAsync(int idUsuario)
         {
-            var usuarioExistente = _context.Usuario.FindAsync(idUsuario);
+            var usuarioExistente = await _context.Usuarios.FindAsync(idUsuario);
             if (usuarioExistente == null)
             {
                 return false;
             }
-            _context.Usuario.Remove(usuarioExistente);
+            _context.Usuarios.Remove(usuarioExistente);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }

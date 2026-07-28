@@ -6,39 +6,39 @@ namespace Asignacion.Web.Services
 {
     public class PeriodoAcademicoService : IPeriodoAcademicoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
-
-            public PeriodoAcademicoService(AppContext context)
+        public PeriodoAcademicoService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<PeriodoAcademico>> ObtenerTodosPeriodosAcademicosAsync()
         {
-            return await _context.PeriodoAcademico.ToListAsync();
+            return await _context.PeriodosAcademicos.ToListAsync();
         }
 
         public async Task<PeriodoAcademico?> ObtenerPeriodoAcademicoPorIdAsync(int idPeriodoAcademico)
         {
-            return await _context.PeriodoAcademico.FindAsync(idPeriodoAcademico);
+            return await _context.PeriodosAcademicos.FindAsync(idPeriodoAcademico);
         }
 
         public async Task<PeriodoAcademico> CrearPeriodoAcademicoAsync(PeriodoAcademico periodoAcademico)
         {
-            _context.PeriodoAcademico.AddAsync(periodoAcademico);
+            _context.PeriodosAcademicos.Add(periodoAcademico);
             await _context.SaveChangesAsync();
             return periodoAcademico;
         }
 
         public async Task<bool> ActualizarPeriodoAcademicoAsync(int idPeriodoAcademico, PeriodoAcademico periodoAcademico)
         {
-            var periodoAcademicoExistente = _context.Asignacion.FindAsync(idPeriodoAcademico);
-            if (asignacionExistente == null)
+            var periodoAcademicoExistente = await _context.PeriodosAcademicos.FindAsync(idPeriodoAcademico);
+            if (periodoAcademicoExistente == null)
             {
                 return false;
             }
-            periodoAcademicoExistente.IdPeriodo = periodoAcademico.IdPeriodo;
+
+            periodoAcademicoExistente.IdPeriodo = periodoAcademicoExistente.IdPeriodo;
             periodoAcademicoExistente.CodigoPeriodo = periodoAcademico.CodigoPeriodo;
             periodoAcademicoExistente.DescripcionPeriodo = periodoAcademico.DescripcionPeriodo;
             periodoAcademicoExistente.TipoPeriodo = periodoAcademico.TipoPeriodo;
@@ -47,20 +47,20 @@ namespace Asignacion.Web.Services
             periodoAcademicoExistente.PermiteInscripcion = periodoAcademico.PermiteInscripcion;
             periodoAcademicoExistente.PermiteAsignacion = periodoAcademico.PermiteAsignacion;
             periodoAcademicoExistente.EstadoPeriodo = periodoAcademico.EstadoPeriodo;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarPeriodoAcademicoAsync(int idPeriodoAcademico)
         {
-            var periodoAcademicoExistente = _context.PeriodoAcademico.FindAsync(idPeriodoAcademico);
+            var periodoAcademicoExistente = await _context.PeriodosAcademicos.FindAsync(idPeriodoAcademico);
             if (periodoAcademicoExistente == null)
             {
                 return false;
             }
-            _context.PeriodoAcademico.Remove(periodoAcademicoExistente);
+            _context.PeriodosAcademicos.Remove(periodoAcademicoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
-
     }
 }

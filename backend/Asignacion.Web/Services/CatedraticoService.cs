@@ -6,36 +6,39 @@ namespace Asignacion.Web.Services
 {
     public class CatedraticoService : ICatedraticoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
-
-            public CatedraticoService(AppContext context)
+        public CatedraticoService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Catedratico>> ObtenerTodosCatedraticosAsync()
         {
-            return await _context.Catedratico.ToListAsync();
+            return await _context.Catedraticos.ToListAsync();
         }
 
         public async Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
-            return await _context.FindAsync(idCatedratico)
+            return await _context.Catedraticos.FindAsync(idCatedratico);
         }
 
         public async Task<Catedratico> CrearCatedraticoAsync(Catedratico catedratico)
         {
-            _context.Catedratico.Add(catedratico);
+            _context.Catedraticos.Add(catedratico);
             await _context.SaveChangesAsync();
             return catedratico;
         }
 
         public async Task<bool> ActualizarCatedraticoAsync(int idCatedratico, Catedratico catedratico)
         {
-            var catedraticoExistente = await _context.Catedratico.FindAsync(idCatedratico);
-            if(catedraticoExistente == null) { return false; }
-            
+            var catedraticoExistente = await _context.Catedraticos.FindAsync(idCatedratico);
+            if (catedraticoExistente == null)
+            {
+                return false;
+            }
+
+            catedraticoExistente.IdCatedratico = catedraticoExistente.IdCatedratico;
             catedraticoExistente.CodigoCatedratico = catedratico.CodigoCatedratico;
             catedraticoExistente.DpiCatedratico = catedratico.DpiCatedratico;
             catedraticoExistente.NombresCatedratico = catedratico.NombresCatedratico;
@@ -44,21 +47,20 @@ namespace Asignacion.Web.Services
             catedraticoExistente.ProfesionCatedratico = catedratico.ProfesionCatedratico;
             catedraticoExistente.EstadoCatedratico = catedratico.EstadoCatedratico;
             catedraticoExistente.IdUsuario = catedratico.IdUsuario;
-
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarCatedraticoAsync(int idCatedratico)
         {
-            var catedraticoExistente = await _context.Catedratico.FindAsync(idCatedratico);
-            if (catedraticoExistente == null) 
-            { return false; }
-
-            _context.Catedratico.Remove(catedraticoExistente);
+            var catedraticoExistente = await _context.Catedraticos.FindAsync(idCatedratico);
+            if (catedraticoExistente == null)
+            {
+                return false;
+            }
+            _context.Catedraticos.Remove(catedraticoExistente);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }

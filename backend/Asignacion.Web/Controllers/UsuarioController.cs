@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService usuarioService;
+        private readonly IUsuarioService _usuarioService;
         public UsuarioController(IUsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
@@ -25,7 +25,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idUsuario}")]
         public async Task<ActionResult<Usuario>> ObtenerUsuarioPorIdAsync(int idUsuario)
         {
-            var usuarioDb = await _usuarioService.ObtenerUsuarioPorIdAsync(int idUsuario);
+            var usuarioDb = await _usuarioService.ObtenerUsuarioPorIdAsync(idUsuario);
             if (usuarioDb == null)
             {
                 return NotFound(); // Código 404
@@ -36,14 +36,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> CrearUsuarioAsync(Usuario usuario)
         {
-            var usuarioCreado = await _usuarioService.CrearUsuarioAsync(Usuario usuario);
-            return CreatedAtAction(nameof(ObtenerUsuarioPorIdAsync), new { id = usuarioCreado.IdUsuario }); // 201 CREATED
+            var usuarioCreado = await _usuarioService.CrearUsuarioAsync(usuario);
+            return CreatedAtAction(nameof(ObtenerUsuarioPorIdAsync), new { idUsuario = usuarioCreado.IdUsuario }); // 201 CREATED
         }
 
         [HttpPut("{idUsuario}")]
         public async Task<IActionResult> ActualizarUsuarioAsync(int idUsuario, Usuario usuario)
         {
-            var usuarioActualizado = await _usuarioService.ActualizarUsuarioAsync(int idUsuario, Usuario usuario);
+            var usuarioActualizado = await _usuarioService.ActualizarUsuarioAsync(idUsuario, usuario);
             if (!usuarioActualizado)
             {
                 return NotFound(); // Código 404
