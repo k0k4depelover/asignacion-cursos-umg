@@ -26,12 +26,12 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idAsignacion}")]
         public async Task<ActionResult<Asignacion>> ObtenerAsignacionPorIdAsync(int idAsignacion)
         {
-            var asignacionDb = await _asignacionService.ObtenerAsignacionPorIdAsync(int idAsignacion);
+            var asignacionDb = await _asignacionService.ObtenerAsignacionPorIdAsync(idAsignacion);
             if (asiignacionDb == null) {
                 return NotFound(); // Codigo 404 
             }
 
-            return Ok(asignacionDb)
+            return Ok(asignacionDb);
         }
 
         [HttpPost]

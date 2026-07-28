@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class InscripcionService : IInscripcionService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public InscripcionService(AppContext context)
@@ -49,7 +49,7 @@ namespace Asignacion.Web.Services
             inscripcionExistente.IdEstudiante = inscripcion.IdEstudiante;
             inscripcionExistente.Estudiante = inscripcion.Estudiante;
             inscripcionExistente.IdPeriodoAcademico = inscripcion.IdPeriodoAcademico;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarInscripcionAsync(int idInscripcion)
@@ -61,7 +61,7 @@ namespace Asignacion.Web.Services
             }
             _context.Inscripcion.Remove(inscripcionExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

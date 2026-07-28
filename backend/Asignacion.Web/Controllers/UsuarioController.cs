@@ -25,7 +25,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idUsuario}")]
         public async Task<ActionResult<Usuario>> ObtenerUsuarioPorIdAsync(int idUsuario)
         {
-            var usuarioDb = await _usuarioService.ObtenerUsuarioPorIdAsync(int idUsuario);
+            var usuarioDb = await _usuarioService.ObtenerUsuarioPorIdAsync(idUsuario);
             if (usuarioDb == null)
             {
                 return NotFound(); // Código 404

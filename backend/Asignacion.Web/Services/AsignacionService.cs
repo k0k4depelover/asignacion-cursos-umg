@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class AsignacionService: IAsignacionService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
             
             public AsignacionService (AppContext context)
         {
@@ -42,7 +42,7 @@ namespace Asignacion.Web.Services
             asignacionExistente.TotalPago = asignacion.TotalPago;
             asignacionExistente.EstadoAsignacion=asignacion.EstadoAsignacion;
             asignacionExistente.IdInscripcion = asignacion.IdInscripcion;
-            return true 
+            return true; 
         }
 
         public async Task<bool> EliminarAsignacionAsync(int idAsignacion)
@@ -54,7 +54,7 @@ namespace Asignacion.Web.Services
             }
             _context.Asignacion.Remove(asignacionExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

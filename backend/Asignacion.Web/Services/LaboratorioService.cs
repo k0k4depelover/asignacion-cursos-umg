@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class LaboratorioService : ILaboratorioService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public LaboratorioService(AppContext context)
@@ -44,7 +44,7 @@ namespace Asignacion.Web.Services
             laboratorioExistente.DescripcionLaboratorio = laboratorio.DescripcionLaboratorio;
             laboratorioExistente.EstadoLaboratorio = laboratorio.EstadoLaboratorio;
             laboratorioExistente.IdSalon = laboratorio.IdSalon;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarLaboratorioAsync(int idLaboratorio)

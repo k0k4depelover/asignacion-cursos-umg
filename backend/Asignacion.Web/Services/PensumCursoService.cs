@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PensumCursoService : IPensumCursoService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public PensumCursoService(AppContext context)
@@ -43,7 +43,7 @@ namespace Asignacion.Web.Services
             pensumCursoExistente.IdCurso = pensumCurso.IdCurso;
             pensumCursoExistente.Ciclo = pensumCurso.Ciclo;
             pensumCursoExistente.EsObligatorio = pensumCurso.EsObligatorio;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarPensumCursoAsync(int idPensumCurso)
@@ -55,7 +55,7 @@ namespace Asignacion.Web.Services
             }
             _context.PensumCurso.Remove(pensumCursoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

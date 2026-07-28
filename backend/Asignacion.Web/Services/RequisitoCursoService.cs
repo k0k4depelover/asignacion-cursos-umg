@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class RequisitoCursoService : IRequisitoCursoService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public RequisitoCursoService(AppContext context)
@@ -44,7 +44,7 @@ namespace Asignacion.Web.Services
             requisitoCursoExistente.IdCursoRequerido = requisitoCurso.IdCursoRequerido;
             requisitoCursoExistente.CreditosMinimos = requisitoCurso.CreditosMinimos;
             requisitoCursoExistente.DescripcionRequisito = requisitoCurso.DescripcionRequisito;
-            return true
+            return true;
         }
 
         public async Task<bool> EliminarRequisitoCursoAsync(int idRequisitoCurso)
@@ -56,7 +56,7 @@ namespace Asignacion.Web.Services
             }
             _context.RequisitoCurso.Remove(requisitoCursoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

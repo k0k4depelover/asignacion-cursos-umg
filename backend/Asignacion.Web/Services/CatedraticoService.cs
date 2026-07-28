@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class CatedraticoService : ICatedraticoService
     {
-        private readonly AppContext _context
+        private readonly AppContext _context;
 
 
             public CatedraticoService(AppContext context)
@@ -21,7 +21,7 @@ namespace Asignacion.Web.Services
 
         public async Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
-            return await _context.FindAsync(idCatedratico)
+            return await _context.FindAsync(idCatedratico);
         }
 
         public async Task<Catedratico> CrearCatedraticoAsync(Catedratico catedratico)
@@ -34,7 +34,10 @@ namespace Asignacion.Web.Services
         public async Task<bool> ActualizarCatedraticoAsync(int idCatedratico, Catedratico catedratico)
         {
             var catedraticoExistente = await _context.Catedratico.FindAsync(idCatedratico);
-            if(catedraticoExistente == null) { return false; }
+            if(catedraticoExistente == null)
+            {
+                return false; 
+            }
             
             catedraticoExistente.CodigoCatedratico = catedratico.CodigoCatedratico;
             catedraticoExistente.DpiCatedratico = catedratico.DpiCatedratico;
