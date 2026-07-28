@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class CatedraticoService : ICatedraticoService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public CatedraticoService(AppDbContext context)
         {

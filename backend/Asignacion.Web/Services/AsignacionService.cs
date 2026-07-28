@@ -7,9 +7,9 @@ namespace Asignacion.Web.Services
 {
     public class AsignacionService : IAsignacionService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
             
-            public AsignacionService (AppContext context)
+            public AsignacionService (AppDbContext context)
         {
             _context = context;
         }

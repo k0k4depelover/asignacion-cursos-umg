@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class EstudianteService : IEstudianteService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public EstudianteService(AppDbContext context)
         {

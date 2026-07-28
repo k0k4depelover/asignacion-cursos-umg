@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PermisoService : IPermisoService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public PermisoService(AppDbContext context)
         {

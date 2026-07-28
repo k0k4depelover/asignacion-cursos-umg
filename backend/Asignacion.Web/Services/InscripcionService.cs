@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class InscripcionService : IInscripcionService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public InscripcionService(AppDbContext context)
         {

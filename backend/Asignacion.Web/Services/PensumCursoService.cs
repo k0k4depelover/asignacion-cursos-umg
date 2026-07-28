@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PensumCursoService : IPensumCursoService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public PensumCursoService(AppDbContext context)
         {

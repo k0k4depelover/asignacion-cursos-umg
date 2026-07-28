@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class RolPermisoService : IRolPermisoService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public RolPermisoService(AppDbContext context)
         {
@@ -42,7 +42,7 @@ namespace Asignacion.Web.Services
             return true;
         }
 
-        public async Task<bool> EliminarPermisoAsync(int idPermiso)
+        public async Task<bool> EliminarRolPermisoAsync(int idPermiso)
         {
             var permisoExistente = _context.Permiso.FindAsync(idPermiso);
             if (permisoExistente == null)

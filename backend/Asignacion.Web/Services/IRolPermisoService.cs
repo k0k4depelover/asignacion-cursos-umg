@@ -10,6 +10,6 @@ namespace Asignacion.Web.Services
 
         Task<RolPermiso> CrearRolPermisoAsync(RolPermiso rolPermiso);
 
-        Task<bool> EliminarRolPermisoAsync(int idRol, int idPermiso);
+        Task<bool> EliminarRolPermisoAsync(int idPermiso);
     }
 }

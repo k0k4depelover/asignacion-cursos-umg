@@ -6,7 +6,7 @@ namespace Asignacion.Web.Services
 {
     public class PeriodoAcademicoService : IPeriodoAcademicoService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
         public PeriodoAcademicoService(AppDbContext context)
         {
