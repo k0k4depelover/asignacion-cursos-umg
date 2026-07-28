@@ -21,10 +21,6 @@ namespace Asignacion.Web.Services
         public async Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
             return await _context.Catedratico.FindAsync(idCatedratico);
-            return await _context.Catedraticos.FindAsync(idCatedratico);
-=========
-            return await _context.FindAsync(idCatedratico);
->>>>>>>>> Temporary merge branch 2
         }
 
         public async Task<Catedratico> CrearCatedraticoAsync(Catedratico catedratico)
@@ -37,20 +33,7 @@ namespace Asignacion.Web.Services
             {
                 return false; 
             }
-            
-            {
-                return false;
-            }
 
-            catedraticoExistente.IdCatedratico = catedraticoExistente.IdCatedratico;
-=========
-            var catedraticoExistente = await _context.Catedratico.FindAsync(idCatedratico);
-            if(catedraticoExistente == null)
-            {
-                return false; 
-            }
-            
->>>>>>>>> Temporary merge branch 2
             catedraticoExistente.CodigoCatedratico = catedratico.CodigoCatedratico;
             catedraticoExistente.DpiCatedratico = catedratico.DpiCatedratico;
             catedraticoExistente.NombresCatedratico = catedratico.NombresCatedratico;
