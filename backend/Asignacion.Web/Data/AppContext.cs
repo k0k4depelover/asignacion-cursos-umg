@@ -10,6 +10,11 @@ public class AppDbContext : DbContext
     {
     }
 
+
+    public DbSet<Catedratico> Catedratico { get; set; }
+    public DbSet<Permiso> Permiso { get; set; }
+    public DbSet<Rol> Rol { get; set; }
+    public DbSet<RolPermiso> RolPermiso { get; set; }
     public DbSet<Rol> Roles { get; set; }
     public DbSet<Permiso> Permisos { get; set; }
     public DbSet<RolPermiso> RolPermisos { get; set; }

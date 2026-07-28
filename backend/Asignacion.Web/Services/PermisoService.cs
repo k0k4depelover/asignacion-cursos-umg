@@ -46,7 +46,7 @@ namespace Asignacion.Web.Services
 
         public async Task<bool> EliminarPermisoAsync(int idPermiso)
         {
-            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
+            var permisoExistente = await _context.Permiso.FindAsync(idPermiso);
             if (permisoExistente == null)
             {
                 return false;
