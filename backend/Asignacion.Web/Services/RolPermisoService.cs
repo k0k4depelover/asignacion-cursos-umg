@@ -4,31 +4,30 @@ using Asignacion.Web.Models;
 
 namespace Asignacion.Web.Services
 {
-    public class PermisoService : IPermisoService // ¿Afectara que tenga el mismo nombre que el de PermisoService.cs?
+    public class RolPermisoService : IRolPermisoService
     {
         private readonly AppContext _context;
 
-
-            public PermisoService(AppContext context)
+        public RolPermisoService(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Permiso>> ObtenerTodosPermisosAsync()
+        public async Task<List<RolPermiso>> ObtenerTodosRolesPermisosAsync()
         {
-            return await _context.Permiso.ToListAsync();
+            return await _context.RolPermisos.ToListAsync();
         }
 
-        public async Task<RequisitoCurso?> ObtenerPermisoPorIdAsync(int idPermiso)
+        public async Task<RolPermiso?> ObtenerRolPermisoPorIdAsync(int idRol, int idPermiso)
         {
-            return await _context.Permiso.FindAsync(idPermiso);
+            return await _context.RolPermisos.FindAsync(idRol, idPermiso);
         }
 
-        public async Task<RequisitoCurso> CrearPermisoAsync(Permiso permiso)
+        public async Task<RolPermiso> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
-            _context.Permiso.AddAsync(permiso);
+            _context.RolPermisos.Add(rolPermiso);
             await _context.SaveChangesAsync();
-            return permiso;
+            return rolPermiso;
         }
 
         public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
@@ -50,10 +49,9 @@ namespace Asignacion.Web.Services
             {
                 return false;
             }
-            _context.Permiso.Remove(permisoExistente);
+            _context.RolPermisos.Remove(rolPermisoExistente);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }

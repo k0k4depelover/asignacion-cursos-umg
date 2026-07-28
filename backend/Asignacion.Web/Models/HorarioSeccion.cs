@@ -6,6 +6,7 @@ namespace Asignacion.Web.Models
     [Table("horario_seccion")]
     public class HorarioSeccion
     {
+        [Key]
         [Column("id_horario")]
         public int IdHorario { get; set; }
 

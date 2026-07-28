@@ -6,39 +6,39 @@ namespace Asignacion.Web.Services
 {
     public class SalonService : ISalonService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
-
-            public SalonService(AppContext context)
+        public SalonService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Salon>> ObtenerTodosSalonesAsync()
         {
-            return await _context.Salon.ToListAsync();
+            return await _context.Salones.ToListAsync();
         }
 
         public async Task<Salon?> ObtenerSalonPorIdAsync(int idSalon)
         {
-            return await _context.Salon.FindAsync(idSalon);
+            return await _context.Salones.FindAsync(idSalon);
         }
 
         public async Task<Salon> CrearSalonAsync(Salon salon)
         {
-            _context.Salon.AddAsync(salon);
+            _context.Salones.Add(salon);
             await _context.SaveChangesAsync();
             return salon;
         }
 
         public async Task<bool> ActualizarSalonAsync(int idSalon, Salon salon)
         {
-            var salonExistente = await _context.Salon.FindAsync(idSalon);
+            var salonExistente = await _context.Salones.FindAsync(idSalon);
             if (salonExistente == null)
             {
                 return false;
             }
-            salonExistente.IdSalon = salon.IdSalon;
+
+            salonExistente.IdSalon = salonExistente.IdSalon;
             salonExistente.NombreSalon = salon.NombreSalon;
             salonExistente.CodigoSalon = salon.CodigoSalon;
             salonExistente.EstadoSalon = salon.EstadoSalon;
@@ -46,20 +46,20 @@ namespace Asignacion.Web.Services
             salonExistente.TipoEspacio = salon.TipoEspacio;
             salonExistente.NivelSalon = salon.NivelSalon;
             salonExistente.IdEdificio = salon.IdEdificio;
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarSalonAsync(int idSalon)
         {
-            var salonExistente = _context.Salon.FindAsync(idSalon);
+            var salonExistente = await _context.Salones.FindAsync(idSalon);
             if (salonExistente == null)
             {
                 return false;
             }
-            _context.Salon.Remove(salonExistente);
+            _context.Salones.Remove(salonExistente);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }

@@ -8,37 +8,37 @@ namespace Asignacion.Web.Services
     {
         private readonly AppContext _context;
 
-
-            public PensumService(AppContext context)
+        public PensumService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Pensum>> ObtenerTodosPensumsAsync()
         {
-            return await _context.Pensum.ToListAsync();
+            return await _context.Pensums.ToListAsync();
         }
 
         public async Task<Pensum?> ObtenerPensumPorIdAsync(int idPensum)
         {
-            return await _context.Pensum.FindAsync(idPensum);
+            return await _context.Pensums.FindAsync(idPensum);
         }
 
         public async Task<Pensum> CrearPensumAsync(Pensum pensum)
         {
-            _context.Pensum.AddAsync(pensum);
+            _context.Pensums.Add(pensum);
             await _context.SaveChangesAsync();
             return pensum;
         }
 
         public async Task<bool> ActualizarPensumAsync(int idPensum, Pensum pensum)
         {
-            var pensumExistente = _context.Pensum.FindAsync(idPensum);
+            var pensumExistente = await _context.Pensums.FindAsync(idPensum);
             if (pensumExistente == null)
             {
                 return false;
             }
-            pensumExistente.IdPensum = pensum.IdPensum;
+
+            pensumExistente.IdPensum = pensumExistente.IdPensum;
             pensumExistente.CodigoPensum = pensum.CodigoPensum;
             pensumExistente.AnioPensum = pensum.AnioPensum;
             pensumExistente.EstadoPensum = pensum.EstadoPensum;
@@ -49,15 +49,14 @@ namespace Asignacion.Web.Services
 
         public async Task<bool> EliminarPensumAsync(int idPensum)
         {
-            var pensumExistente = _context.Pensum.FindAsync(idPensum);
+            var pensumExistente = await _context.Pensums.FindAsync(idPensum);
             if (pensumExistente == null)
             {
                 return false;
             }
-            _context.Pensum.Remove(pensumExistente);
+            _context.Pensums.Remove(pensumExistente);
             await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }

@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class RolController : ControllerBase
     {
-        private readonly IRolService rolService;
+        private readonly IRolService _rolService;
         public RolController(IRolService rolService)
         {
             _rolService = rolService;
@@ -35,7 +35,7 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Rol>> CrearRolAsync(Rol rol)
         {
-            var rolCreado = await _rolService.CrearRolAsync(rol);
+            var rolCreado = await _rolService.CrearRolAsync(Rol rol);
             return CreatedAtAction(nameof(ObtenerRolPorIdAsync), new { id = rolCreado.IdRol }); // 201 CREATED
         }
 

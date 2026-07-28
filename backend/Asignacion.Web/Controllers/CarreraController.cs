@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class CarreraController : ControllerBase
     {
-        private readonly ICarreraService carreraService;
+        private readonly ICarreraService _carreraService;
 
         public CarreraController(ICarreraService carreraService)
         {
@@ -39,7 +39,7 @@ namespace Asignacion.Web.Controllers
         {
             var carreraCreada = await _carreraService.CrearCarreraAsync(carrera);
 
-            return CreatedAtAction(nameof(ObtenerCarreraPorIdAsync), new { id = carreraCreada.IdCarrera }, carreraCreada); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerCarreraPorIdAsync), new { idCarrera = carreraCreada.IdCarrera }, carreraCreada); // 201 CREATED
         }
         [HttpPut("{idCarrera}")]
         public async Task<IActionResult> ActualizarCarreraAsync(int idCarrera, Carrera carrera)

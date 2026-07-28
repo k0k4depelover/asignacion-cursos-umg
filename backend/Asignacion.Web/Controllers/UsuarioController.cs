@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService usuarioService;
+        private readonly IUsuarioService _usuarioService;
         public UsuarioController(IUsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
@@ -36,8 +36,8 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> CrearUsuarioAsync(Usuario usuario)
         {
-            var usuarioCreado = await _usuarioService.CrearUsuarioAsync(Usuario usuario);
-            return CreatedAtAction(nameof(ObtenerUsuarioPorIdAsync), new { id = usuarioCreado.IdUsuario }); // 201 CREATED
+            var usuarioCreado = await _usuarioService.CrearUsuarioAsync(usuario);
+            return CreatedAtAction(nameof(ObtenerUsuarioPorIdAsync), new { idUsuario = usuarioCreado.IdUsuario }); // 201 CREATED
         }
 
         [HttpPut("{idUsuario}")]

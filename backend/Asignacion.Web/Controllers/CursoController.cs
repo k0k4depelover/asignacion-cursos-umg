@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class CursoController : ControllerBase
     {
-        private readonly ICursoService cursoService;
+        private readonly ICursoService _cursoService;
         public CursoController(ICursoService cursoService)
         {
             _cursoService = cursoService;
@@ -35,7 +35,7 @@ namespace Asignacion.Web.Controllers
         {
             var cursoCreado = await _cursoService.CrearCursoAsync(curso);
 
-            return CreatedAtAction(nameof(ObtenerCursoPorIdAsync), new { id = cursoCreado.IdCurso }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerCursoPorIdAsync), new { idCurso = cursoCreado.IdCurso }); // 201 CREATED
         }
         [HttpPut("{idCurso}")]
         public async Task<IActionResult> ActualizarCursoAsync(int idCurso, Curso curso)

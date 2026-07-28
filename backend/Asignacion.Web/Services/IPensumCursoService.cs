@@ -4,7 +4,7 @@ namespace Asignacion.Web.Services
 {
     public interface IPensumCursoService
     {
-        Task<List<PensumCurso>> ObtenerTodosPensumsCursosAsync();
+        Task<List<PensumCurso>> ObtenerTodosPensumCursosAsync();
 
         Task<PensumCurso?> ObtenerPensumCursoPorIdAsync(int idPensumCurso);
 
