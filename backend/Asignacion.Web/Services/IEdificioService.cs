@@ -8,9 +8,9 @@ namespace Asignacion.Web.Services
 
         Task<Edificio?> ObtenerEdificioPorIdAsync(int idEdificio);
 
-        Task<Edificio> CrearEdificionAsync(Edificio edificio);
+        Task<Edificio> CrearEdificioAsync(Edificio edificio);
 
-        Task<bool> ActualizarEdificionAsync(int idEdificio, Edificio edificio);
+        Task<bool> ActualizarEdificioAsync(int idEdificio, Edificio edificio);
 
         Task<bool> EliminarEdificioAsync(int idEdificio);
     }

@@ -9,20 +9,21 @@ namespace Asignacion.Web.Models
         [Key]
         [Column("id_detalle_asignacion")]
         public int IdDetalleAsignacion { get; set; }
+
         [Column("estado_detalle")]
         public required string EstadoDetalle { get; set; }
 
         [Column("costo_laboratorio")]
-        public decimal? CostoLaboratorio { get; set; }
+        public decimal? CostoLaboratorio { get; set; } // ← Nullable
 
         [Column("nota_final")]
-        public required decimal NotaFinal { get; set; }
+        public decimal? NotaFinal { get; set; } // ← Nullable
 
         [Column("resultado")]
-        public required string Resultado { get; set; }
+        public string? Resultado { get; set; } // ← Nullable
 
         [Column("fecha_resultado")]
-        public required DateTime FechaResultado { get; set; }
+        public DateTime? FechaResultado { get; set; } // ← Nullable
 
         [Column("id_asignacion")]
         public int IdAsignacion { get; set; }
@@ -32,9 +33,8 @@ namespace Asignacion.Web.Models
 
         [Column("id_seccion")]
         public int IdSeccion { get; set; }
+
         [ForeignKey(nameof(IdSeccion))]
         public Seccion? Seccion { get; set; }
-
-
     }
 }

@@ -20,7 +20,7 @@ namespace Asignacion.Web.Models
         public required string SedeEdificio { get; set; }
 
         [Column("ubicacion")]
-        public required string UbicacionEdificio { get; set; }
+        public string? UbicacionEdificio { get; set; } // ← Nullable
 
         [Column("estado_edificio")]
         public required string EstadoEdificio { get; set; }

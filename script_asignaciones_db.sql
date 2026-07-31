@@ -359,3 +359,10 @@ INSERT INTO usuario (
   NOW(),
   3
 );
+
+
+UPDATE usuario 
+SET contrasena_hash = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy' 
+WHERE correo_login = 'admin@umg.edu.gt';
+
+SELECT correo_login, contrasena_hash FROM usuario WHERE correo_login = 'admin@umg.edu.gt';

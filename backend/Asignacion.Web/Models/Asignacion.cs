@@ -9,11 +9,12 @@ namespace Asignacion.Web.Models
         [Key]
         [Column("id_asignacion")]
         public int IdAsignacion { get; set; }
+
         [Column("fecha_asignacion")]
         public required DateTime FechaAsignacion { get; set; }
 
         [Column("subtotal_laboratorios")]
-        public decimal? SubTotalLaboratorios { get; set; }
+        public decimal? SubTotalLaboratorios { get; set; } // ← Nullable
 
         [Column("total_pago")]
         public required decimal TotalPago { get; set; }
@@ -27,9 +28,6 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdInscripcion))]
         public Inscripcion? Inscripcion { get; set; }
 
-        public List<DetalleAsignacion>? DetallesAsignacion { get; set; } = new();
-
-
-
+        public List<DetalleAsignacion> DetallesAsignacion { get; set; } = new();
     }
 }

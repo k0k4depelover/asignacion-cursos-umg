@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Asignacion.Web.Models
 {
     [Table("catedratico")]
@@ -23,19 +23,20 @@ namespace Asignacion.Web.Models
         public required string ApellidosCatedratico { get; set; }
 
         [Column("telefono_catedratico")]
-        public required string TelefonoCatedratico { get; set; }
+        public string? TelefonoCatedratico { get; set; } // ← Nullable
+
         [Column("profesion_catedratico")]
-        public required string ProfesionCatedratico { get; set; }
+        public string? ProfesionCatedratico { get; set; } // ← Nullable
 
         [Column("estado_catedratico")]
         public required string EstadoCatedratico { get; set; }
 
         [Column("id_usuario")]
         public int IdUsuario { get; set; }
+
         [ForeignKey(nameof(IdUsuario))]
         public Usuario? Usuario { get; set; }
 
         public List<Seccion> Secciones { get; set; } = new();
-
     }
 }

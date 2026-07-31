@@ -9,11 +9,12 @@ namespace Asignacion.Web.Models
         [Key]
         [Column("id_laboratorio")]
         public int IdLaboratorio { get; set; }
+
         [Column("nombre_laboratorio")]
         public required string NombreLaboratorio { get; set; }
 
         [Column("descripcion_laboratorio")]
-        public string? DescripcionLaboratorio { get; set; }
+        public string? DescripcionLaboratorio { get; set; } // ← Nullable
 
         [Column("estado_laboratorio")]
         public required string EstadoLaboratorio { get; set; }
@@ -24,6 +25,6 @@ namespace Asignacion.Web.Models
         [ForeignKey(nameof(IdSalon))]
         public Salon? Salon { get; set; }
 
-        public List<SeccionLaboratorio>? SeccionesLaboratorio { get; set; } = new();
+        public List<SeccionLaboratorio> SeccionesLaboratorio { get; set; } = new();
     }
 }

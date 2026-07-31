@@ -2,7 +2,6 @@ using Asignacion.Web.Config;
 using Asignacion.Web.Data;
 using Asignacion.Web.Models;
 using Asignacion.Web.Models.DTOs.Auth;
-using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -15,9 +14,6 @@ using System.Threading.Tasks;
 
 namespace Asignacion.Web.Services.Auth
 {
-    /// <summary>
-    /// Implementación del servicio de autenticación con JWT y BCrypt
-    /// </summary>
     public class AuthService : IAuthService
     {
         private readonly AppDbContext _context;
@@ -34,51 +30,42 @@ namespace Asignacion.Web.Services.Auth
             _logger = logger;
         }
 
-        /// <summary>
-        /// Autentica a un usuario con correo y contraseña
-        /// </summary>
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto request)
         {
             try
             {
-                // 1. Buscar usuario por correo (incluye rol)
+                // 1. Buscar usuario por correo_login (propiedad: CorreoLoginUsuario)
                 var usuario = await _context.Usuarios
                     .Include(u => u.Rol)
-                    .FirstOrDefaultAsync(u => u.CorreoLogin == request.Email);
+                    .FirstOrDefaultAsync(u => u.CorreoLoginUsuario == request.Email);
 
                 if (usuario == null)
                 {
                     _logger.LogWarning("Intento de login con correo inexistente: {Email}", request.Email);
-                    throw new UnauthorizedAccessException("Credenciales inválidas.");
+                    throw new UnauthorizedAccessException("Credenciales invalidas.");
                 }
 
                 // 2. Validar estado del usuario
                 if (usuario.EstadoUsuario != "activo")
                 {
-                    _logger.LogWarning("Usuario inactivo intentó iniciar sesión: {Email}", request.Email);
-                    throw new UnauthorizedAccessException("La cuenta está inactiva. Contacta al administrador.");
+                    _logger.LogWarning("Usuario inactivo intento iniciar sesion: {Email}", request.Email);
+                    throw new UnauthorizedAccessException("La cuenta esta inactiva. Contacta al administrador.");
                 }
 
-                // 3. Verificar contraseña con BCrypt
-                if (!BCrypt.Verify(request.Password, usuario.ContrasenaHash))
+                // 3. Verificar contrasena con BCrypt (nombre completo)
+                if (!BCrypt.Net.BCrypt.Verify(request.Password, usuario.ContrasenaHash))
                 {
-                    _logger.LogWarning("Contraseña incorrecta para: {Email}", request.Email);
-                    throw new UnauthorizedAccessException("Credenciales inválidas.");
+                    _logger.LogWarning("Contrasena incorrecta para: {Email}", request.Email);
+                    throw new UnauthorizedAccessException("Credenciales invalidas.");
                 }
 
-                // 4. (Opcional) Actualizar último login si la columna existe en la BD
-                // await UpdateLastLoginAsync(usuario.IdUsuario);
-
-                // 5. Generar tokens
+                // 4. Generar tokens
                 var accessToken = GenerateJwtToken(usuario);
                 var refreshToken = GenerateRefreshToken();
 
-                // 6. Guardar refresh token en BD (cuando existan las columnas)
-                // await SaveRefreshTokenAsync(usuario.IdUsuario, refreshToken);
-
                 _logger.LogInformation("Login exitoso para: {Email}", request.Email);
 
-                // 7. Construir respuesta
+                // 5. Construir respuesta
                 return new LoginResponseDto
                 {
                     AccessToken = accessToken,
@@ -88,7 +75,7 @@ namespace Asignacion.Web.Services.Auth
                     {
                         Id = usuario.IdUsuario,
                         Nombre = usuario.NombreUsuario,
-                        Email = usuario.CorreoLogin,
+                        Email = usuario.CorreoLoginUsuario,
                         Rol = usuario.Rol?.NombreRol ?? "Usuario"
                     }
                 };
@@ -100,36 +87,20 @@ namespace Asignacion.Web.Services.Auth
             }
         }
 
-        /// <summary>
-        /// Renueva el token de acceso usando un refresh token
-        /// </summary>
         public async Task<LoginResponseDto> RefreshTokenAsync(RefreshTokenRequestDto request)
         {
-            // Implementación pendiente (requiere columnas de refresh token en BD)
-            // Se puede implementar cuando se agreguen las columnas
-            _logger.LogWarning("Refresh token solicitado pero no implementado aún.");
-            throw new NotImplementedException("El refresco de token aún no está disponible.");
+            // Pendiente de implementación cuando se agreguen las columnas de refresh token
+            _logger.LogWarning("Refresh token solicitado pero no implementado aun.");
+            throw new NotImplementedException("El refresco de token aun no esta disponible.");
         }
 
-        /// <summary>
-        /// Cierra la sesión del usuario (invalida refresh token)
-        /// </summary>
         public async Task<bool> LogoutAsync(int userId)
         {
-            // Implementación pendiente (requiere columna refresh token)
-            // var usuario = await _context.Usuarios.FindAsync(userId);
-            // if (usuario == null) return false;
-            // usuario.RefreshToken = null;
-            // usuario.RefreshTokenExpiry = null;
-            // await _context.SaveChangesAsync();
-            // return true;
-            _logger.LogWarning("Logout solicitado pero no implementado aún.");
-            throw new NotImplementedException("El logout aún no está disponible.");
+            // Pendiente de implementación cuando se agreguen las columnas de refresh token
+            _logger.LogWarning("Logout solicitado pero no implementado aun.");
+            throw new NotImplementedException("El logout aun no esta disponible.");
         }
 
-        /// <summary>
-        /// Valida un token JWT (firma, expiración, emisor, audiencia)
-        /// </summary>
         public async Task<bool> ValidateTokenAsync(string token)
         {
             try
@@ -157,19 +128,12 @@ namespace Asignacion.Web.Services.Auth
             }
         }
 
-        // =====================================================================
-        // MÉTODOS PRIVADOS
-        // =====================================================================
-
-        /// <summary>
-        /// Genera un token JWT con los claims del usuario
-        /// </summary>
         private string GenerateJwtToken(Usuario usuario)
         {
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuario.IdUsuario.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoLogin),
+                new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoLoginUsuario),
                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
                 new Claim(ClaimTypes.Role, usuario.Rol?.NombreRol ?? "Usuario"),
                 new Claim("id_rol", usuario.IdRol.ToString()),
@@ -190,38 +154,9 @@ namespace Asignacion.Web.Services.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        /// <summary>
-        /// Genera un refresh token aleatorio
-        /// </summary>
         private string GenerateRefreshToken()
         {
-            // Usar un GUID como base para el refresh token
             return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         }
-
-        // =====================================================================
-        // MÉTODOS PENDIENTES (cuando se agreguen columnas a la BD)
-        // =====================================================================
-
-        // private async Task UpdateLastLoginAsync(int userId)
-        // {
-        //     var usuario = await _context.Usuarios.FindAsync(userId);
-        //     if (usuario != null)
-        //     {
-        //         // usuario.UltimoLogin = DateTime.UtcNow;
-        //         // await _context.SaveChangesAsync();
-        //     }
-        // }
-
-        // private async Task SaveRefreshTokenAsync(int userId, string refreshToken)
-        // {
-        //     var usuario = await _context.Usuarios.FindAsync(userId);
-        //     if (usuario != null)
-        //     {
-        //         // usuario.RefreshToken = refreshToken;
-        //         // usuario.RefreshTokenExpiry = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays);
-        //         // await _context.SaveChangesAsync();
-        //     }
-        // }
     }
 }

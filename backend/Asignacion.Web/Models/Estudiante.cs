@@ -26,12 +26,12 @@ namespace Asignacion.Web.Models
         public required DateTime FechaNacimientoEstudiante { get; set; }
 
         [Column("direccion_estudiante")]
-        public required string DireccionEstudiante { get; set; }
+        public string? DireccionEstudiante { get; set; } // ← Nullable
 
         [Column("telefono_estudiante")]
-        public required string TelefonoEstudiante { get; set; }
+        public string? TelefonoEstudiante { get; set; } // ← Nullable
 
-        [Column ("ciclo_actual")]
+        [Column("ciclo_actual")]
         public int CicloEstudiante { get; set; }
 
         [Column("estado_estudiante")]
@@ -45,11 +45,10 @@ namespace Asignacion.Web.Models
 
         [Column("id_pensum")]
         public int IdPensum { get; set; }
+
         [ForeignKey(nameof(IdPensum))]
         public Pensum? Pensum { get; set; }
 
-
-        public List<Inscripcion>? Inscripciones { get; set; } = new();
-
+        public List<Inscripcion> Inscripciones { get; set; } = new();
     }
 }

@@ -6,39 +6,39 @@ namespace Asignacion.Web.Services
 {
     public class EstudianteService : IEstudianteService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
-
-            public EstudianteService(AppContext context)
+        public EstudianteService(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Estudiante>> ObtenerTodosEstudiantesAsync()
         {
-            return await _context.Estudiante.ToListAsync();
+            return await _context.Estudiantes.ToListAsync();
         }
 
         public async Task<Estudiante?> ObtenerEstudiantePorIdAsync(int idEstudiante)
         {
-            return await _context.Estudiante.FindAsync(idEstudiante);
+            return await _context.Estudiantes.FindAsync(idEstudiante);
         }
 
         public async Task<Estudiante> CrearEstudianteAsync(Estudiante estudiante)
         {
-            _context.Estudiante.Add(estudiante);
+            _context.Estudiantes.Add(estudiante);
             await _context.SaveChangesAsync();
-            return edificio;
+            return estudiante;
         }
 
         public async Task<bool> ActualizarEstudianteAsync(int idEstudiante, Estudiante estudiante)
         {
-            var estudianteExistente = await _context.Estudiante.FindAsync(idEstudiante);
-            if (estudianteExistente == null) {
+            var estudianteExistente = await _context.Estudiantes.FindAsync(idEstudiante);
+            if (estudianteExistente == null)
+            {
                 return false;
             }
 
-            estudianteExistente.IdEstudiante = estudiante.IdEstudiante;
+            estudianteExistente.IdEstudiante = estudianteExistente.IdEstudiante;
             estudianteExistente.NombresEstudiante = estudiante.NombresEstudiante;
             estudianteExistente.ApellidosEstudiante = estudiante.ApellidosEstudiante;
             estudianteExistente.CarnetEstudiante = estudiante.CarnetEstudiante;
@@ -47,28 +47,23 @@ namespace Asignacion.Web.Services
             estudianteExistente.DireccionEstudiante = estudiante.DireccionEstudiante;
             estudianteExistente.TelefonoEstudiante = estudiante.TelefonoEstudiante;
             estudianteExistente.CicloEstudiante = estudiante.CicloEstudiante;
+            estudianteExistente.EstadoEstudiante = estudiante.EstadoEstudiante;
             estudianteExistente.IdUsuario = estudiante.IdUsuario;
             estudianteExistente.IdPensum = estudiante.IdPensum;
-            estudianteExistente.EstadoEstudiante = estudiante.EstadoEstudiante;
-
             await _context.SaveChangesAsync();
             return true;
-
-
         }
 
         public async Task<bool> EliminarEstudianteAsync(int idEstudiante)
         {
-            var estudianteExistente = await _context.Estudiante.FindAsync(idEstudiante);
+            var estudianteExistente = await _context.Estudiantes.FindAsync(idEstudiante);
             if (estudianteExistente == null)
             {
                 return false;
             }
-
-            _context.Estudiante.Remove(estudianteExistente);
-            await _context.SaveChangesAsync(); 
+            _context.Estudiantes.Remove(estudianteExistente);
+            await _context.SaveChangesAsync();
             return true;
         }
-
     }
 }
