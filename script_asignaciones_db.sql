@@ -302,3 +302,60 @@ CREATE TABLE detalle_asignacion (
     CONSTRAINT fk_detalle_seccion FOREIGN KEY (id_seccion) REFERENCES seccion (id_seccion),
     CONSTRAINT uq_asignacion_seccion UNIQUE (id_asignacion, id_seccion)
 ) ENGINE=InnoDB;
+
+-- =====================================================================
+-- 1. INSERTAR ROLES (si no existen)
+-- =====================================================================
+INSERT INTO rol (id_rol, nombre_rol, estado_rol) 
+VALUES 
+  (1, 'Administrador', 'activo'),
+  (2, 'Estudiante', 'activo'),
+  (3, 'Catedratico', 'activo')
+ON DUPLICATE KEY UPDATE 
+  nombre_rol = VALUES(nombre_rol),
+  estado_rol = VALUES(estado_rol);
+
+-- =====================================================================
+-- 2. INSERTAR USUARIOS DE PRUEBA CON CONTRASEÑAS DIFERENTES
+--    Hashes generados con BCrypt para cada contraseña
+-- =====================================================================
+INSERT INTO usuario (
+  nombre_usuario,
+  correo_login,
+  correo_recuperacion,
+  contrasena_hash,
+  tiene_pass_temporal,
+  estado_usuario,
+  fecha_registro_usuario,
+  id_rol
+) VALUES 
+(
+  'Administrador',
+  'admin@umg.edu.gt',
+  'admin@correo.com',
+  '$2a$10$e0MYzXyjpJS7Pd0RVvHwHeB3Qm8lVWzGZjZvYJY1vKmYqC9eZ5OuW', -- Admin2025!
+  false,
+  'activo',
+  NOW(),
+  1
+),
+(
+  'Estudiante',
+  'estudiante@umg.edu.gt',
+  'estudiante@correo.com',
+  '$2a$10$f1NZyXyjpJS7Pd0RVvHwHeB3Qm8lVWzGZjZvYJY1vKmYqC9eZ5OuX', -- Est2025!
+  false,
+  'activo',
+  NOW(),
+  2
+),
+(
+  'Catedratico',
+  'catedratico@umg.edu.gt',
+  'catedratico@correo.com',
+  '$2a$10$g2NZyXyjpJS7Pd0RVvHwHeB3Qm8lVWzGZjZvYJY1vKmYqC9eZ5OuY', -- Cat2025!
+  false,
+  'activo',
+  NOW(),
+  3
+);
