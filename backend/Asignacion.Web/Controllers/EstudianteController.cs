@@ -44,6 +44,7 @@ namespace Asignacion.Web.Controllers
             {
                 return NotFound(); // Código 404
             }
+
             return NoContent(); // 204 NO CONTENT
         }
         [HttpDelete("{idEstudiante}")]

@@ -32,6 +32,20 @@ namespace Asignacion.Web.Controllers
             return Ok(rolPermisoDb);
         }
 
+        [HttpGet("rol/{idRol}")]
+        public async Task<ActionResult<List<RolPermiso>>> ObtenerPorRolAsync(int idRol)
+        {
+            var permisosDelRol = await _rolPermisoService.ObtenerPorRolAsync(idRol);
+            return Ok(permisosDelRol);
+        }
+
+        [HttpGet("permiso/{idPermiso}")]
+        public async Task<ActionResult<List<RolPermiso>>> ObtenerPorPermisoAsync(int idPermiso)
+        {
+            var rolesDelPermiso = await _rolPermisoService.ObtenerPorPermisoAsync(idPermiso);
+            return Ok(rolesDelPermiso);
+        }
+
         [HttpPost]
         public async Task<ActionResult<RolPermiso>> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
