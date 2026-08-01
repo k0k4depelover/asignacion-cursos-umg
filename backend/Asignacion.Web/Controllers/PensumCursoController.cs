@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class PensumCursoController : ControllerBase
     {
-        private readonly IPensumCursoService _pensumCursoService;
+        private readonly IPensumCursoService pensumCursoService;
         public PensumCursoController(IPensumCursoService pensumCursoService)
         {
             _pensumCursoService = pensumCursoService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idPensumCurso}")]
         public async Task<ActionResult<PensumCurso>> ObtenerPensumCursoPorIdAsync(int idPensumCurso)
         {
-            var pensumCursoDb = await _pensumCursoService.ObtenerPensumCursoPorIdAsync(idPensumCurso);
+            var pensumCursoDb = await _pensumCursoService.ObtenerPensumCursoPorIdAsync(int idPensumCurso);
             if (pensumCursoDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,13 +33,13 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<PensumCurso>> CrearPensumCursoAsync(PensumCurso pensumCurso)
         {
-            var pensumCursoCreado = await _pensumCursoService.CrearPensumCursoAsync(pensumCurso);
-            return CreatedAtAction(nameof(ObtenerPensumCursoPorIdAsync), new { idPensumCurso = pensumCursoCreado.IdPensumCurso }); // 201 CREATED
+            var pensumCursoCreado = await _pensumCursoService.CrearPensumCursoAsync(PensumCurso pensumCurso);
+            return CreatedAtAction(nameof(ObtenerPensumCursoPorIdAsync), new { id = pensumCursoCreado.IdPensumCurso }); // 201 CREATED
         }
         [HttpPut("{idPensumCurso}")]
         public async Task<IActionResult> ActualizarPensumCursoAsync(int idPensumCurso, PensumCurso pensumCurso)
         {
-            var pensumCursoActualizado = await _pensumCursoService.ActualizarPensumCursoAsync(idPensumCurso, pensumCurso);
+            var pensumCursoActualizado = await _pensumCursoService.ActualizarPensumCursoAsync(int idPensumCurso, PensumCurso pensumCurso);
             if (!pensumCursoActualizado)
             {
                 return NotFound(); // Código 404

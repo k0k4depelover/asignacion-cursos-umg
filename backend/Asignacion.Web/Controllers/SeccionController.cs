@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class SeccionController : ControllerBase
     {
-        private readonly ISeccionService _seccionService;
+        private readonly ISeccionService seccionService;
         public SeccionController(ISeccionService seccionService)
         {
             _seccionService = seccionService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idSeccion}")]
         public async Task<ActionResult<Seccion>> ObtenerSeccionPorIdAsync(int idSeccion)
         {
-            var seccionDb = await _seccionService.ObtenerSeccionPorIdAsync(idSeccion);
+            var seccionDb = await _seccionService.ObtenerSeccionPorIdAsync(int idSeccion);
             if (seccionDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,14 +33,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Seccion>> CrearSeccionAsync(Seccion seccion)
         {
-            var seccionCreada = await _seccionService.CrearSeccionAsync(seccion);
-            return CreatedAtAction(nameof(ObtenerSeccionPorIdAsync), new { idSeccion = seccionCreada.IdSeccion }); // 201 CREATED
+            var seccionCreada = await _seccionService.CrearSeccionAsync(Seccion seccion);
+            return CreatedAtAction(nameof(ObtenerSeccionPorIdAsync), new { id = seccionCreada.IdSeccion }); // 201 CREATED
         }
 
         [HttpPut("{idSeccion}")]
         public async Task<IActionResult> ActualizarSeccionAsync(int idSeccion, Seccion seccion)
         {
-            var seccionActualizada = await _seccionService.ActualizarSeccionAsync(idSeccion, seccion);
+            var seccionActualizada = await _seccionService.ActualizarSeccionAsync(int idSeccion, Seccion seccion);
             if (!seccionActualizada)
             {
                 return NotFound(); // Código 404

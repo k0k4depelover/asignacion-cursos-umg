@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class EdificioController : ControllerBase
     {
-        private readonly IEdificioService _edificioService;
+        private readonly IEdificioService edificioService;
 
         public EdificioController(IEdificioService edificioService)
         {
@@ -25,7 +25,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idEdificio}")]
         public async Task<ActionResult<Edificio>> ObtenerEdificioPorIdAsync(int idEdificio)
         {
-            var edificioDb = await _edificioService.ObtenerEdificioPorIdAsync(idEdificio);
+            var edificioDb = await _edificioService.ObtenerEdificioPorIdAsync(int idEdificio);
             if (edificioDb == null)
             {
                 return NotFound(); // Código 404
@@ -37,14 +37,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Edificio>> CrearEdificioAsync(Edificio edificio)
         {
-            var edificioCreado = await _edificioService.CrearEdificioAsync(edificio);
+            var edificioCreado = await _edificioService.CrearEdificioAsync(Edificio edificio);
 
-            return CreatedAtAction(nameof(ObtenerEdificioPorIdAsync), new { idEdificio = edificioCreado.IdEdificio }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerEdificioPorIdAsync), new { id = edificioCreado.IdEdificio }); // 201 CREATED
         }
         [HttpPut("{idEdificio}")]
         public async Task<IActionResult> ActualizarEdificioAsync(int idEdificio, Edificio edificio)
         {
-            var edificioActualizado = await _edificioService.ActualizarEdificioAsync(idEdificio, edificio);
+            var edificioActualizado = await _edificioService.ActualizarEdificioAsync(int idEdificio, Edificio edificio);
 
             if (!edificioActualizado)
             {

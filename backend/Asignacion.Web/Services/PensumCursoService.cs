@@ -6,57 +6,57 @@ namespace Asignacion.Web.Services
 {
     public class PensumCursoService : IPensumCursoService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
 
-        public PensumCursoService(AppDbContext context)
+
+            public PensumCursoService(AppContext context)
         {
             _context = context;
         }
 
-        public async Task<List<PensumCurso>> ObtenerTodosPensumCursosAsync()
+        public async Task<List<PensumCurso>> ObtenerTodosPensumsCursosAsync()
         {
-            return await _context.PensumCursos.ToListAsync();
+            return await _context.PensumCurso.ToListAsync();
         }
 
         public async Task<PensumCurso?> ObtenerPensumCursoPorIdAsync(int idPensumCurso)
         {
-            return await _context.PensumCursos.FindAsync(idPensumCurso);
+            return await _context.PensumCurso.FindAsync(idPensumCurso);
         }
 
         public async Task<PensumCurso> CrearPensumCursoAsync(PensumCurso pensumCurso)
         {
-            _context.PensumCursos.Add(pensumCurso);
+            _context.PesnumCurso.AddAsync(pensumCurso);
             await _context.SaveChangesAsync();
             return pensumCurso;
         }
 
         public async Task<bool> ActualizarPensumCursoAsync(int idPensumCurso, PensumCurso pensumCurso)
         {
-            var pensumCursoExistente = await _context.PensumCursos.FindAsync(idPensumCurso);
+            var pensumCursoExistente = _context.PensumCurso.FindAsync(idPensumCurso);
             if (pensumCursoExistente == null)
             {
                 return false;
             }
-
-            pensumCursoExistente.IdPensumCurso = pensumCursoExistente.IdPensumCurso;
+            pensumCursoExistente.IdPensumCurso = pensumCurso.IdPensumCurso;
             pensumCursoExistente.IdPensum = pensumCurso.IdPensum;
             pensumCursoExistente.IdCurso = pensumCurso.IdCurso;
             pensumCursoExistente.Ciclo = pensumCurso.Ciclo;
             pensumCursoExistente.EsObligatorio = pensumCurso.EsObligatorio;
-            await _context.SaveChangesAsync();
-            return true;
+            return true
         }
 
         public async Task<bool> EliminarPensumCursoAsync(int idPensumCurso)
         {
-            var pensumCursoExistente = await _context.PensumCursos.FindAsync(idPensumCurso);
+            var pensumCursoExistente = _context.PensumCurso.FindAsync(idPensumCurso);
             if (pensumCursoExistente == null)
             {
                 return false;
             }
-            _context.PensumCursos.Remove(pensumCursoExistente);
+            _context.PensumCurso.Remove(pensumCursoExistente);
             await _context.SaveChangesAsync();
-            return true;
+            return true
         }
+
     }
 }

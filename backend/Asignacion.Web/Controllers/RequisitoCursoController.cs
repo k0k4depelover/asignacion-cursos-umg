@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class RequisitoCursoController : ControllerBase
     {
-        private readonly IRequisitoCursoService _requisitoCursoService;
+        private readonly IRequisitoCursoService requisitoCursoService;
         public RequisitoCursoController(IRequisitoCursoService requisitoCursoService)
         {
             _requisitoCursoService = requisitoCursoService;
@@ -24,7 +24,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idRequisitoCurso}")]
         public async Task<ActionResult<RequisitoCurso>> ObtenerRequisitoCursoPorIdAsync(int idRequisitoCurso)
         {
-            var requisitoCursoDb = await _requisitoCursoService.ObtenerRequisitoCursoPorIdAsync(idRequisitoCurso);
+            var requisitoCursoDb = await _requisitoCursoService.ObtenerRequisitoCursoPorIdAsync(int idRequisitoCurso);
             if (requisitoCursoDb == null)
             {
                 return NotFound(); // Código 404
@@ -35,14 +35,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<RequisitoCurso>> CrearRequisitoCursoAsync(RequisitoCurso requisitoCurso)
         {
-            var requisitoCursoCreado = await _requisitoCursoService.CrearRequisitoCursoAsync(requisitoCurso);
-            return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { idRequisitoCurso = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
+            var requisitoCursoCreado = await _requisitoCursoService.CrearRequisitoCursoAsync(RequisitoCurso requisitoCurso);
+            return CreatedAtAction(nameof(ObtenerRequisitoCursoPorIdAsync), new { id = requisitoCursoCreado.IdRequisitoCurso }); // 201 CREATED
         }
 
         [HttpPut("{idRequisitoCurso}")]
         public async Task<IActionResult> ActualizarRequisitoCursoAsync(int idRequisitoCurso, RequisitoCurso requisitoCurso)
         {
-            var requisitoCursoActualizado = await _requisitoCursoService.ActualizarRequisitoCursoAsync(idRequisitoCurso, requisitoCurso);
+            var requisitoCursoActualizado = await _requisitoCursoService.ActualizarRequisitoCursoAsync(int idRequisitoCurso, RequisitoCurso requisitoCurso);
             if (!requisitoCursoActualizado)
             {
                 return NotFound(); // Código 404

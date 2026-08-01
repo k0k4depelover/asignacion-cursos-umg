@@ -2,14 +2,16 @@ using Asignacion.Web.Models;
 
 namespace Asignacion.Web.Services
 {
-    public interface IRolPermisoService
+    public interface IPermisoService
     {
-        Task<List<RolPermiso>> ObtenerTodosRolesPermisosAsync();
+        Task<List<Permiso>> ObtenerTodosPermisosAsync();
 
-        Task<RolPermiso?> ObtenerRolPermisoPorIdAsync(int idRol, int idPermiso);
+        Task<RequisitoCurso?> ObtenerPermisoPorIdAsync(int idPermiso);
 
-        Task<RolPermiso> CrearRolPermisoAsync(RolPermiso rolPermiso);
+        Task<RequisitoCurso> CrearPermisoAsync(Permiso permiso);
 
-        Task<bool> EliminarRolPermisoAsync(int idRol, int idPermiso);
+        Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso);
+
+        Task<bool> EliminarPermisoAsync(int idPermiso);
     }
 }

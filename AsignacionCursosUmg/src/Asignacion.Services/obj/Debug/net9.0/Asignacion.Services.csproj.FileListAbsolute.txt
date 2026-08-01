@@ -1,0 +1,15 @@
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.csproj.AssemblyReference.cache
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.AssemblyInfoInputs.cache
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.AssemblyInfo.cs
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.csproj.CoreCompileInputs.cache
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\bin\Debug\net9.0\Asignacion.Services.deps.json
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\bin\Debug\net9.0\Asignacion.Services.dll
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\bin\Debug\net9.0\Asignacion.Services.pdb
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\bin\Debug\net9.0\Asignacion.Data.dll
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\bin\Debug\net9.0\Asignacion.Data.pdb
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignaci.C5A65356.Up2Date
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.dll
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\refint\Asignacion.Services.dll
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\Asignacion.Services.pdb
+C:\Users\gabri\Downloads\asignacion-cursos-umg-dylan-23-519\asignacion-cursos-umg-dylan-23-519\AsignacionCursosUmg\src\Asignacion.Services\obj\Debug\net9.0\ref\Asignacion.Services.dll

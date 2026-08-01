@@ -4,42 +4,56 @@ using Asignacion.Web.Models;
 
 namespace Asignacion.Web.Services
 {
-    public class RolPermisoService : IRolPermisoService
+    public class PermisoService : IPermisoService // ¿Afectara que tenga el mismo nombre que el de PermisoService.cs?
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
 
-        public RolPermisoService(AppDbContext context)
+
+            public PermisoService(AppContext context)
         {
             _context = context;
         }
 
-        public async Task<List<RolPermiso>> ObtenerTodosRolesPermisosAsync()
+        public async Task<List<Permiso>> ObtenerTodosPermisosAsync()
         {
-            return await _context.RolPermisos.ToListAsync();
+            return await _context.Permiso.ToListAsync();
         }
 
-        public async Task<RolPermiso?> ObtenerRolPermisoPorIdAsync(int idRol, int idPermiso)
+        public async Task<RequisitoCurso?> ObtenerPermisoPorIdAsync(int idPermiso)
         {
-            return await _context.RolPermisos.FindAsync(idRol, idPermiso);
+            return await _context.Permiso.FindAsync(idPermiso);
         }
 
-        public async Task<RolPermiso> CrearRolPermisoAsync(RolPermiso rolPermiso)
+        public async Task<RequisitoCurso> CrearPermisoAsync(Permiso permiso)
         {
-            _context.RolPermisos.Add(rolPermiso);
+            _context.Permiso.AddAsync(permiso);
             await _context.SaveChangesAsync();
-            return rolPermiso;
+            return permiso;
         }
 
-        public async Task<bool> EliminarRolPermisoAsync(int idRol, int idPermiso)
+        public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
         {
-            var rolPermisoExistente = await _context.RolPermisos.FindAsync(idRol, idPermiso);
-            if (rolPermisoExistente == null)
+            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
+            if (permisoExistente == null)
             {
                 return false;
             }
-            _context.RolPermisos.Remove(rolPermisoExistente);
-            await _context.SaveChangesAsync();
-            return true;
+            permisoExistente.IdPermiso = permiso.IdPermiso;
+            permisoExistente.IdRol = permiso.IdRol;
+            return true
         }
+
+        public async Task<bool> EliminarPermisoAsync(int idPermiso)
+        {
+            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
+            if permisoExistente == null)
+            {
+                return false;
+            }
+            _context.Permiso.Remove(permisoExistente);
+            await _context.SaveChangesAsync();
+            return true
+        }
+
     }
 }

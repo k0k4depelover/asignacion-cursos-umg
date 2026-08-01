@@ -302,3 +302,145 @@ CREATE TABLE detalle_asignacion (
     CONSTRAINT fk_detalle_seccion FOREIGN KEY (id_seccion) REFERENCES seccion (id_seccion),
     CONSTRAINT uq_asignacion_seccion UNIQUE (id_asignacion, id_seccion)
 ) ENGINE=InnoDB;
+
+-- =====================================================================
+-- 1. INSERTAR ROLES (si no existen)
+-- =====================================================================
+INSERT INTO rol (id_rol, nombre_rol, estado_rol) 
+VALUES 
+  (1, 'Administrador', 'activo'),
+  (2, 'Estudiante', 'activo'),
+  (3, 'Catedratico', 'activo')
+ON DUPLICATE KEY UPDATE 
+  nombre_rol = VALUES(nombre_rol),
+  estado_rol = VALUES(estado_rol);
+
+-- =====================================================================
+-- 2. INSERTAR USUARIOS DE PRUEBA CON CONTRASEÑAS DIFERENTES
+--    Hashes generados con BCrypt para cada contraseña
+-- =====================================================================
+INSERT INTO usuario (
+  nombre_usuario,
+  correo_login,
+  correo_recuperacion,
+  contrasena_hash,
+  tiene_pass_temporal,
+  estado_usuario,
+  fecha_registro_usuario,
+  id_rol
+) VALUES 
+(
+  'Administrador',
+  'admin@umg.edu.gt',
+  'admin@correo.com',
+  '$2a$11$jlfmGso3rBYDZf7wtZRO3.uFkcQ2jmSvmXU4skk/.HXVwg9EFZhUO', -- Admin2025!
+  false,
+  'activo',
+  NOW(),
+  1
+),
+(
+  'Estudiante',
+  'estudiante@umg.edu.gt',
+  'estudiante@correo.com',
+  '$2a$11$KTEi7kst4Lgzi.Fj901GGOZNI9qZPjYtC1DTs7FddEdixYudBuyYq', -- Est2025!
+  false,
+  'activo',
+  NOW(),
+  2
+),
+(
+  'Catedratico',
+  'catedratico@umg.edu.gt',
+  'catedratico@correo.com',
+  '$2a$11$XJIwhKqMHs6sRmj7bUUAvOl8l3Kau6LksZGQGwM3Jv9alH0P2XP9W', -- Cat2025!
+  false,
+  'activo',
+  NOW(),
+  3
+);
+
+-- =====================================================================
+-- 3. DATOS DE CATÁLOGO / INFRAESTRUCTURA / PROGRAMACIÓN DE DEMOSTRACIÓN
+--    (necesarios para que los 3 usuarios de prueba tengan algo que ver
+--     al iniciar sesión: un pensum con cursos, un período abierto,
+--     una sección asignada al catedrático demo, y el perfil de
+--     estudiante/catedrático vinculado a sus respectivos usuarios)
+-- =====================================================================
+
+INSERT INTO facultad (id_facultad, codigo_facultad, nombre_facultad, estado_facultad) VALUES
+  (1, 'FISICC', 'Facultad de Ingeniería en Sistemas, Informática y Ciencias de la Computación', 'activo')
+ON DUPLICATE KEY UPDATE nombre_facultad = VALUES(nombre_facultad);
+
+INSERT INTO carrera (id_carrera, codigo_carrera, nombre_carrera, total_ciclos, estado_carrera, id_facultad) VALUES
+  (1, 'ISIS', 'Ingeniería en Sistemas', 10, 'activo', 1)
+ON DUPLICATE KEY UPDATE nombre_carrera = VALUES(nombre_carrera);
+
+INSERT INTO pensum (id_pensum, codigo_pensum, anio_pensum, jornada_pensum, estado_pensum, id_carrera) VALUES
+  (1, 'PENSUM2020', 2020, 'Nocturna', 'activo', 1)
+ON DUPLICATE KEY UPDATE codigo_pensum = VALUES(codigo_pensum);
+
+INSERT INTO curso (id_curso, codigo_curso, nombre_curso, creditos_curso, requiere_laboratorio, estado_curso) VALUES
+  (1, 'MAT101', 'Matemática Básica 1', 4, FALSE, 'activo'),
+  (2, 'PROG101', 'Introducción a la Programación', 5, TRUE, 'activo'),
+  (3, 'PROG102', 'Programación Orientada a Objetos', 5, TRUE, 'activo'),
+  (4, 'BD101', 'Bases de Datos 1', 4, TRUE, 'activo'),
+  (5, 'RED101', 'Redes de Computadoras', 4, FALSE, 'activo'),
+  (6, 'ING101', 'Inglés Técnico 1', 3, FALSE, 'activo')
+ON DUPLICATE KEY UPDATE nombre_curso = VALUES(nombre_curso);
+
+INSERT INTO pensum_curso (id_pensum_curso, id_pensum, id_curso, ciclo, es_obligatorio) VALUES
+  (1, 1, 1, 1, TRUE),  -- MAT101 ciclo 1
+  (2, 1, 2, 1, TRUE),  -- PROG101 ciclo 1
+  (3, 1, 6, 1, TRUE),  -- ING101 ciclo 1
+  (4, 1, 3, 2, TRUE),  -- PROG102 ciclo 2 (requiere PROG101)
+  (5, 1, 4, 2, TRUE),  -- BD101 ciclo 2 (requiere PROG101)
+  (6, 1, 5, 3, TRUE)   -- RED101 ciclo 3
+ON DUPLICATE KEY UPDATE ciclo = VALUES(ciclo);
+
+INSERT INTO requisito_curso (id_requisito, id_pensum_curso, tipo_requisito, id_curso_requerido, creditos_minimos, descripcion_requisito) VALUES
+  (1, 4, 'curso_aprobado', 2, NULL, 'Debe haber aprobado Introducción a la Programación'),
+  (2, 5, 'curso_aprobado', 2, NULL, 'Debe haber aprobado Introducción a la Programación')
+ON DUPLICATE KEY UPDATE descripcion_requisito = VALUES(descripcion_requisito);
+
+INSERT INTO edificio (id_edificio, codigo_edificio, nombre_edificio, sede, ubicacion, estado_edificio) VALUES
+  (1, 'ED-A', 'Edificio A', 'Central', '1a avenida, zona 1', 'activo')
+ON DUPLICATE KEY UPDATE nombre_edificio = VALUES(nombre_edificio);
+
+INSERT INTO salon (id_salon, codigo_salon, nombre_salon, capacidad_salon, tipo_espacio, nivel_salon, estado_salon, id_edificio) VALUES
+  (1, 'A-101', 'Aula 101', 40, 'aula', 1, 'activo', 1),
+  (2, 'A-LAB1', 'Laboratorio de Cómputo 1', 25, 'laboratorio', 1, 'activo', 1)
+ON DUPLICATE KEY UPDATE nombre_salon = VALUES(nombre_salon);
+
+INSERT INTO laboratorio (id_laboratorio, nombre_laboratorio, descripcion_laboratorio, estado_laboratorio, id_salon) VALUES
+  (1, 'Laboratorio de Cómputo 1', 'Laboratorio con 25 estaciones de trabajo', 'activo', 2)
+ON DUPLICATE KEY UPDATE nombre_laboratorio = VALUES(nombre_laboratorio);
+
+INSERT INTO periodo_academico (id_periodo, codigo_periodo, descripcion_periodo, tipo_periodo, fecha_inicio, fecha_fin, permite_inscripcion, permite_asignacion, estado_periodo) VALUES
+  (1, '2026-2', 'Segundo Semestre 2026', 'Semestre', '2026-07-01', '2026-11-30', TRUE, TRUE, 'activo')
+ON DUPLICATE KEY UPDATE descripcion_periodo = VALUES(descripcion_periodo);
+
+INSERT INTO estudiante (id_estudiante, carnet_estudiante, dpi_estudiante, nombres_estudiante, apellidos_estudiante, fecha_nacimiento, direccion_estudiante, telefono_estudiante, ciclo_actual, estado_estudiante, id_usuario, id_pensum) VALUES
+  (1, '20230012519', '1234567890101', 'Estudiante', 'Demo', '2003-05-14', 'Ciudad de Guatemala', '55501234', 2, 'activo', 2, 1)
+ON DUPLICATE KEY UPDATE nombres_estudiante = VALUES(nombres_estudiante);
+
+INSERT INTO catedratico (id_catedratico, codigo_catedratico, dpi_catedratico, nombres_catedratico, apellidos_catedratico, telefono_catedratico, profesion_catedratico, estado_catedratico, id_usuario) VALUES
+  (1, 'CAT-001', '9876543210101', 'Catedrático', 'Demo', '55509876', 'Ingeniero en Sistemas', 'activo', 3)
+ON DUPLICATE KEY UPDATE nombres_catedratico = VALUES(nombres_catedratico);
+
+INSERT INTO seccion (id_seccion, codigo_seccion, jornada, cupo_maximo, estado_seccion, id_curso, id_periodo, id_catedratico, id_salon) VALUES
+  (1, 'PROG101-A', 'Nocturna', 30, 'activo', 2, 1, 1, 1),
+  (2, 'BD101-A', 'Nocturna', 25, 'activo', 4, 1, 1, 1)
+ON DUPLICATE KEY UPDATE codigo_seccion = VALUES(codigo_seccion);
+
+INSERT INTO horario_seccion (id_horario, dia_semana, hora_inicio, hora_fin, tipo_sesion, id_seccion) VALUES
+  (1, 'Lunes', '18:00:00', '20:00:00', 'teoria', 1),
+  (2, 'Miercoles', '18:00:00', '20:00:00', 'teoria', 1),
+  (3, 'Martes', '18:00:00', '20:00:00', 'teoria', 2),
+  (4, 'Jueves', '18:00:00', '20:00:00', 'teoria', 2)
+ON DUPLICATE KEY UPDATE dia_semana = VALUES(dia_semana);
+
+INSERT INTO seccion_laboratorio (id_seccion_laboratorio, dia_semana, hora_inicio, hora_fin, costo_extra, id_seccion, id_laboratorio) VALUES
+  (1, 'Viernes', '18:00:00', '20:00:00', 150.00, 1, 1),
+  (2, 'Viernes', '20:00:00', '22:00:00', 150.00, 2, 1)
+ON DUPLICATE KEY UPDATE dia_semana = VALUES(dia_semana);

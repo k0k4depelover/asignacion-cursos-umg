@@ -1,0 +1,38 @@
+<UserControl x:Class="Asignacion.Wpf.Views.Shell.AdminShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="#FF1E293B" Padding="16,10">
+            <DockPanel>
+                <TextBlock Text="Administración" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <TextBlock Text="{Binding NombreUsuario}" Foreground="White" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <Button Content="Cerrar sesión" Command="{Binding CerrarSesionCommand}" Padding="8,4"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0" Background="#FFF1F5F9">
+            <ItemsControl ItemsSource="{Binding MenuItems}" Margin="8">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Titulo}" Command="{Binding Comando}"
+                                HorizontalContentAlignment="Left" Padding="10,8" Margin="0,2"
+                                Background="Transparent" BorderThickness="0"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding Navigation.CurrentViewModel}" Margin="16"/>
+    </Grid>
+</UserControl>

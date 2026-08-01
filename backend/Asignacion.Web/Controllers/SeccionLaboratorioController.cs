@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class SeccionLaboratorioController : ControllerBase
     {
-        private readonly ISeccionLaboratorioService _seccionLaboratorioService;
+        private readonly ISeccionLaboratorioService seccionLaboratorioService;
         public SeccionLaboratorioController(ISeccionLaboratorioService seccionLaboratorioService)
         {
             _seccionLaboratorioService = seccionLaboratorioService;
@@ -22,7 +22,7 @@ namespace Asignacion.Web.Controllers
             return Ok(seccionLaboratorioDb);
         }
 
-        [HttpGet("{idSeccionLaboratorio}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<SeccionLaboratorio>> ObtenerSeccionLaboratorioPorIdAsync(int idSeccionLaboratorio)
         {
             var seccionLaboratorioDb = await _seccionLaboratorioService.ObtenerSeccionLaboratorioPorIdAsync(idSeccionLaboratorio);
@@ -30,20 +30,20 @@ namespace Asignacion.Web.Controllers
             {
                 return NotFound(); // Código 404
             }
-            return Ok(seccionLaboratorioDb);
+            return Ok(seccionDb);
         }
 
         [HttpPost]
         public async Task<ActionResult<SeccionLaboratorio>> CrearSeccionLaboratorioAsync(SeccionLaboratorio seccionLaboratorio)
         {
             var seccionLaboratorioCreada = await _seccionLaboratorioService.CrearSeccionLaboratorioAsync(seccionLaboratorio);
-            return CreatedAtAction(nameof(ObtenerSeccionLaboratorioPorIdAsync), new { idSeccionLaboratorio = seccionLaboratorioCreada.IdSeccionLaboratorio }); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerSeccionLaboratorioPorIdAsync), new { id = seccionLaboratorioCreada.Id }); // 201 CREATED
         }
 
-        [HttpPut("{idSeccionLaboratorio}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarSeccionLaboratorioAsync(int idSeccionLaboratorio, SeccionLaboratorio seccionLaboratorio)
         {
-            var seccionLaboratorioActualizada = await _seccionLaboratorioService.ActualizarSeccionLaboratorioAsync(idSeccionLaboratorio,seccionLaboratorio);
+            var seccionLaboratorioActualizada = await _seccionLaboratorioService.ActualizarSeccionLaboratorioAsync(int idSeccionLaboratorio,SeccionLaboratorio seccionLaboratorio);
             if (!seccionLaboratorioActualizada)
             {
                 return NotFound(); // Código 404
@@ -51,7 +51,7 @@ namespace Asignacion.Web.Controllers
             return NoContent(); // 204 NO CONTENT
         }
 
-        [HttpDelete("{idSeccionLaboratorio}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> EliminarSeccionLaboratorioAsync(int idSeccionLaboratorio)
         {
             var seccionLaboratorioEliminada = await _seccionLaboratorioService.EliminarSeccionLaboratorioAsync(idSeccionLaboratorio);

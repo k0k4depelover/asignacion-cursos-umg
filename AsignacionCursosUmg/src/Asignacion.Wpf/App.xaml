@@ -1,0 +1,157 @@
+<Application x:Class="Asignacion.Wpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Asignacion.Wpf.ViewModels"
+             xmlns:vmShell="clr-namespace:Asignacion.Wpf.ViewModels.Shell"
+             xmlns:vmAdmin="clr-namespace:Asignacion.Wpf.ViewModels.Admin"
+             xmlns:vmEst="clr-namespace:Asignacion.Wpf.ViewModels.Estudiante"
+             xmlns:vmCat="clr-namespace:Asignacion.Wpf.ViewModels.Catedratico"
+             xmlns:vLogin="clr-namespace:Asignacion.Wpf.Views"
+             xmlns:vShell="clr-namespace:Asignacion.Wpf.Views.Shell"
+             xmlns:vAdmin="clr-namespace:Asignacion.Wpf.Views.Admin"
+             xmlns:vEst="clr-namespace:Asignacion.Wpf.Views.Estudiante"
+             xmlns:vCat="clr-namespace:Asignacion.Wpf.Views.Catedratico">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- Root navigation: Login + 3 role shells -->
+            <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                <vLogin:LoginView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmShell:AdminShellViewModel}">
+                <vShell:AdminShellView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmShell:EstudianteShellViewModel}">
+                <vShell:EstudianteShellView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmShell:CatedraticoShellViewModel}">
+                <vShell:CatedraticoShellView/>
+            </DataTemplate>
+
+            <!-- Admin: structurally-identical CRUD screens all share SimpleCrudListView -->
+            <DataTemplate DataType="{x:Type vmAdmin:FacultadListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:CarreraListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:CursoListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:EdificioListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:SalonListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:LaboratorioListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:PeriodoAcademicoListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:UsuarioListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:EstudianteListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:CatedraticoListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:RolListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:PermisoListViewModel}">
+                <vAdmin:SimpleCrudListView/>
+            </DataTemplate>
+
+            <!-- Admin: custom (non-generic) screens -->
+            <DataTemplate DataType="{x:Type vmAdmin:PensumListViewModel}">
+                <vAdmin:PensumListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:SeccionListViewModel}">
+                <vAdmin:SeccionListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:RolPermisoMatrizViewModel}">
+                <vAdmin:RolPermisoMatrizView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:AdminDashboardViewModel}">
+                <vAdmin:AdminDashboardView/>
+            </DataTemplate>
+
+            <!-- Admin: edit dialogs (hosted directly as a Window's Content) -->
+            <DataTemplate DataType="{x:Type vmAdmin:FacultadEditViewModel}">
+                <vAdmin:FacultadEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:CarreraEditViewModel}">
+                <vAdmin:CarreraEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:CursoEditViewModel}">
+                <vAdmin:CursoEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:EdificioEditViewModel}">
+                <vAdmin:EdificioEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:SalonEditViewModel}">
+                <vAdmin:SalonEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:LaboratorioEditViewModel}">
+                <vAdmin:LaboratorioEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:PeriodoAcademicoEditViewModel}">
+                <vAdmin:PeriodoAcademicoEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:UsuarioEditViewModel}">
+                <vAdmin:UsuarioEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:EstudianteEditViewModel}">
+                <vAdmin:EstudianteEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:CatedraticoEditViewModel}">
+                <vAdmin:CatedraticoEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:RolEditViewModel}">
+                <vAdmin:RolEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:PermisoEditViewModel}">
+                <vAdmin:PermisoEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:PensumEditViewModel}">
+                <vAdmin:PensumEditView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmAdmin:SeccionEditViewModel}">
+                <vAdmin:SeccionEditView/>
+            </DataTemplate>
+
+            <!-- Estudiante -->
+            <DataTemplate DataType="{x:Type vmEst:MisCursosViewModel}">
+                <vEst:MisCursosView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmEst:InscripcionWizardViewModel}">
+                <vEst:InscripcionWizardView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmEst:MiHorarioViewModel}">
+                <vEst:MiHorarioView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmEst:MisCalificacionesViewModel}">
+                <vEst:MisCalificacionesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmEst:MiPagoViewModel}">
+                <vEst:MiPagoView/>
+            </DataTemplate>
+
+            <!-- Catedratico -->
+            <DataTemplate DataType="{x:Type vmCat:MisSeccionesViewModel}">
+                <vCat:MisSeccionesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmCat:SeccionEstudiantesViewModel}">
+                <vCat:SeccionEstudiantesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmCat:CalificacionesViewModel}">
+                <vCat:CalificacionesView/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

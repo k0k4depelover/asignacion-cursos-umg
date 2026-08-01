@@ -1,0 +1,105 @@
+<UserControl x:Class="Asignacion.Wpf.Views.Admin.PensumListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding MensajeError}" Foreground="Red" Margin="0,0,0,8"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Columna 1: Pensums -->
+            <DockPanel Grid.Column="0" Margin="0,0,8,0">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                    <Button Content="Nuevo" Command="{Binding NuevoPensumCommand}" Padding="8,4" Margin="0,0,4,0"/>
+                    <Button Content="Editar" Command="{Binding EditarPensumCommand}" Padding="8,4" Margin="0,0,4,0"/>
+                    <Button Content="Act/Desact" Command="{Binding DesactivarPensumCommand}" Padding="8,4"/>
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding Pensums}" SelectedItem="{Binding PensumSeleccionado}"
+                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Código" Binding="{Binding Codigo}"/>
+                        <DataGridTextColumn Header="Año" Binding="{Binding Anio}"/>
+                        <DataGridTextColumn Header="Jornada" Binding="{Binding Jornada}"/>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding Estado}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+
+            <!-- Columna 2: Cursos del pensum -->
+            <DockPanel Grid.Column="1" Margin="0,0,8,0">
+                <TextBlock DockPanel.Dock="Top" Text="Cursos del pensum" FontWeight="Bold" Margin="0,0,0,6"/>
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                    <ComboBox ItemsSource="{Binding CursosDisponibles}" DisplayMemberPath="Nombre" SelectedValuePath="Id"
+                              SelectedValue="{Binding IdCursoNuevo}" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBlock Text="Ciclo:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox Text="{Binding CicloNuevo}" Width="50" Margin="0,0,8,0"/>
+                        <CheckBox Content="Obligatorio" IsChecked="{Binding ObligatorioNuevo}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Agregar curso" Command="{Binding AgregarCursoCommand}" Padding="8,4" Margin="0,0,4,0"/>
+                        <Button Content="Quitar curso" Command="{Binding QuitarCursoCommand}" Padding="8,4"/>
+                    </StackPanel>
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding CursosDelPensum}" SelectedItem="{Binding CursoSeleccionado}"
+                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Código" Binding="{Binding CursoCodigo}"/>
+                        <DataGridTextColumn Header="Curso" Binding="{Binding CursoNombre}" Width="*"/>
+                        <DataGridTextColumn Header="Ciclo" Binding="{Binding Ciclo}"/>
+                        <DataGridCheckBoxColumn Header="Obligatorio" Binding="{Binding EsObligatorio}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+
+            <!-- Columna 3: Requisitos del curso seleccionado -->
+            <DockPanel Grid.Column="2">
+                <TextBlock DockPanel.Dock="Top" Text="Requisitos del curso seleccionado" FontWeight="Bold" Margin="0,0,0,6"/>
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBlock Text="Tipo:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <ComboBox Width="150" Text="{Binding TipoRequisitoNuevo}" IsEditable="True">
+                            <ComboBoxItem Content="curso_aprobado"/>
+                            <ComboBoxItem Content="creditos_minimos"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock Text="Curso requerido:"/>
+                    <ComboBox ItemsSource="{Binding CursosDisponibles}" DisplayMemberPath="Nombre" SelectedValuePath="Id"
+                              SelectedValue="{Binding IdCursoRequeridoNuevo}" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBlock Text="Créditos mínimos:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                        <TextBox Text="{Binding CreditosMinimosNuevo}" Width="60"/>
+                    </StackPanel>
+                    <TextBox Text="{Binding DescripcionRequisitoNuevo}" Margin="0,0,0,4"
+                             ToolTip="Descripción (opcional)"/>
+                    <Button Content="Agregar requisito" Command="{Binding AgregarRequisitoCommand}" Padding="8,4" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding RequisitosDelCurso}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding TipoRequisito}"/>
+                        <DataGridTextColumn Header="Curso requerido" Binding="{Binding CursoRequeridoNombre}" Width="*"/>
+                        <DataGridTextColumn Header="Créditos mín." Binding="{Binding CreditosMinimos}"/>
+                        <DataGridTemplateColumn Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Quitar" Padding="6,2"
+                                            Command="{Binding DataContext.QuitarRequisitoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -6,57 +6,59 @@ namespace Asignacion.Web.Services
 {
     public class LaboratorioService : ILaboratorioService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
 
-        public LaboratorioService(AppDbContext context)
+
+            public LaboratorioService(AppContext context)
         {
             _context = context;
         }
 
         public async Task<List<Laboratorio>> ObtenerTodosLaboratoriosAsync()
         {
-            return await _context.Laboratorios.ToListAsync();
+            return await _context.Laboratorio.ToListAsync();
         }
 
         public async Task<Laboratorio?> ObtenerLaboratorioPorIdAsync(int idLaboratorio)
         {
-            return await _context.Laboratorios.FindAsync(idLaboratorio);
+            return await _context.Laboratorio.FindAsync(idLaboratorio);
         }
 
         public async Task<Laboratorio> CrearLaboratorioAsync(Laboratorio laboratorio)
         {
-            _context.Laboratorios.Add(laboratorio);
+            _context.Laboratorio.AddAsync(laboratorio);
             await _context.SaveChangesAsync();
             return laboratorio;
         }
 
         public async Task<bool> ActualizarLaboratorioAsync(int idLaboratorio, Laboratorio laboratorio)
         {
-            var laboratorioExistente = await _context.Laboratorios.FindAsync(idLaboratorio);
+            var laboratorioExistente = _context.Laboratorio.FindAsync(idLaboratorio);
             if (laboratorioExistente == null)
             {
                 return false;
             }
 
-            laboratorioExistente.IdLaboratorio = laboratorioExistente.IdLaboratorio;
+            laboratorioExistente.IdLaboratorio = laboratorio.IdLaboratorio;
             laboratorioExistente.NombreLaboratorio = laboratorio.NombreLaboratorio;
             laboratorioExistente.DescripcionLaboratorio = laboratorio.DescripcionLaboratorio;
             laboratorioExistente.EstadoLaboratorio = laboratorio.EstadoLaboratorio;
             laboratorioExistente.IdSalon = laboratorio.IdSalon;
-            await _context.SaveChangesAsync();
-            return true;
+            return true
         }
 
         public async Task<bool> EliminarLaboratorioAsync(int idLaboratorio)
         {
-            var laboratorioExistente = await _context.Laboratorios.FindAsync(idLaboratorio);
+            var laboratorioExistente = await _context.Laboratorio.FindAsync(idLaboratorio);
             if (laboratorioExistente == null)
             {
                 return false;
             }
-            _context.Laboratorios.Remove(laboratorioExistente);
+
+            _context.Laboratorio.Remove(laboratorioExistente);
             await _context.SaveChangesAsync();
             return true;
         }
+
     }
 }

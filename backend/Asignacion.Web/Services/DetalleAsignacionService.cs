@@ -6,58 +6,57 @@ namespace Asignacion.Web.Services
 {
     public class DetalleAsignacionService : IDetalleAsignacionService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
 
-        public DetalleAsignacionService(AppDbContext context)
+
+            public DetalleAsignacionService(AppContext context)
         {
             _context = context;
         }
 
         public async Task<List<DetalleAsignacion>> ObtenerTodosDetallesAsignacionesAsync()
         {
-            return await _context.DetallesAsignacion.ToListAsync();
+            return await _context.DetalleAsignacion.ToListAsync();
         }
 
         public async Task<DetalleAsignacion?> ObtenerDetalleAsignacionPorIdAsync(int idDetalleAsignacion)
         {
-            return await _context.DetallesAsignacion.FindAsync(idDetalleAsignacion);
+            return await _context.DetalleAsignacion.FindAsync(idDetalleAsignacion);
         }
 
         public async Task<DetalleAsignacion> CrearDetalleAsignacionAsync(DetalleAsignacion detalleAsignacion)
         {
-            _context.DetallesAsignacion.Add(detalleAsignacion);
+            _context.DetalleAsignacion.Add(detalleAsignacion);
             await _context.SaveChangesAsync();
             return detalleAsignacion;
         }
 
         public async Task<bool> ActualizarDetalleAsignacionAsync(int idDetalleAsignacion, DetalleAsignacion detalleAsignacion)
         {
-            var detalleAsignacionExistente = await _context.DetallesAsignacion.FindAsync(idDetalleAsignacion);
+            var detalleAsignacionExistente = await _context.DetalleAsignacion.FindAsync(idDetalleAsignacion);
             if (detalleAsignacionExistente == null)
             {
                 return false;
             }
-
-            detalleAsignacionExistente.IdDetalleAsignacion = detalleAsignacionExistente.IdDetalleAsignacion;
             detalleAsignacionExistente.EstadoDetalle = detalleAsignacion.EstadoDetalle;
             detalleAsignacionExistente.CostoLaboratorio = detalleAsignacion.CostoLaboratorio;
             detalleAsignacionExistente.NotaFinal = detalleAsignacion.NotaFinal;
             detalleAsignacionExistente.Resultado = detalleAsignacion.Resultado;
-            detalleAsignacionExistente.FechaResultado = detalleAsignacion.FechaResultado;
             detalleAsignacionExistente.IdAsignacion = detalleAsignacion.IdAsignacion;
-            detalleAsignacionExistente.IdSeccion = detalleAsignacion.IdSeccion;
             await _context.SaveChangesAsync();
+
             return true;
         }
 
         public async Task<bool> EliminarDetalleAsignacionAsync(int idDetalleAsignacion)
         {
-            var detalleAsignacionExistente = await _context.DetallesAsignacion.FindAsync(idDetalleAsignacion);
+            var detalleAsignacionExistente = await _context.DetalleAsignacion.FindAsync(idDetalleAsignacion);
             if (detalleAsignacionExistente == null)
             {
                 return false;
             }
-            _context.DetallesAsignacion.Remove(detalleAsignacionExistente);
+
+            _context.DetalleAsignacion.Remove(detalleAsignacionExistente);
             await _context.SaveChangesAsync();
             return true;
         }
