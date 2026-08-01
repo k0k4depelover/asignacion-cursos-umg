@@ -1,0 +1,30 @@
+<UserControl x:Class="Asignacion.Wpf.Views.Catedratico.SeccionEstudiantesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding SeccionCodigo, StringFormat='Estudiantes de la sección {0}'}" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"/>
+        <TextBlock Grid.Row="1" Text="{Binding MensajeError}" Foreground="Red" Margin="0,0,0,8"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,8">
+            <Button Content="Ir a calificar" Command="{Binding IrACalificarCommand}" Padding="10,4" Margin="0,0,8,0"/>
+            <Button Content="Actualizar" Command="{Binding CargarCommand}" Padding="10,4"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="3" ItemsSource="{Binding Estudiantes}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Carnet" Binding="{Binding EstudianteCarnet}"/>
+                <DataGridTextColumn Header="Estudiante" Binding="{Binding EstudianteNombre}" Width="*"/>
+                <DataGridTextColumn Header="Estado" Binding="{Binding EstadoDetalle}"/>
+                <DataGridTextColumn Header="Nota" Binding="{Binding NotaFinal}"/>
+                <DataGridTextColumn Header="Resultado" Binding="{Binding Resultado}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

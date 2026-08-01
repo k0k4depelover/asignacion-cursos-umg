@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class CatedraticoController : ControllerBase
     {
-        private readonly ICatedraticoService _catedraticoService;
+        private readonly ICatedraticoService catedraticoService;
         public CatedraticoController(ICatedraticoService catedraticoService)
         {
             _catedraticoService = catedraticoService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idCatedratico}")]
         public async Task<ActionResult<Catedratico>> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
-            var catedraticoDb = await _catedraticoService.ObtenerCatedraticoPorIdAsync(idCatedratico);
+            var catedraticoDb = await _catedraticoService.ObtenerCatedraticoPorIdAsync(int idCatedratico);
             if (catedraticoDb == null)
             {
                 return NotFound(); // Código 404
@@ -34,13 +34,13 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<Catedratico>> CrearCatedraticoAsync(Catedratico catedratico)
         {
             var catedraticoCreado = await _catedraticoService.CrearCatedraticoAsync(catedratico);
-            return CreatedAtAction(nameof(ObtenerCatedraticoPorIdAsync), new { idCatedratico = catedraticoCreado.IdCatedratico }, catedraticoCreado); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerCatedraticoPorIdAsync), new { id = catedraticoCreado.IdCatedratico }, catedraticoCreado); // 201 CREATED
         }
 
         [HttpPut("{idCatedratico}")]
         public async Task<IActionResult> ActualizarCatedraticoAsync(int idCatedratico, Catedratico catedratico)
         {
-            var catedraticoActualizado = await _catedraticoService.ActualizarCatedraticoAsync(idCatedratico, catedratico);
+            var catedraticoActualizado = await _catedraticoService.ActualizarCatedraticoAsync(Int idCatedratico, Catedratico catedratico);
             if (!catedraticoActualizado)
             {
                 return NotFound(); // Código 404

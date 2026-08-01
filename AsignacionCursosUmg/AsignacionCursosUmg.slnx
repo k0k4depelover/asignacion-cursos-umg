@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Asignacion.Data/Asignacion.Data.csproj" />
+    <Project Path="src/Asignacion.Services/Asignacion.Services.csproj" />
+    <Project Path="src/Asignacion.Wpf/Asignacion.Wpf.csproj" />
+  </Folder>
+</Solution>

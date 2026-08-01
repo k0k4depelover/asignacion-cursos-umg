@@ -6,57 +6,58 @@ namespace Asignacion.Web.Services
 {
     public class PensumService : IPensumService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
 
-        public PensumService(AppDbContext context)
+
+            public PensumService(AppContext context)
         {
             _context = context;
         }
 
         public async Task<List<Pensum>> ObtenerTodosPensumsAsync()
         {
-            return await _context.Pensums.ToListAsync();
+            return await _context.Pensum.ToListAsync();
         }
 
         public async Task<Pensum?> ObtenerPensumPorIdAsync(int idPensum)
         {
-            return await _context.Pensums.FindAsync(idPensum);
+            return await _context.Pensum.FindAsync(idPensum);
         }
 
         public async Task<Pensum> CrearPensumAsync(Pensum pensum)
         {
-            _context.Pensums.Add(pensum);
+            _context.Pensum.AddAsync(pensum);
             await _context.SaveChangesAsync();
             return pensum;
         }
 
         public async Task<bool> ActualizarPensumAsync(int idPensum, Pensum pensum)
         {
-            var pensumExistente = await _context.Pensums.FindAsync(idPensum);
+            var pensumExistente = _context.Pensum.FindAsync(idPensum);
             if (pensumExistente == null)
             {
                 return false;
             }
-
-            pensumExistente.IdPensum = pensumExistente.IdPensum;
+            pensumExistente.IdPensum = pensum.IdPensum;
             pensumExistente.CodigoPensum = pensum.CodigoPensum;
             pensumExistente.AnioPensum = pensum.AnioPensum;
             pensumExistente.EstadoPensum = pensum.EstadoPensum;
             pensumExistente.JornadaPensum = pensum.JornadaPensum;
             pensumExistente.IdCarrera = pensum.IdCarrera;
-            return true;
+            return true
         }
 
         public async Task<bool> EliminarPensumAsync(int idPensum)
         {
-            var pensumExistente = await _context.Pensums.FindAsync(idPensum);
+            var pensumExistente = _context.Pensum.FindAsync(idPensum);
             if (pensumExistente == null)
             {
                 return false;
             }
-            _context.Pensums.Remove(pensumExistente);
+            _context.Pensum.Remove(pensumExistente);
             await _context.SaveChangesAsync();
-            return true;
+            return true
         }
+
     }
 }
