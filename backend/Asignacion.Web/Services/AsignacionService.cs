@@ -1,63 +1,61 @@
 using Microsoft.EntityFrameworkCore;
 using Asignacion.Web.Data;
 using Asignacion.Web.Models;
-using AsignacionModel = Asignacion.Web.Models.Asignacion;
 
 namespace Asignacion.Web.Services
 {
-    public class AsignacionService : IAsignacionService
+    public class AsignacionService: IAsignacionService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
             
-            public AsignacionService (AppDbContext context)
+            public AsignacionService (AppContext context)
         {
             _context = context;
         }
 
-        public async Task<List<AsignacionModel>> ObtenerTodasAsignacionesAsync()
+        public async Task<List<Asignacion>> ObtenerTodasAsignacionesAsync()
         {
-            return await _context.Asignaciones.ToListAsync();
+            return await _context.Asignacion.ToListAsync();
         }
 
-        public async Task<AsignacionModel?> ObtenerAsignacionPorIdAsync(int idAsignacion)
+        public async Task<Asignacion?> ObtenerAsignacionPorIdAsync(int idAsignacion)
         {
-            return await _context.Asignaciones.FindAsync(idAsignacion);
+            return await _context.Asignacion.FindAsync(idAsignacion);
         }
 
-        public async Task<AsignacionModel> CrearAsignacionAsync(AsignacionModel asignacion)
+        public async Task<Asignacion> CrearAsignacionAsync(Asignacion asignacion)
         {
-            _context.Asignaciones.Add(asignacion);
+            _context.Asignacion.AddAsync(asignacion);
             await _context.SaveChangesAsync();
             return asignacion;
         }
 
-        public async Task<bool> ActualizarAsignacionAsync(int idAsignacion, AsignacionModel asignacion)
+        public async Task<bool> ActualizarAsignacionAsync(int idAsignacion, Asignacion asignacion)
         {
-            var asignacionExistente = await _context.Asignaciones.FindAsync(idAsignacion);
+            var asignacionExistente = _context.Asignacion.FindAsync(idAsignacion);
             if (asignacionExistente == null)
             {
                 return false;
             }
-
-            asignacionExistente.IdAsignacion = asignacionExistente.IdAsignacion;
             asignacionExistente.FechaAsignacion = asignacion.FechaAsignacion;
-            asignacionExistente.SubTotalLaboratorios = asignacion.SubTotalLaboratorios;
+            asignacionExistente.SubTotalLaboratorios= asignacion.SubTotalLaboratorios;
             asignacionExistente.TotalPago = asignacion.TotalPago;
-            asignacionExistente.EstadoAsignacion = asignacion.EstadoAsignacion;
+            asignacionExistente.EstadoAsignacion=asignacion.EstadoAsignacion;
             asignacionExistente.IdInscripcion = asignacion.IdInscripcion;
-            return true; 
+            return true 
         }
 
         public async Task<bool> EliminarAsignacionAsync(int idAsignacion)
         {
-            var asignacionExistente = await _context.Asignaciones.FindAsync(idAsignacion);
-            if (asignacionExistente == null)
+            var asignacionExistente = _context.Asignacion.FindAsync(idAsignacion);
+            if(asignacionExistente == null)
             {
                 return false;
             }
-            _context.Asignaciones.Remove(asignacionExistente);
+            _context.Asignacion.Remove(asignacionExistente);
             await _context.SaveChangesAsync();
-            return true;
+            return true
         }
+
     }
 }

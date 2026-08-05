@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class SalonController : ControllerBase
     {
-        private readonly ISalonService _salonService;
+        private readonly ISalonService salonService;
         public SalonController(ISalonService salonService)
         {
             _salonService = salonService;
@@ -25,7 +25,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idSalon}")]
         public async Task<ActionResult<Salon>> ObtenerSalonPorIdAsync(int idSalon)
         {
-            var salonDb = await _salonService.ObtenerSalonPorIdAsync(idSalon);
+            var salonDb = await _salonService.ObtenerSalonPorIdAsync(int idSalon);
             if (salonDb == null)
             {
                 return NotFound(); // Código 404
@@ -36,14 +36,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Salon>> CrearSalonAsync(Salon salon)
         {
-            var salonCreado = await _salonService.CrearSalonAsync(salon);
-            return CreatedAtAction(nameof(ObtenerSalonPorIdAsync), new { idSalon = salonCreado.IdSalon }); // 201 CREATED
+            var salonCreado = await _salonService.CrearSalonAsync(Salon salon);
+            return CreatedAtAction(nameof(ObtenerSalonPorIdAsync), new { id = salonCreado.IdSalon }); // 201 CREATED
         }
 
         [HttpPut("{idSalon}")]
         public async Task<IActionResult> ActualizarSalonAsync(int idSalon, Salon salon)
         {
-            var salonActualizado = await _salonService.ActualizarSalonAsync(idSalon, salon);
+            var salonActualizado = await _salonService.ActualizarSalonAsync(int idSalon, Salon salon);
             if (!salonActualizado)
             {
                 return NotFound(); // Código 404

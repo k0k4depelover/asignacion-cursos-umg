@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class HorarioSeccionController : ControllerBase
     {
-        private readonly IHorarioSeccionService _horarioSeccionService;
+        private readonly IHorarioSeccionService horarioSeccionService;
         public HorarioSeccionController(IHorarioSeccionService horarioSeccionService)
         {
             _horarioSeccionService = horarioSeccionService;
@@ -25,7 +25,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idHorarioSeccion}")]
         public async Task<ActionResult<HorarioSeccion>> ObtenerHorarioSeccionPorIdAsync(int idHorarioSeccion)
         {
-            var horarioSeccionDb = await _horarioSeccionService.ObtenerHorarioSeccionPorIdAsync(idHorarioSeccion);
+            var horarioSeccionDb = await _horarioSeccionService.ObtenerHorarioSeccionPorIdAsync(int idHorarioSeccion);
             if (horarioSeccionDb == null)
             {
                 return NotFound(); // Código 404
@@ -36,14 +36,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<HorarioSeccion>> CrearHorarioSeccionAsync(HorarioSeccion horarioSeccion)
         {
-            var horarioSeccionCreado = await _horarioSeccionService.CrearHorarioSeccionAsync(horarioSeccion);
-            return CreatedAtAction(nameof(ObtenerHorarioSeccionPorIdAsync), new { idHorarioSeccion = horarioSeccionCreado.IdHorario }, horarioSeccionCreado); // 201 CREATED
+            var horarioSeccionCreado = await _horarioSeccionService.CrearHorarioSeccionAsync(HorarioSeccion horarioSeccion);
+            return CreatedAtAction(nameof(ObtenerHorarioSeccionPorIdAsync), new { id = horarioSeccionCreado.IdHorarioSeccion }); // 201 CREATED
         }
 
         [HttpPut("{idHorarioSeccion}")]
         public async Task<IActionResult> ActualizarHorarioSeccionAsync(int idHorarioSeccion, HorarioSeccion horarioSeccion)
         {
-            var horarioActualizado = await _horarioSeccionService.ActualizarHorarioSeccionAsync(idHorarioSeccion, horarioSeccion);
+            var horarioActualizado = await _horarioSeccionService.ActualizarHorarioSeccionAsync(int idHorarioSeccion, HorarioSeccion horarioSeccion);
             if (!horarioActualizado)
             {
                 return NotFound(); // Código 404

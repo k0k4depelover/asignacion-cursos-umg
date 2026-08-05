@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class LaboratorioController : ControllerBase
     {
-        private readonly ILaboratorioService _laboratorioService;
+        private readonly ILaboratorioService laboratorioService;
         public LaboratorioController(ILaboratorioService laboratorioService)
         {
             _laboratorioService = laboratorioService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idLaboratorio}")]
         public async Task<ActionResult<Laboratorio>> ObtenerLaboratorioPorIdAsync(int idLaboratorio)
         {
-            var laboratorioDb = await _laboratorioService.ObtenerLaboratorioPorIdAsync(idLaboratorio);
+            var laboratorioDb = await _laboratorioService.ObtenerLaboratorioPorIdAsync(int idLaboratorio);
             if (laboratorioDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,13 +33,13 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Laboratorio>> CrearLaboratorioAsync(Laboratorio laboratorio)
         {
-            var laboratorioCreado = await _laboratorioService.CrearLaboratorioAsync(laboratorio);
-            return CreatedAtAction(nameof(ObtenerLaboratorioPorIdAsync), new { idLaboratorio = laboratorioCreado.IdLaboratorio }); // 201 CREATED
+            var laboratorioCreado = await _laboratorioService.CrearLaboratorioAsync(Laboratorio laboratorio);
+            return CreatedAtAction(nameof(ObtenerLaboratorioPorIdAsync), new { id = laboratorioCreado.IdLaboratorio }); // 201 CREATED
         }
         [HttpPut("{idLaboratorio}")]
         public async Task<IActionResult> ActualizarLaboratorioAsync(int idLaboratorio, Laboratorio laboratorio)
         {
-            var laboratorioActualizado = await _laboratorioService.ActualizarLaboratorioAsync(idLaboratorio, laboratorio);
+            var laboratorioActualizado = await _laboratorioService.ActualizarLaboratorioAsync(int idLaboratorio, Laboratorio laboratorio);
             if (!laboratorioActualizado)
             {
                 return NotFound(); // Código 404
@@ -57,4 +57,3 @@ namespace Asignacion.Web.Controllers
             return NoContent(); // 204 NO CONTENT
         }
     }
-}

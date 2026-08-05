@@ -1,0 +1,41 @@
+<UserControl x:Class="Asignacion.Wpf.Views.Admin.AdminDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <DockPanel Margin="0,0,0,16">
+            <TextBlock Text="Panel principal" FontSize="18" FontWeight="Bold"/>
+            <Button Content="Actualizar" Command="{Binding CargarCommand}" Padding="10,4" HorizontalAlignment="Right"/>
+        </DockPanel>
+
+        <TextBlock Text="{Binding MensajeError}" Foreground="Red" Margin="0,0,0,12"/>
+
+        <TextBlock Text="{Binding Datos.PeriodoActualCodigo, StringFormat='Período actual: {0}'}" Margin="0,0,0,16" FontStyle="Italic"/>
+
+        <WrapPanel>
+            <Border Background="#FFEFF6FF" CornerRadius="6" Padding="16" Margin="0,0,12,12" Width="220">
+                <StackPanel>
+                    <TextBlock Text="Estudiantes activos" Foreground="Gray"/>
+                    <TextBlock Text="{Binding Datos.EstudiantesActivos}" FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#FFEFFDF3" CornerRadius="6" Padding="16" Margin="0,0,12,12" Width="220">
+                <StackPanel>
+                    <TextBlock Text="Secciones abiertas (período actual)" Foreground="Gray" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Datos.SeccionesAbiertasPeriodoActual}" FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#FFFFF7E6" CornerRadius="6" Padding="16" Margin="0,0,12,12" Width="220">
+                <StackPanel>
+                    <TextBlock Text="Ocupación promedio" Foreground="Gray"/>
+                    <TextBlock Text="{Binding Datos.OcupacionPromedioPorcentaje, StringFormat='{}{0}%'}" FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            <Border Background="#FFFDEFF6" CornerRadius="6" Padding="16" Margin="0,0,12,12" Width="220">
+                <StackPanel>
+                    <TextBlock Text="Ingreso proyectado del período" Foreground="Gray" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Datos.IngresoProyectadoPeriodoActual, StringFormat='Q {0:N2}'}" FontSize="24" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

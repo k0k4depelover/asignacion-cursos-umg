@@ -1,0 +1,108 @@
+<UserControl x:Class="Asignacion.Wpf.Views.Admin.SeccionListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding MensajeError}" Foreground="Red" Margin="0,0,0,8"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="380"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Secciones -->
+            <DockPanel Grid.Column="0" Margin="0,0,8,0">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                    <Button Content="Nueva" Command="{Binding NuevaSeccionCommand}" Padding="8,4" Margin="0,0,4,0"/>
+                    <Button Content="Editar" Command="{Binding EditarSeccionCommand}" Padding="8,4" Margin="0,0,4,0"/>
+                    <Button Content="Act/Desact" Command="{Binding DesactivarSeccionCommand}" Padding="8,4"/>
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding Secciones}" SelectedItem="{Binding SeccionSeleccionada}"
+                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Código" Binding="{Binding Codigo}"/>
+                        <DataGridTextColumn Header="Curso" Binding="{Binding CursoNombre}" Width="*"/>
+                        <DataGridTextColumn Header="Período" Binding="{Binding PeriodoCodigo}"/>
+                        <DataGridTextColumn Header="Cupo" Binding="{Binding CupoOcupado}"/>
+                        <DataGridTextColumn Header="Máx" Binding="{Binding CupoMaximo}"/>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding Estado}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+
+            <!-- Horarios y laboratorios de la sección seleccionada -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" Margin="0,0,0,8">
+                    <TextBlock DockPanel.Dock="Top" Text="Horario de clases" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,6,0,0">
+                        <ComboBox Width="100" Text="{Binding DiaSemanaNuevo}" IsEditable="True" Margin="0,0,4,0">
+                            <ComboBoxItem Content="Lunes"/><ComboBoxItem Content="Martes"/><ComboBoxItem Content="Miercoles"/>
+                            <ComboBoxItem Content="Jueves"/><ComboBoxItem Content="Viernes"/><ComboBoxItem Content="Sabado"/>
+                        </ComboBox>
+                        <TextBox Width="60" Text="{Binding HoraInicioNueva}" Margin="0,0,4,0"/>
+                        <TextBox Width="60" Text="{Binding HoraFinNueva}" Margin="0,0,4,0"/>
+                        <TextBox Width="80" Text="{Binding TipoSesionNueva}" Margin="0,0,4,0"/>
+                        <Button Content="Agregar" Command="{Binding AgregarHorarioCommand}" Padding="8,4"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding Horarios}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Día" Binding="{Binding DiaSemana}"/>
+                            <DataGridTextColumn Header="Inicio" Binding="{Binding HoraInicio}"/>
+                            <DataGridTextColumn Header="Fin" Binding="{Binding HoraFin}"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding TipoSesion}" Width="*"/>
+                            <DataGridTemplateColumn Header="">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Quitar" Padding="6,2"
+                                                Command="{Binding DataContext.QuitarHorarioCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+
+                <DockPanel Grid.Row="1">
+                    <TextBlock DockPanel.Dock="Top" Text="Bloques de laboratorio" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,6,0,0">
+                        <ComboBox Width="150" ItemsSource="{Binding LaboratoriosDisponibles}" DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Id" SelectedValue="{Binding IdLaboratorioNuevo}" Margin="0,0,4,0"/>
+                        <TextBox Width="60" Text="{Binding HoraInicioLabNueva}" Margin="0,0,4,0"/>
+                        <TextBox Width="60" Text="{Binding HoraFinLabNueva}" Margin="0,0,4,0"/>
+                        <TextBox Width="70" Text="{Binding CostoExtraNuevo}" Margin="0,0,4,0"/>
+                        <Button Content="Agregar" Command="{Binding AgregarLaboratorioCommand}" Padding="8,4"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding LaboratoriosSeccion}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Laboratorio" Binding="{Binding LaboratorioNombre}" Width="*"/>
+                            <DataGridTextColumn Header="Día" Binding="{Binding DiaSemana}"/>
+                            <DataGridTextColumn Header="Inicio" Binding="{Binding HoraInicio}"/>
+                            <DataGridTextColumn Header="Fin" Binding="{Binding HoraFin}"/>
+                            <DataGridTextColumn Header="Costo extra" Binding="{Binding CostoExtra}"/>
+                            <DataGridTemplateColumn Header="">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Quitar" Padding="6,2"
+                                                Command="{Binding DataContext.QuitarLaboratorioCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

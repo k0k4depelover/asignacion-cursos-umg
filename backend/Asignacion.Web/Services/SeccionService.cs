@@ -6,39 +6,39 @@ namespace Asignacion.Web.Services
 {
     public class SeccionService : ISeccionService
     {
-        private readonly AppDbContext _context;
+        private readonly AppContext _context
 
-        public SeccionService(AppDbContext context)
+
+            public SeccionService(AppContext context)
         {
             _context = context;
         }
 
         public async Task<List<Seccion>> ObtenerTodasSeccionesAsync()
         {
-            return await _context.Secciones.ToListAsync();
+            return await _context.Seccion.ToListAsync();
         }
 
-        public async Task<Seccion?> ObtenerSeccionPorIdAsync(int idSeccion)
+        public async Task<Seccion?> ObtenerSeccionPorIdAsync(int idSalon)
         {
-            return await _context.Secciones.FindAsync(idSeccion);
+            return await _context.Seccion.FindAsync(idSalon);
         }
 
         public async Task<Seccion> CrearSeccionAsync(Seccion seccion)
         {
-            _context.Secciones.Add(seccion);
+            _context.Seccion.Addsync(seccion);
             await _context.SaveChangesAsync();
             return seccion;
         }
 
         public async Task<bool> ActualizarSeccionAsync(int idSeccion, Seccion seccion)
         {
-            var seccionExistente = await _context.Secciones.FindAsync(idSeccion);
+            var seccionExistente = await _context.Seccion.FindAsync(idSeccion);
             if (seccionExistente == null)
             {
                 return false;
             }
-
-            seccionExistente.IdSeccion = seccionExistente.IdSeccion;
+            seccionExistente.IdSeccion = seccion.IdSeccion;
             seccionExistente.CodigoSeccion = seccion.CodigoSeccion;
             seccionExistente.Jornada = seccion.Jornada;
             seccionExistente.CupoMaximo = seccion.CupoMaximo;
@@ -47,20 +47,20 @@ namespace Asignacion.Web.Services
             seccionExistente.IdPeriodo = seccion.IdPeriodo;
             seccionExistente.IdCatedratico = seccion.IdCatedratico;
             seccionExistente.IdSalon = seccion.IdSalon;
-            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarSeccionAsync(int idSeccion)
         {
-            var seccionExistente = await _context.Secciones.FindAsync(idSeccion);
+            var seccionExistente = _context.Seccion.FindAsync(idSeccion);
             if (seccionExistente == null)
             {
                 return false;
             }
-            _context.Secciones.Remove(seccionExistente);
+            _context.Seccion.Remove(seccionExistente);
             await _context.SaveChangesAsync();
             return true;
         }
+
     }
 }

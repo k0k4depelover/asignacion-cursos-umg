@@ -1,0 +1,7 @@
+<Window x:Class="Asignacion.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Asignación de Cursos UMG" Height="720" Width="1180"
+        WindowStartupLocation="CenterScreen">
+    <ContentControl Content="{Binding CurrentViewModel}"/>
+</Window>

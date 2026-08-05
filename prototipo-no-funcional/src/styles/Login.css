@@ -1,0 +1,74 @@
+.login-container {
+    max-width: 400px;
+    margin: 70px auto;
+    padding: 30px;
+    background-color: #9a2626;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-title {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+.login-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+    .login-input:focus {
+        border-color: #e8e8e8;
+        outline: none;
+    }
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.333);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .login-button:hover:not(:disabled) {
+        background-color: #667ebb;
+    }
+
+    .login-button:disabled {
+        background-color: #a0a4a9;
+        cursor: not-allowed;
+    }
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+    color: #6b7280;
+}
