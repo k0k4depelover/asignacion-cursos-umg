@@ -53,4 +53,4 @@ export function createResourceClient(resource) {
   };
 }
 
-export { ApiError, BASE_URL };
+export { ApiError, BASE_URL, request };

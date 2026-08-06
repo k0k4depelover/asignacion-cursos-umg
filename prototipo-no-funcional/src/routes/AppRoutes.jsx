@@ -5,14 +5,16 @@ import DashboardRouter from '../components/dashboards/DashboardRouter';
 import ProtectedRoute from '../components/ProtectedRoute';
 import RoleGuard from '../components/RoleGuard';
 import AccessDenied from '../components/AccessDenied';
+import AppLayout from '../layout/AppLayout';
+import Home from '../pages/Home';
+import CrudPage from '../pages/CrudPage';
 
 // Importar los dashboards específicos
-import DashboardAdministrador from '../components/dashboards/DashboardAdministrador';
 import DashboardEstudiante from '../components/dashboards/DashboardEstudiante';
 import DashboardCatedratico from '../components/dashboards/DashboardCatedratico';
 
 const AppRoutes = () => {
-    const { user, loading } = useAuth();
+    const { loading } = useAuth();
 
     if (loading) {
         return <div className="loading-screen">Cargando...</div>;
@@ -23,17 +25,20 @@ const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/acceso-denegado" element={<AccessDenied />} />
 
-            {/* Rutas protegidas con roles específicos */}
+            {/* Panel de administrador: shell con navegación + módulos CRUD */}
             <Route
-                path="/dashboard/admin/*"
+                path="/dashboard/admin"
                 element={
                     <ProtectedRoute>
                         <RoleGuard allowedRoles={['Administrador', 'Admin']}>
-                            <DashboardAdministrador />
+                            <AppLayout />
                         </RoleGuard>
                     </ProtectedRoute>
                 }
-            />
+            >
+                <Route index element={<Home />} />
+                <Route path="modulo/:entityKey" element={<CrudPage />} />
+            </Route>
 
             <Route
                 path="/dashboard/estudiante/*"

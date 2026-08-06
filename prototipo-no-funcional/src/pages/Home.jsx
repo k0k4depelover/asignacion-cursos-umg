@@ -17,7 +17,7 @@ export default function Home() {
           <h3 className="home-group-title">{group.title}</h3>
           <div className="home-grid">
             {group.items.map((key) => (
-              <Link key={key} to={`/modulo/${key}`} className="home-card">
+              <Link key={key} to={`modulo/${key}`} className="home-card">
                 <span className="home-card-title">{schema[key].labelPlural}</span>
                 <span className="home-card-arrow">→</span>
               </Link>

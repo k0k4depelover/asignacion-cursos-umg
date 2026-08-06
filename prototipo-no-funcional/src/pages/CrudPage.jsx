@@ -42,7 +42,7 @@ export default function CrudPage() {
           value: item[idKey],
           label: fkEntity.displayField ? String(item[fkEntity.displayField]) : "#" + item[idKey],
         }));
-      } catch (e) {
+      } catch {
         options[field.name] = [];
       }
     }
@@ -85,6 +85,7 @@ export default function CrudPage() {
     setEditing(null);
     setBanner(null);
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityKey]);
 
   const handleCreate = () => setEditing({});

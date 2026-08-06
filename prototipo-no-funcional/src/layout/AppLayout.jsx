@@ -1,8 +1,17 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { navGroups, schema } from "../entities/schema";
 import "../styles/AppLayout.css";
 
-export default function AppLayout({ user, onLogout }) {
+export default function AppLayout() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <div className="app-shell">
       <aside className="app-sidebar">
@@ -12,7 +21,7 @@ export default function AppLayout({ user, onLogout }) {
         </div>
 
         <nav className="app-nav">
-          <NavLink to="/" end className={({ isActive }) => (isActive ? "app-nav-link app-nav-link--active" : "app-nav-link")}>
+          <NavLink to="." end className={({ isActive }) => (isActive ? "app-nav-link app-nav-link--active" : "app-nav-link")}>
             Inicio
           </NavLink>
 
@@ -22,7 +31,7 @@ export default function AppLayout({ user, onLogout }) {
               {group.items.map((key) => (
                 <NavLink
                   key={key}
-                  to={`/modulo/${key}`}
+                  to={`modulo/${key}`}
                   className={({ isActive }) => (isActive ? "app-nav-link app-nav-link--active" : "app-nav-link")}
                 >
                   {schema[key].labelPlural}
@@ -35,8 +44,8 @@ export default function AppLayout({ user, onLogout }) {
 
       <div className="app-main">
         <header className="app-topbar">
-          <span>Bienvenido, {user?.name}</span>
-          <button className="btn-secondary btn-sm" onClick={onLogout}>
+          <span>Bienvenido, {user?.nombre}</span>
+          <button className="btn-secondary btn-sm" onClick={handleLogout}>
             Cerrar sesión
           </button>
         </header>
