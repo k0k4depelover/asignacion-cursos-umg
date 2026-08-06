@@ -9,8 +9,8 @@ namespace Asignacion.Web.Models
         [Column("id_horario")]
         public int IdHorario { get; set; }
 
-        [Column("dia_semana")]
-        public required string DiaSemana { get; set; }
+        [Column("dia_semana_horario")]
+        public required string DiaSemanaHorario { get; set; }
 
         [Column("hora_inicio")]
         public required TimeSpan HoraInicio { get; set; }
