@@ -18,7 +18,7 @@ namespace Asignacion.Web.Models
 
         [Column("creditos_curso")]
         public int CreditosCurso { get; set; }
-        [Column("requiere_laboratorio")]
+        [Column("requiere_laboratorio_cursos")]
         public bool RequiereLaboratorio { get; set; }
 
         [Column("estado_curso")]
