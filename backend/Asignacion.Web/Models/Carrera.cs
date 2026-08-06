@@ -17,8 +17,8 @@ namespace Asignacion.Web.Models
         [Column("codigo_carrera")]
         public required string CodigoCarrera { get; set; }
 
-        [Column("total_ciclos")]
-        public required int TotalCiclos { get; set; }
+        [Column("total_ciclos_carrera")]
+        public required int TotalCiclosCarrera { get; set; }
 
         [Column("estado_carrera")]
         public required string EstadoCarrera { get; set; }
