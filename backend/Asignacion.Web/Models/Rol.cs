@@ -18,7 +18,7 @@ namespace Asignacion.Web.Models
         [Column("estado_rol")]
         public required string EstadoRol { get; set; }
 
-        public List<Usuario> Usuarios { get; set; } = new(); 
+        public List<Usuario> UsuariosRol { get; set; } = new(); 
 
         public List<RolPermiso> RolPermisos { get; set; } = new();
     }
