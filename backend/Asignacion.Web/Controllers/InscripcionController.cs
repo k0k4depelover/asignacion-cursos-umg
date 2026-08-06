@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class InscripcionController : ControllerBase
     {
-        private readonly IInscripcionService inscripcionService;
+        private readonly IInscripcionService _inscripcionService;
         public InscripcionController(IInscripcionService inscripcionService)
         {
             _inscripcionService = inscripcionService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idInscripcion}")]
         public async Task<ActionResult<Inscripcion>> ObtenerInscripcionPorIdAsync(int idInscripcion)
         {
-            var inscripcionDb = await _inscripcionService.ObtenerInscripcionPorIdAsync(int idInscripcion);
+            var inscripcionDb = await _inscripcionService.ObtenerInscripcionPorIdAsync(idInscripcion);
             if (inscripcionDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,14 +33,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Inscripcion>> CrearInscripcionAsync(Inscripcion inscripcion)
         {
-            var inscripcionCreada = await _inscripcionService.CrearInscripcionAsync(Inscripcion inscripcion);
-            return CreatedAtAction(nameof(ObtenerInscripcionPorIdAsync), new { id = inscripcionCreada.IdInscripcion }); // 201 CREATED
+            var inscripcionCreada = await _inscripcionService.CrearInscripcionAsync(inscripcion);
+            return CreatedAtAction(nameof(ObtenerInscripcionPorIdAsync), new { idInscripcion = inscripcionCreada.IdInscripcion }, inscripcionCreada); // 201 CREATED
         }
 
         [HttpPut("{idInscripcion}")]
         public async Task<IActionResult> ActualizarInscripcionAsync(int idInscripcion, Inscripcion inscripcion)
         {
-            var inscripcionActualizada = await _inscripcionService.ActualizarInscripcionAsync(int idInscripcion, Inscripcion inscripcion);
+            var inscripcionActualizada = await _inscripcionService.ActualizarInscripcionAsync(idInscripcion, inscripcion);
             if (!inscripcionActualizada)
             {
                 return NotFound(); // Código 404
@@ -51,7 +51,7 @@ namespace Asignacion.Web.Controllers
         [HttpDelete("{idInscripcion}")]
         public async Task<IActionResult> EliminarInscripcionAsync(int idInscripcion)
         {
-            var inscripcionEliminada = await _inscripcionService.EliminarInscripcionAsync( idInscripcion);
+            var inscripcionEliminada = await _inscripcionService.EliminarInscripcionAsync(idInscripcion);
             if (!inscripcionEliminada)
             {
                 return NotFound(); // Código 404

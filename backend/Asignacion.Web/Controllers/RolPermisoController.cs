@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class RolPermisoController : ControllerBase // Revisar Implementación y Controladores de Permiso y Rol Permiso
     {
-        private readonly IRolPermisoService rolPermisoService;
+        private readonly IRolPermisoService _rolPermisoService;
         public RolPermisoController(IRolPermisoService rolPermisoService)
         {
             _rolPermisoService = rolPermisoService;
@@ -24,7 +24,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idRolPermiso}")]
         public async Task<ActionResult<RolPermiso>> ObtenerRolPermisoPorIdAsync(int idRolPermiso)
         {
-            var rolPermisoDb = await _rolPermisoService.ObtenerRolPermisoPorIdAsync(int idRolPermiso);
+            var rolPermisoDb = await _rolPermisoService.ObtenerRolPermisoPorIdAsync(idRolPermiso);
             if (rolPermisoDb == null)
             {
                 return NotFound(); // Código 404
@@ -49,14 +49,14 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<RolPermiso>> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
-            var rolPermisoCreado = await _rolPermisoService.CrearRolPermisoAsync(RolPermiso rolPermiso);
-            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { id = rolPermisoCreado.IdRolPermiso }); // 201 CREATED
+            var rolPermisoCreado = await _rolPermisoService.CrearRolPermisoAsync(rolPermiso);
+            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { idRolPermiso = rolPermisoCreado.IdRolPermiso }, rolPermisoCreado); // 201 CREATED
         }
 
         [HttpPut("{idRolPermiso}")]
         public async Task<IActionResult> ActualizarRolPermisoAsync(int idRolPermiso, RolPermiso rolPermiso)
         {
-            var rolPermisoActualizado = await _rolPermisoService.ActualizarRolPermisoAsync(int idRolPermiso, RolPermiso rolPermiso);
+            var rolPermisoActualizado = await _rolPermisoService.ActualizarRolPermisoAsync(idRolPermiso, rolPermiso);
             if (!rolPermisoActualizado)
             {
                 return NotFound(); // Código 404
