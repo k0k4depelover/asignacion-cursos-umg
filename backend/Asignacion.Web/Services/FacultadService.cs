@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class FacultadService : IFacultadService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public FacultadService(AppContext context)
+            public FacultadService(AppDbContext context)
         {
             _context = context;
         }
@@ -28,8 +28,8 @@ namespace Asignacion.Web.Services
             return facultad;
         }
 
-        public async Task<bool> ActualizarFacultadAsync(int idFacultad, Facultad facultad) { 
-            var facultadExistente = await _context.Facultad.FindAsync(facultad);
+        public async Task<bool> ActualizarFacultadAsync(int idFacultad, Facultad facultad) {
+            var facultadExistente = await _context.Facultad.FindAsync(idFacultad);
             if (facultadExistente == null)
             {
                 return false;
@@ -39,11 +39,12 @@ namespace Asignacion.Web.Services
             facultadExistente.NombreFacultad = facultad.NombreFacultad;
             facultadExistente.EstadoFacultad = facultad.EstadoFacultad;
 
-
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarFacultadAsync(int idFacultad) {
-            var facultadExistente = await _context.Facultad.FindAsync(facultad);
+            var facultadExistente = await _context.Facultad.FindAsync(idFacultad);
             if (facultadExistente == null)
             {
                 return false;

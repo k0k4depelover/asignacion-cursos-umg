@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class PeriodoAcademicoService : IPeriodoAcademicoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public PeriodoAcademicoService(AppContext context)
+            public PeriodoAcademicoService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,15 +26,15 @@ namespace Asignacion.Web.Services
 
         public async Task<PeriodoAcademico> CrearPeriodoAcademicoAsync(PeriodoAcademico periodoAcademico)
         {
-            _context.PeriodoAcademico.AddAsync(periodoAcademico);
+            await _context.PeriodoAcademico.AddAsync(periodoAcademico);
             await _context.SaveChangesAsync();
             return periodoAcademico;
         }
 
         public async Task<bool> ActualizarPeriodoAcademicoAsync(int idPeriodoAcademico, PeriodoAcademico periodoAcademico)
         {
-            var periodoAcademicoExistente = _context.Asignacion.FindAsync(idPeriodoAcademico);
-            if (asignacionExistente == null)
+            var periodoAcademicoExistente = await _context.PeriodoAcademico.FindAsync(idPeriodoAcademico);
+            if (periodoAcademicoExistente == null)
             {
                 return false;
             }
@@ -47,19 +47,20 @@ namespace Asignacion.Web.Services
             periodoAcademicoExistente.PermiteInscripcion = periodoAcademico.PermiteInscripcion;
             periodoAcademicoExistente.PermiteAsignacion = periodoAcademico.PermiteAsignacion;
             periodoAcademicoExistente.EstadoPeriodo = periodoAcademico.EstadoPeriodo;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarPeriodoAcademicoAsync(int idPeriodoAcademico)
         {
-            var periodoAcademicoExistente = _context.PeriodoAcademico.FindAsync(idPeriodoAcademico);
+            var periodoAcademicoExistente = await _context.PeriodoAcademico.FindAsync(idPeriodoAcademico);
             if (periodoAcademicoExistente == null)
             {
                 return false;
             }
             _context.PeriodoAcademico.Remove(periodoAcademicoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

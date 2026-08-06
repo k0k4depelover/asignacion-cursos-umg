@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class FacultadController : ControllerBase
     {
-        private readonly IFacultadService facultadService;
+        private readonly IFacultadService _facultadService;
         public FacultadController(IFacultadService facultadService)
         {
             _facultadService = facultadService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idFacultad}")]
         public async Task<ActionResult<Facultad>> ObtenerFacultadPorIdAsync(int idFacultad)
         {
-            var facultadDb = await _facultadService.ObtenerFacultadPorIdAsync(int idFacultad);
+            var facultadDb = await _facultadService.ObtenerFacultadPorIdAsync(idFacultad);
             if (facultadDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,13 +33,13 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Facultad>> CrearFacultadAsync(Facultad facultad)
         {
-            var facultadCreada = await _facultadService.CrearFacultadAsync(Facultad facultad);
+            var facultadCreada = await _facultadService.CrearFacultadAsync(facultad);
             return CreatedAtAction(nameof(ObtenerFacultadPorIdAsync), new { id = facultadCreada.IdFacultad }); // 201 CREATED
         }
         [HttpPut("{idFacultad}")]
         public async Task<IActionResult> ActualizarFacultadAsync(int idFacultad, Facultad facultad)
         {
-            var facultadActualizada = await _facultadService.ActualizarFacultadAsync(int idFacultad, Facultad facultad);
+            var facultadActualizada = await _facultadService.ActualizarFacultadAsync(idFacultad, facultad);
             if (!facultadActualizada)
             {
                 return NotFound(); // Código 404

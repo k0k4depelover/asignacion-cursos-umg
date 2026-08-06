@@ -6,9 +6,9 @@ namespace Asignacion.Web.Services
 {
     public class CarreraService : ICarreraService
     {
-        private readonly AppContext _context;
+        private readonly AppDbContext _context;
 
-        public CarreraService(AppContext context)
+        public CarreraService(AppDbContext context)
         {
             _context = context;
         }
@@ -44,7 +44,7 @@ namespace Asignacion.Web.Services
 
             carreraExistente.NombreCarrera = carrera.NombreCarrera;
             carreraExistente.CodigoCarrera = carrera.CodigoCarrera;
-            carreraExistente.TotalCiclos = carrera.TotalCiclos;
+            carreraExistente.TotalCiclosCarrera = carrera.TotalCiclosCarrera;
             carreraExistente.EstadoCarrera = carrera.EstadoCarrera;
             carreraExistente.IdFacultad = carrera.IdFacultad;
 

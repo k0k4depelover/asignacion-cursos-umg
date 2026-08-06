@@ -33,18 +33,18 @@ namespace Asignacion.Web.Services
         {
             // Verificar que el correo no exista
             var existe = await _context.Usuarios
-                .AnyAsync(u => u.CorreoLogin == dto.CorreoLogin);
+                .AnyAsync(u => u.CorreoLoginUsuario == dto.CorreoLogin);
             if (existe)
                 throw new InvalidOperationException("El correo de login ya está registrado.");
 
             // Hashear la contraseña con BCrypt
-            var passwordHash = BCrypt.HashPassword(dto.Password);
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             var usuario = new Usuario
             {
                 NombreUsuario = dto.NombreUsuario,
-                CorreoLogin = dto.CorreoLogin,
-                CorreoRecuperacion = dto.CorreoRecuperacion ?? string.Empty,
+                CorreoLoginUsuario = dto.CorreoLogin,
+                CorreoRecuperacionUsuario = dto.CorreoRecuperacion ?? string.Empty,
                 ContrasenaHash = passwordHash,
                 TienePassTemporal = dto.TienePassTemporal,
                 EstadoUsuario = dto.EstadoUsuario,
@@ -71,19 +71,19 @@ namespace Asignacion.Web.Services
             {
                 // Verificar que el nuevo correo no esté en uso por otro usuario
                 var existe = await _context.Usuarios
-                    .AnyAsync(u => u.CorreoLogin == dto.CorreoLogin && u.IdUsuario != idUsuario);
+                    .AnyAsync(u => u.CorreoLoginUsuario == dto.CorreoLogin && u.IdUsuario != idUsuario);
                 if (existe)
                     throw new InvalidOperationException("El correo de login ya está registrado por otro usuario.");
-                usuarioExistente.CorreoLogin = dto.CorreoLogin;
+                usuarioExistente.CorreoLoginUsuario = dto.CorreoLogin;
             }
 
             if (dto.CorreoRecuperacion != null)
-                usuarioExistente.CorreoRecuperacion = dto.CorreoRecuperacion;
+                usuarioExistente.CorreoRecuperacionUsuario = dto.CorreoRecuperacion;
 
             // Si se envía una nueva contraseña, hashearla y actualizar
             if (!string.IsNullOrWhiteSpace(dto.Password))
             {
-                usuarioExistente.ContrasenaHash = BCrypt.HashPassword(dto.Password);
+                usuarioExistente.ContrasenaHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
                 // Si se cambia la contraseña, podría quitarse la bandera de temporal
                 usuarioExistente.TienePassTemporal = dto.TienePassTemporal ?? false;
             }

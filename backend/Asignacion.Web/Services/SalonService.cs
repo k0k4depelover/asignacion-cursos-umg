@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class SalonService : ISalonService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public SalonService(AppContext context)
+            public SalonService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,7 +26,7 @@ namespace Asignacion.Web.Services
 
         public async Task<Salon> CrearSalonAsync(Salon salon)
         {
-            _context.Salon.AddAsync(salon);
+            await _context.Salon.AddAsync(salon);
             await _context.SaveChangesAsync();
             return salon;
         }
@@ -46,12 +46,13 @@ namespace Asignacion.Web.Services
             salonExistente.TipoEspacio = salon.TipoEspacio;
             salonExistente.NivelSalon = salon.NivelSalon;
             salonExistente.IdEdificio = salon.IdEdificio;
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarSalonAsync(int idSalon)
         {
-            var salonExistente = _context.Salon.FindAsync(idSalon);
+            var salonExistente = await _context.Salon.FindAsync(idSalon);
             if (salonExistente == null)
             {
                 return false;

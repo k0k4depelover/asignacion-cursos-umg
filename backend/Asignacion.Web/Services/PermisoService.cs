@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class PermisoService : IPermisoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public PermisoService(AppContext context)
+            public PermisoService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,14 +26,14 @@ namespace Asignacion.Web.Services
 
         public async Task<Permiso> CrearPermisoAsync(Permiso permiso)
         {
-            _context.Permiso.AddAsync(permiso);
+            await _context.Permiso.AddAsync(permiso);
             await _context.SaveChangesAsync();
             return permiso;
         }
 
         public async Task<bool> ActualizarPermisoAsync(int idPermiso, Permiso permiso)
         {
-            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
+            var permisoExistente = await _context.Permiso.FindAsync(idPermiso);
             if (permisoExistente == null)
             {
                 return false;
@@ -41,19 +41,20 @@ namespace Asignacion.Web.Services
             permisoExistente.IdPermiso = permiso.IdPermiso;
             permisoExistente.NombrePermiso = permiso.NombrePermiso;
             permisoExistente.DescripcionPermiso = permiso.DescripcionPermiso;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarPermisoAsync(int idPermiso)
         {
-            var permisoExistente = _context.Permiso.FindAsync(idPermiso);
-            if permisoExistente == null)
+            var permisoExistente = await _context.Permiso.FindAsync(idPermiso);
+            if (permisoExistente == null)
             {
                 return false;
             }
             _context.Permiso.Remove(permisoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

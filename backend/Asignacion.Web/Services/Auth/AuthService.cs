@@ -44,7 +44,7 @@ namespace Asignacion.Web.Services.Auth
                 // 1. Buscar usuario por correo (incluye rol)
                 var usuario = await _context.Usuarios
                     .Include(u => u.Rol)
-                    .FirstOrDefaultAsync(u => u.CorreoLogin == request.Email);
+                    .FirstOrDefaultAsync(u => u.CorreoLoginUsuario == request.Email);
 
                 if (usuario == null)
                 {
@@ -60,7 +60,7 @@ namespace Asignacion.Web.Services.Auth
                 }
 
                 // 3. Verificar contraseña con BCrypt
-                if (!BCrypt.Verify(request.Password, usuario.ContrasenaHash))
+                if (!BCrypt.Net.BCrypt.Verify(request.Password, usuario.ContrasenaHash))
                 {
                     _logger.LogWarning("Contraseña incorrecta para: {Email}", request.Email);
                     throw new UnauthorizedAccessException("Credenciales inválidas.");
@@ -88,7 +88,7 @@ namespace Asignacion.Web.Services.Auth
                     {
                         Id = usuario.IdUsuario,
                         Nombre = usuario.NombreUsuario,
-                        Email = usuario.CorreoLogin,
+                        Email = usuario.CorreoLoginUsuario,
                         Rol = usuario.Rol?.NombreRol ?? "Usuario"
                     }
                 };
@@ -169,7 +169,7 @@ namespace Asignacion.Web.Services.Auth
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, usuario.IdUsuario.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoLogin),
+                new Claim(JwtRegisteredClaimNames.Email, usuario.CorreoLoginUsuario),
                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
                 new Claim(ClaimTypes.Role, usuario.Rol?.NombreRol ?? "Usuario"),
                 new Claim("id_rol", usuario.IdRol.ToString()),

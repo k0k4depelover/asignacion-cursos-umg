@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class RolService : IRolService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public RolService(AppContext context)
+            public RolService(AppDbContext context)
         {
             _context = context;
         }
@@ -42,12 +42,13 @@ namespace Asignacion.Web.Services
             rolExistente.DescripcionRol = rol.DescripcionRol;
             rolExistente.EstadoRol = rol.EstadoRol;
             rolExistente.IdRol = rol.IdRol;
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarRolAsync(int idRol)
         {
-            var rolExistente = _context.Rol.FindAsync(idRol);
+            var rolExistente = await _context.Rol.FindAsync(idRol);
             if (rolExistente == null)
             {
                 return false;

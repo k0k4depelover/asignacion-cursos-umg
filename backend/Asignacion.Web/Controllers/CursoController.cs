@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class CursoController : ControllerBase
     {
-        private readonly ICursoService cursoService;
+        private readonly ICursoService _cursoService;
         public CursoController(ICursoService cursoService)
         {
             _cursoService = cursoService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idCurso}")]
         public async Task<ActionResult<Curso>> ObtenerCursoPorIdAsync(int idCurso)
         {
-            var cursoDb = await _cursoService.ObtenerCursoPorIdAsync(int idCurso);
+            var cursoDb = await _cursoService.ObtenerCursoPorIdAsync(idCurso);
             if (cursoDb == null)
             {
                 return NotFound(); // Código 404
@@ -40,7 +40,7 @@ namespace Asignacion.Web.Controllers
         [HttpPut("{idCurso}")]
         public async Task<IActionResult> ActualizarCursoAsync(int idCurso, Curso curso)
         {
-            var cursoActualizado = await _cursoService.ActualizarCursoAsync(int idCurso, Curso curso);
+            var cursoActualizado = await _cursoService.ActualizarCursoAsync(idCurso, curso);
             if (!cursoActualizado)
             {
                 return NotFound(); // Código 404

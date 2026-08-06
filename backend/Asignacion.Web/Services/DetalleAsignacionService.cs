@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class DetalleAsignacionService : IDetalleAsignacionService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public DetalleAsignacionService(AppContext context)
+            public DetalleAsignacionService(AppDbContext context)
         {
             _context = context;
         }

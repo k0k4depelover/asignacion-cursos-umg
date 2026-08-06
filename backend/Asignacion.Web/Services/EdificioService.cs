@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class EdificioService : IEdificioService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public EdificioService(AppContext context)
+            public EdificioService(AppDbContext context)
         {
             _context = context;
         }
@@ -24,17 +24,17 @@ namespace Asignacion.Web.Services
             return await _context.Edificio.FindAsync(idEdificio);
         }
 
-        public async Task<Edificio> CrearEdificionAsync(Edificio edificio)
+        public async Task<Edificio> CrearEdificioAsync(Edificio edificio)
         {
-            _context.Edificio.Save(edificio);
-            await _context.SaveChangesAsync(edificio);
+            await _context.Edificio.AddAsync(edificio);
+            await _context.SaveChangesAsync();
             return edificio;
         }
 
-        public async Task<bool> ActualizarEdificionAsync(int idEdificio, Edificio edificio)
+        public async Task<bool> ActualizarEdificioAsync(int idEdificio, Edificio edificio)
         {
             var edificioExistente = await _context.Edificio.FindAsync(idEdificio);
-            if (productToUpdate == null)
+            if (edificioExistente == null)
             {
                 return false;
             }
@@ -42,15 +42,16 @@ namespace Asignacion.Web.Services
             edificioExistente.NombreEdificio = edificio.NombreEdificio;
             edificioExistente.CodigoEdificio = edificio.CodigoEdificio;
             edificioExistente.SedeEdificio = edificio.SedeEdificio;
-            edificioExistente.UbicaEdificio = edificio.UbicacionEdificio;
+            edificioExistente.UbicacionEdificio = edificio.UbicacionEdificio;
             edificioExistente.EstadoEdificio= edificio.EstadoEdificio;
+            await _context.SaveChangesAsync();
             return true;
             }
 
         public async Task<bool> EliminarEdificioAsync(int idEdificio)
         {
             var edificioExistente = await _context.Edificio.FindAsync(idEdificio);
-            if (productToUpdate == null)
+            if (edificioExistente == null)
             {
                 return false;
             }

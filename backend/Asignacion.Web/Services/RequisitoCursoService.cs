@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class RequisitoCursoService : IRequisitoCursoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public RequisitoCursoService(AppContext context)
+            public RequisitoCursoService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,14 +26,14 @@ namespace Asignacion.Web.Services
 
         public async Task<RequisitoCurso> CrearRequisitoCursoAsync(RequisitoCurso requisitoCurso)
         {
-            _context.RequisitoCurso.AddAsync(requisitoCurso);
+            await _context.RequisitoCurso.AddAsync(requisitoCurso);
             await _context.SaveChangesAsync();
             return requisitoCurso;
         }
 
         public async Task<bool> ActualizarRequisitoCursoAsync(int idRequisitoCurso, RequisitoCurso requisitoCurso)
         {
-            var requisitoCursoExistente = _context.RequisitoCurso.FindAsync(idRequisitoCurso);
+            var requisitoCursoExistente = await _context.RequisitoCurso.FindAsync(idRequisitoCurso);
             if (requisitoCursoExistente == null)
             {
                 return false;
@@ -44,19 +44,20 @@ namespace Asignacion.Web.Services
             requisitoCursoExistente.IdCursoRequerido = requisitoCurso.IdCursoRequerido;
             requisitoCursoExistente.CreditosMinimos = requisitoCurso.CreditosMinimos;
             requisitoCursoExistente.DescripcionRequisito = requisitoCurso.DescripcionRequisito;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarRequisitoCursoAsync(int idRequisitoCurso)
         {
-            var requisitoCursoExistente = _context.RequisitoCurso.FindAsync(idRequisitoCurso);
+            var requisitoCursoExistente = await _context.RequisitoCurso.FindAsync(idRequisitoCurso);
             if (requisitoCursoExistente == null)
             {
                 return false;
             }
             _context.RequisitoCurso.Remove(requisitoCursoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

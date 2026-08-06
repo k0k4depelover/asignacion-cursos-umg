@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class LaboratorioService : ILaboratorioService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public LaboratorioService(AppContext context)
+            public LaboratorioService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,14 +26,14 @@ namespace Asignacion.Web.Services
 
         public async Task<Laboratorio> CrearLaboratorioAsync(Laboratorio laboratorio)
         {
-            _context.Laboratorio.AddAsync(laboratorio);
+            await _context.Laboratorio.AddAsync(laboratorio);
             await _context.SaveChangesAsync();
             return laboratorio;
         }
 
         public async Task<bool> ActualizarLaboratorioAsync(int idLaboratorio, Laboratorio laboratorio)
         {
-            var laboratorioExistente = _context.Laboratorio.FindAsync(idLaboratorio);
+            var laboratorioExistente = await _context.Laboratorio.FindAsync(idLaboratorio);
             if (laboratorioExistente == null)
             {
                 return false;
@@ -44,7 +44,8 @@ namespace Asignacion.Web.Services
             laboratorioExistente.DescripcionLaboratorio = laboratorio.DescripcionLaboratorio;
             laboratorioExistente.EstadoLaboratorio = laboratorio.EstadoLaboratorio;
             laboratorioExistente.IdSalon = laboratorio.IdSalon;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarLaboratorioAsync(int idLaboratorio)

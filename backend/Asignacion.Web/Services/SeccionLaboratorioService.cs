@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class SeccionLaboratorioService : ISeccionLaboratorioService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public SeccionLaboratorioService(AppContext context)
+            public SeccionLaboratorioService(AppDbContext context)
         {
             _context = context;
         }
@@ -33,7 +33,7 @@ namespace Asignacion.Web.Services
 
         public async Task<bool> ActualizarSeccionLaboratorioAsync(int idSeccionLaboratorio, SeccionLaboratorio seccionLaboratorio)
         {
-            var seccionLaboratorioExistente = _context.SeccionLaboratorio.FindAsync(idSeccionLaboratorio);
+            var seccionLaboratorioExistente = await _context.SeccionLaboratorio.FindAsync(idSeccionLaboratorio);
             if (seccionLaboratorioExistente == null)
             {
                 return false;
@@ -45,12 +45,13 @@ namespace Asignacion.Web.Services
             seccionLaboratorioExistente.CostoExtra = seccionLaboratorio.CostoExtra;
             seccionLaboratorioExistente.IdSeccion = seccionLaboratorio.IdSeccion;
             seccionLaboratorioExistente.IdLaboratorio = seccionLaboratorio.IdLaboratorio;
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarSeccionLaboratorioAsync(int idSeccionLaboratorio)
         {
-            var seccionLaboratorioExistente = _context.SeccionLaboratorio.FindAsync(idSeccionLaboratorio);
+            var seccionLaboratorioExistente = await _context.SeccionLaboratorio.FindAsync(idSeccionLaboratorio);
             if (seccionLaboratorioExistente == null)
             {
                 return false;

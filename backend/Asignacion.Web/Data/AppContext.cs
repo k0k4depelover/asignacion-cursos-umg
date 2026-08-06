@@ -19,23 +19,40 @@ public class AppDbContext : DbContext
     public DbSet<RolPermiso> RolPermisos { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Facultad> Facultades { get; set; }
+    public DbSet<Facultad> Facultad { get; set; }
     public DbSet<Carrera> Carreras { get; set; }
+    public DbSet<Carrera> Carrera { get; set; }
     public DbSet<Pensum> Pensums { get; set; }
+    public DbSet<Pensum> Pensum { get; set; }
     public DbSet<Curso> Cursos { get; set; }
+    public DbSet<Curso> Curso { get; set; }
     public DbSet<PensumCurso> PensumCursos { get; set; }
+    public DbSet<PensumCurso> PensumCurso { get; set; }
     public DbSet<RequisitoCurso> RequisitoCursos { get; set; }
+    public DbSet<RequisitoCurso> RequisitoCurso { get; set; }
     public DbSet<Estudiante> Estudiantes { get; set; }
+    public DbSet<Estudiante> Estudiante { get; set; }
     public DbSet<Catedratico> Catedraticos { get; set; }
     public DbSet<PeriodoAcademico> PeriodosAcademicos { get; set; }
+    public DbSet<PeriodoAcademico> PeriodoAcademico { get; set; }
     public DbSet<Edificio> Edificios { get; set; }
+    public DbSet<Edificio> Edificio { get; set; }
     public DbSet<Salon> Salones { get; set; }
+    public DbSet<Salon> Salon { get; set; }
     public DbSet<Laboratorio> Laboratorios { get; set; }
+    public DbSet<Laboratorio> Laboratorio { get; set; }
     public DbSet<Seccion> Secciones { get; set; }
+    public DbSet<Seccion> Seccion { get; set; }
     public DbSet<HorarioSeccion> HorariosSeccion { get; set; }
+    public DbSet<HorarioSeccion> HorarioSeccion { get; set; }
     public DbSet<SeccionLaboratorio> SeccionesLaboratorio { get; set; }
+    public DbSet<SeccionLaboratorio> SeccionLaboratorio { get; set; }
     public DbSet<Inscripcion> Inscripciones { get; set; }
-    public DbSet<Asignacion> Asignaciones { get; set; }
+    public DbSet<Inscripcion> Inscripcion { get; set; }
+    public DbSet<Models.Asignacion> Asignaciones { get; set; }
+    public DbSet<Models.Asignacion> Asignacion { get; set; }
     public DbSet<DetalleAsignacion> DetallesAsignacion { get; set; }
+    public DbSet<DetalleAsignacion> DetalleAsignacion { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -59,7 +76,7 @@ public class AppDbContext : DbContext
 
         // ------------------------------------------------------------------
         // Usuario 1:1 opcional con Estudiante y con Catedratico
-        // (un usuario puede o no tener un perfil de cada tipo, según su rol)
+        // (un usuario puede o no tener un perfil de cada tipo, segï¿½n su rol)
         // ------------------------------------------------------------------
         modelBuilder.Entity<Usuario>()
             .HasOne(u => u.Estudiante)
@@ -72,16 +89,16 @@ public class AppDbContext : DbContext
             .HasForeignKey<Catedratico>(c => c.IdUsuario);
 
         // ------------------------------------------------------------------
-        // Inscripcion 1:1 con Asignacion (una inscripción genera una asignación)
+        // Inscripcion 1:1 con Asignacion (una inscripciï¿½n genera una asignaciï¿½n)
         // ------------------------------------------------------------------
         modelBuilder.Entity<Inscripcion>()
             .HasOne(i => i.Asignacion)
             .WithOne(a => a.Inscripcion)
-            .HasForeignKey<Asignacion>(a => a.IdInscripcion);
+            .HasForeignKey<Models.Asignacion>(a => a.IdInscripcion);
 
         // ------------------------------------------------------------------
         // pensum_curso: N:M con columnas propias -> evitar borrado en cascada
-        // múltiple (MySQL no permite más de un camino de cascada hacia la
+        // mï¿½ltiple (MySQL no permite mï¿½s de un camino de cascada hacia la
         // misma tabla en algunos casos); lo dejamos en Restrict por seguridad
         // ------------------------------------------------------------------
         modelBuilder.Entity<PensumCurso>()
@@ -98,7 +115,7 @@ public class AppDbContext : DbContext
 
         // ------------------------------------------------------------------
         // requisito_curso: dos caminos distintos hacia Curso
-        // (uno indirecto vía PensumCurso, otro directo vía CursoRequerido)
+        // (uno indirecto vï¿½a PensumCurso, otro directo vï¿½a CursoRequerido)
         // Restrict evita ciclos de cascada ambiguos
         // ------------------------------------------------------------------
         modelBuilder.Entity<RequisitoCurso>()
@@ -127,7 +144,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Seccion>()
             .HasOne(s => s.PeriodoAcademico)
             .WithMany(p => p.Secciones)
-            .HasForeignKey(s => s.IdPeriodoAcademico)
+            .HasForeignKey(s => s.IdPeriodo)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Seccion>()
@@ -173,13 +190,13 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         // ------------------------------------------------------------------
-        // Precisión decimal explícita (evita el default decimal(65,30))
+        // Precisiï¿½n decimal explï¿½cita (evita el default decimal(65,30))
         // ------------------------------------------------------------------
         modelBuilder.Entity<SeccionLaboratorio>().Property(sl => sl.CostoExtra).HasColumnType("decimal(10,2)");
         modelBuilder.Entity<Inscripcion>().Property(i => i.CostoInscripcion).HasColumnType("decimal(10,2)");
         modelBuilder.Entity<Inscripcion>().Property(i => i.MontoMensual).HasColumnType("decimal(10,2)");
-        modelBuilder.Entity<Asignacion>().Property(a => a.SubtotalAsignacion).HasColumnType("decimal(10,2)");
-        modelBuilder.Entity<Asignacion>().Property(a => a.TotalPago).HasColumnType("decimal(10,2)");
+        modelBuilder.Entity<Models.Asignacion>().Property(a => a.SubTotalLaboratorios).HasColumnType("decimal(10,2)");
+        modelBuilder.Entity<Models.Asignacion>().Property(a => a.TotalPago).HasColumnType("decimal(10,2)");
         modelBuilder.Entity<DetalleAsignacion>().Property(d => d.CostoLaboratorio).HasColumnType("decimal(10,2)");
         modelBuilder.Entity<DetalleAsignacion>().Property(d => d.NotaFinal).HasColumnType("decimal(5,2)");
     }

@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class HorarioSeccionService : IHorarioSeccionService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public HorarioSeccionService(AppContext context)
+            public HorarioSeccionService(AppDbContext context)
         {
             _context = context;
         }
@@ -39,14 +39,27 @@ namespace Asignacion.Web.Services
                 return false;
             }
 
-            horarioSeccionExistente.DiaSemana = horarioSeccion.DiaSemana;
             horarioSeccionExistente.DiaSemanaHorario = horarioSeccion.DiaSemanaHorario;
+            horarioSeccionExistente.HoraInicio = horarioSeccion.HoraInicio;
+            horarioSeccionExistente.HoraFin = horarioSeccion.HoraFin;
+            horarioSeccionExistente.TipoSesion = horarioSeccion.TipoSesion;
+            horarioSeccionExistente.IdSeccion = horarioSeccion.IdSeccion;
+
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarHorarioSeccionAsync(int idHorarioSeccion)
         {
+            var horarioSeccionExistente = await _context.HorarioSeccion.FindAsync(idHorarioSeccion);
+            if (horarioSeccionExistente == null)
+            {
+                return false;
+            }
 
+            _context.HorarioSeccion.Remove(horarioSeccionExistente);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
     }

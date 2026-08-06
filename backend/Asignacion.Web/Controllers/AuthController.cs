@@ -37,7 +37,7 @@ namespace Asignacion.Web.Controllers
             {
                 return Unauthorized(new { message = ex.Message });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log del error (se puede agregar ILogger)
                 return StatusCode(500, new { message = "Ocurrió un error interno en el servidor." });

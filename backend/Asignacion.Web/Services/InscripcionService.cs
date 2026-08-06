@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class InscripcionService : IInscripcionService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public InscripcionService(AppContext context)
+            public InscripcionService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,14 +26,14 @@ namespace Asignacion.Web.Services
 
         public async Task<Inscripcion> CrearInscripcionAsync(Inscripcion inscripcion)
         {
-            _context.Inscripcion.AddAsync(inscripcion);
+            await _context.Inscripcion.AddAsync(inscripcion);
             await _context.SaveChangesAsync();
             return inscripcion;
         }
 
         public async Task<bool> ActualizarInscripcionAsync(int idInscripcion, Inscripcion inscripcion)
         {
-            var inscripcionExistente = _context.Inscripcion.FindAsync(idInscripcion);
+            var inscripcionExistente = await _context.Inscripcion.FindAsync(idInscripcion);
             if (inscripcionExistente == null)
             {
                 return false;
@@ -49,19 +49,20 @@ namespace Asignacion.Web.Services
             inscripcionExistente.IdEstudiante = inscripcion.IdEstudiante;
             inscripcionExistente.Estudiante = inscripcion.Estudiante;
             inscripcionExistente.IdPeriodoAcademico = inscripcion.IdPeriodoAcademico;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarInscripcionAsync(int idInscripcion)
         {
-            var inscripcionExistente = _context.Inscripcion.FindAsync(idInscripcion);
+            var inscripcionExistente = await _context.Inscripcion.FindAsync(idInscripcion);
             if (inscripcionExistente == null)
             {
                 return false;
             }
             _context.Inscripcion.Remove(inscripcionExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

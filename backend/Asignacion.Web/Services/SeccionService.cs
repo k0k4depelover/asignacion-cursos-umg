@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class SeccionService : ISeccionService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public SeccionService(AppContext context)
+            public SeccionService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,7 +26,7 @@ namespace Asignacion.Web.Services
 
         public async Task<Seccion> CrearSeccionAsync(Seccion seccion)
         {
-            _context.Seccion.Addsync(seccion);
+            await _context.Seccion.AddAsync(seccion);
             await _context.SaveChangesAsync();
             return seccion;
         }
@@ -47,12 +47,13 @@ namespace Asignacion.Web.Services
             seccionExistente.IdPeriodo = seccion.IdPeriodo;
             seccionExistente.IdCatedratico = seccion.IdCatedratico;
             seccionExistente.IdSalon = seccion.IdSalon;
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> EliminarSeccionAsync(int idSeccion)
         {
-            var seccionExistente = _context.Seccion.FindAsync(idSeccion);
+            var seccionExistente = await _context.Seccion.FindAsync(idSeccion);
             if (seccionExistente == null)
             {
                 return false;

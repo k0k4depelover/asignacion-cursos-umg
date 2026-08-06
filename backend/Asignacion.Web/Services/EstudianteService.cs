@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class EstudianteService : IEstudianteService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public EstudianteService(AppContext context)
+            public EstudianteService(AppDbContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace Asignacion.Web.Services
         {
             _context.Estudiante.Add(estudiante);
             await _context.SaveChangesAsync();
-            return edificio;
+            return estudiante;
         }
 
         public async Task<bool> ActualizarEstudianteAsync(int idEstudiante, Estudiante estudiante)

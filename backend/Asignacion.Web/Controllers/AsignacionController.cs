@@ -17,34 +17,34 @@ namespace Asignacion.Web.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Asignacion>>> ObtenerTodasAsignacionesAsync()
+        public async Task<ActionResult<List<Models.Asignacion>>> ObtenerTodasAsignacionesAsync()
         {
             var asignacionesDb = await _asignacionService.ObtenerTodasAsignacionesAsync();
             return Ok(asignacionesDb);
         }
 
         [HttpGet("{idAsignacion}")]
-        public async Task<ActionResult<Asignacion>> ObtenerAsignacionPorIdAsync(int idAsignacion)
+        public async Task<ActionResult<Models.Asignacion>> ObtenerAsignacionPorIdAsync(int idAsignacion)
         {
             var asignacionDb = await _asignacionService.ObtenerAsignacionPorIdAsync(idAsignacion);
             if (asignacionDb == null) {
-                return NotFound(); // Codigo 404 
+                return NotFound(); // Codigo 404
             }
 
             return Ok(asignacionDb);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Asignacion>> CrearAsignacionAsync(Asignacion asignacion)
+        public async Task<ActionResult<Models.Asignacion>> CrearAsignacionAsync(Models.Asignacion asignacion)
         {
             var asignacionCreada = await _asignacionService.CrearAsignacionAsync(asignacion);
 
             return CreatedAtAction(nameof(ObtenerAsignacionPorIdAsync), new { idAsignacion = asignacionCreada.IdAsignacion }, asignacionCreada); // 201 CREATED
         }
-        
+
 
         [HttpPut("{idAsignacion}")]
-        public async Task<IActionResult> ActualizarAsignacionAsync(int idAsignacion, Asignacion asignacion)
+        public async Task<IActionResult> ActualizarAsignacionAsync(int idAsignacion, Models.Asignacion asignacion)
         {
             var asignacionActualizada = await _asignacionService.ActualizarAsignacionAsync(idAsignacion, asignacion);
 
@@ -53,7 +53,7 @@ namespace Asignacion.Web.Controllers
                 return NotFound();
             }
 
-            return NoContent(); // 204 NO CONTENT 
+            return NoContent(); // 204 NO CONTENT
         }
 
 
@@ -67,7 +67,7 @@ namespace Asignacion.Web.Controllers
                 return NotFound();
             }
 
-            return NoContent(); // 204 NO CONTENT 
+            return NoContent(); // 204 NO CONTENT
         }
     }
 }

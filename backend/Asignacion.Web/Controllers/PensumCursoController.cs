@@ -17,7 +17,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PensumCurso>>> ObtenerTodosPensumCursosAsync()
         {
-            var pensumCursosDb = await _pensumCursoService.ObtenerTodosPensumCursosAsync();
+            var pensumCursosDb = await _pensumCursoService.ObtenerTodosPensumsCursosAsync();
             return Ok(pensumCursosDb);
         }
         [HttpGet("{idPensumCurso}")]

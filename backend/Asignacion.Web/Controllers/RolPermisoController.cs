@@ -21,10 +21,10 @@ namespace Asignacion.Web.Controllers
             return Ok(rolesPermisosDb);
         }
 
-        [HttpGet("{idRolPermiso}")]
-        public async Task<ActionResult<RolPermiso>> ObtenerRolPermisoPorIdAsync(int idRolPermiso)
+        [HttpGet("{idRol}/{idPermiso}")]
+        public async Task<ActionResult<RolPermiso>> ObtenerRolPermisoPorIdAsync(int idRol, int idPermiso)
         {
-            var rolPermisoDb = await _rolPermisoService.ObtenerRolPermisoPorIdAsync(idRolPermiso);
+            var rolPermisoDb = await _rolPermisoService.ObtenerRolPermisoPorIdAsync(idRol, idPermiso);
             if (rolPermisoDb == null)
             {
                 return NotFound(); // Código 404
@@ -50,24 +50,13 @@ namespace Asignacion.Web.Controllers
         public async Task<ActionResult<RolPermiso>> CrearRolPermisoAsync(RolPermiso rolPermiso)
         {
             var rolPermisoCreado = await _rolPermisoService.CrearRolPermisoAsync(rolPermiso);
-            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { idRolPermiso = rolPermisoCreado.IdRolPermiso }, rolPermisoCreado); // 201 CREATED
+            return CreatedAtAction(nameof(ObtenerRolPermisoPorIdAsync), new { idRol = rolPermisoCreado.IdRol, idPermiso = rolPermisoCreado.IdPermiso }, rolPermisoCreado); // 201 CREATED
         }
 
-        [HttpPut("{idRolPermiso}")]
-        public async Task<IActionResult> ActualizarRolPermisoAsync(int idRolPermiso, RolPermiso rolPermiso)
+        [HttpDelete("{idRol}/{idPermiso}")]
+        public async Task<IActionResult> EliminarRolPermisoAsync(int idRol, int idPermiso)
         {
-            var rolPermisoActualizado = await _rolPermisoService.ActualizarRolPermisoAsync(idRolPermiso, rolPermiso);
-            if (!rolPermisoActualizado)
-            {
-                return NotFound(); // Código 404
-            }
-            return NoContent(); // 204 NO CONTENT
-        }
-
-        [HttpDelete("{idRolPermiso}")]
-        public async Task<IActionResult> EliminarRolPermisoAsync(int idRolPermiso)
-        {
-            var rolPermisoEliminado = await _rolPermisoService.EliminarRolPermisoAsync(idRolPermiso);
+            var rolPermisoEliminado = await _rolPermisoService.EliminarRolPermisoAsync(idRol, idPermiso);
             if (!rolPermisoEliminado)
             {
                 return NotFound(); // Código 404

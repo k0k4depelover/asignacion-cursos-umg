@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class PensumCursoService : IPensumCursoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public PensumCursoService(AppContext context)
+            public PensumCursoService(AppDbContext context)
         {
             _context = context;
         }
@@ -26,14 +26,14 @@ namespace Asignacion.Web.Services
 
         public async Task<PensumCurso> CrearPensumCursoAsync(PensumCurso pensumCurso)
         {
-            _context.PesnumCurso.AddAsync(pensumCurso);
+            await _context.PensumCurso.AddAsync(pensumCurso);
             await _context.SaveChangesAsync();
             return pensumCurso;
         }
 
         public async Task<bool> ActualizarPensumCursoAsync(int idPensumCurso, PensumCurso pensumCurso)
         {
-            var pensumCursoExistente = _context.PensumCurso.FindAsync(idPensumCurso);
+            var pensumCursoExistente = await _context.PensumCurso.FindAsync(idPensumCurso);
             if (pensumCursoExistente == null)
             {
                 return false;
@@ -43,19 +43,20 @@ namespace Asignacion.Web.Services
             pensumCursoExistente.IdCurso = pensumCurso.IdCurso;
             pensumCursoExistente.Ciclo = pensumCurso.Ciclo;
             pensumCursoExistente.EsObligatorio = pensumCurso.EsObligatorio;
-            return true
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<bool> EliminarPensumCursoAsync(int idPensumCurso)
         {
-            var pensumCursoExistente = _context.PensumCurso.FindAsync(idPensumCurso);
+            var pensumCursoExistente = await _context.PensumCurso.FindAsync(idPensumCurso);
             if (pensumCursoExistente == null)
             {
                 return false;
             }
             _context.PensumCurso.Remove(pensumCursoExistente);
             await _context.SaveChangesAsync();
-            return true
+            return true;
         }
 
     }

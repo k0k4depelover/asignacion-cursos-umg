@@ -48,7 +48,7 @@ namespace Asignacion.Web.Controllers
             {
                 return Conflict(new { message = ex.Message });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500, new { message = "Error interno al crear el usuario." });
             }
@@ -72,7 +72,7 @@ namespace Asignacion.Web.Controllers
             {
                 return Conflict(new { message = ex.Message });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500, new { message = "Error interno al actualizar el usuario." });
             }

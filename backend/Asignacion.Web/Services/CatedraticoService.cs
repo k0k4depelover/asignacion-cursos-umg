@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class CatedraticoService : ICatedraticoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public CatedraticoService(AppContext context)
+            public CatedraticoService(AppDbContext context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace Asignacion.Web.Services
 
         public async Task<Catedratico?> ObtenerCatedraticoPorIdAsync(int idCatedratico)
         {
-            return await _context.FindAsync(idCatedratico)
+            return await _context.Catedratico.FindAsync(idCatedratico);
         }
 
         public async Task<Catedratico> CrearCatedraticoAsync(Catedratico catedratico)

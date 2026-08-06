@@ -6,10 +6,10 @@ namespace Asignacion.Web.Services
 {
     public class CursoService : ICursoService
     {
-        private readonly AppContext _context
+        private readonly AppDbContext _context;
 
 
-            public CursoService(AppContext context)
+            public CursoService(AppDbContext context)
         {
             _context = context;
         }
