@@ -9,7 +9,7 @@ namespace Asignacion.Web.Controllers
 
     public class PensumController : ControllerBase
     {
-        private readonly IPensumService pensumService;
+        private readonly IPensumService _pensumService;
         public PensumController(IPensumService pensumService)
         {
             _pensumService = pensumService;
@@ -23,7 +23,7 @@ namespace Asignacion.Web.Controllers
         [HttpGet("{idPensum}")]
         public async Task<ActionResult<Pensum>> ObtenerPensumPorIdAsync(int idPensum)
         {
-            var pensumDb = await _pensumService.ObtenerPensumPorIdAsync(int idPensum);
+            var pensumDb = await _pensumService.ObtenerPensumPorIdAsync(idPensum);
             if (pensumDb == null)
             {
                 return NotFound(); // Código 404
@@ -33,13 +33,13 @@ namespace Asignacion.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<Pensum>> CrearPensumAsync(Pensum pensum)
         {
-            var pensumCreado = await _pensumService.CrearPensumAsync(Pensum pensum);
-            return CreatedAtAction(nameof(ObtenerPensumPorIdAsync), new { id = pensumCreado.IdPensum }); // 201 CREATED
+            var pensumCreado = await _pensumService.CrearPensumAsync(pensum);
+            return CreatedAtAction(nameof(ObtenerPensumPorIdAsync), new { idPensum = pensumCreado.IdPensum }, pensumCreado); // 201 CREATED
         }
         [HttpPut("{idPensum}")]
         public async Task<IActionResult> ActualizarPensumAsync(int idPensum, Pensum pensum)
         {
-            var pensumActualizado = await _pensumService.ActualizarPensumAsync(int idPensum, Pensum pensum);
+            var pensumActualizado = await _pensumService.ActualizarPensumAsync(idPensum, pensum);
             if (!pensumActualizado)
             {
                 return NotFound(); // Código 404
