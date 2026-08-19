@@ -31,7 +31,7 @@ public class Catedratico
     [Column("estado_catedratico")]
     public string EstadoCatedratico { get; set; } = "activo";
 
-    [Column("id_usuario")]
+    [Column("id_usuario_catedratico")]
     public int IdUsuario { get; set; }
 
     [ForeignKey(nameof(IdUsuario))]

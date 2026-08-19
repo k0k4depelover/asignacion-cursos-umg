@@ -28,13 +28,13 @@ public class Inscripcion
     [Column("estado_inscripcion")]
     public string EstadoInscripcion { get; set; } = "activo";
 
-    [Column("id_estudiante")]
+    [Column("id_estudiante_inscripcion")]
     public int IdEstudiante { get; set; }
 
     [ForeignKey(nameof(IdEstudiante))]
     public Estudiante? Estudiante { get; set; }
 
-    [Column("id_periodo")]
+    [Column("id_periodo_academico_inscripcion")]
     public int IdPeriodo { get; set; }
 
     [ForeignKey(nameof(IdPeriodo))]

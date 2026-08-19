@@ -13,16 +13,16 @@ public class Usuario
     [Column("nombre_usuario")]
     public required string NombreUsuario { get; set; }
 
-    [Column("correo_login")]
+    [Column("correo_login_usuario")]
     public required string CorreoLogin { get; set; }
 
-    [Column("correo_recuperacion")]
+    [Column("correo_recuperacion_usuario")]
     public string? CorreoRecuperacion { get; set; }
 
-    [Column("contrasena_hash")]
+    [Column("contrasena_hash_usuario")]
     public required string ContrasenaHash { get; set; }
 
-    [Column("tiene_pass_temporal")]
+    [Column("tiene_pass_temporal_usuario")]
     public bool TienePassTemporal { get; set; }
 
     [Column("estado_usuario")]
@@ -31,7 +31,7 @@ public class Usuario
     [Column("fecha_registro_usuario")]
     public DateTime FechaRegistroUsuario { get; set; } = DateTime.Now;
 
-    [Column("id_rol")]
+    [Column("id_rol_usuario")]
     public int IdRol { get; set; }
 
     [ForeignKey(nameof(IdRol))]

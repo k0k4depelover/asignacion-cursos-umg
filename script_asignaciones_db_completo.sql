@@ -193,11 +193,12 @@ CREATE TABLE rol_permiso (
 -- es_obligatorio). Aun así sigue siendo asociativa pura para efectos de
 -- llave: PK compuesta (id_pensum, id_curso), sin id propio.
 CREATE TABLE pensum_curso (
+    id_pensum_curso                INT AUTO_INCREMENT PRIMARY KEY,
     id_pensum                     INT NOT NULL,
     id_curso                      INT NOT NULL,
     ciclo_pensum_curso            INT NOT NULL,
     es_obligatorio_pensum_curso   BOOLEAN NOT NULL DEFAULT TRUE,
-    PRIMARY KEY (id_pensum, id_curso),
+    UNIQUE KEY uq_pensum_curso (id_pensum, id_curso),
     CONSTRAINT fk_pensumcurso_pensum FOREIGN KEY (id_pensum) REFERENCES pensum (id_pensum),
     CONSTRAINT fk_pensumcurso_curso FOREIGN KEY (id_curso) REFERENCES curso (id_curso)
 ) ENGINE=InnoDB;
@@ -211,11 +212,9 @@ CREATE TABLE requisito_curso (
     tipo_requisito                VARCHAR(50) NOT NULL,
     creditos_minimos_requisito    INT NULL,
     descripcion_requisito         VARCHAR(255) NULL,
-    id_pensum_requisito           INT NOT NULL,
-    id_curso_pensum_requisito     INT NOT NULL,
+    id_pensum_curso_requisito     INT NOT NULL,
     id_curso_requisito            INT NOT NULL,
-    CONSTRAINT fk_requisito_pensumcurso FOREIGN KEY (id_pensum_requisito, id_curso_pensum_requisito)
-        REFERENCES pensum_curso (id_pensum, id_curso),
+    CONSTRAINT fk_requisito_pensumcurso FOREIGN KEY (id_pensum_curso_requisito) REFERENCES pensum_curso (id_pensum_curso),
     CONSTRAINT fk_requisito_cursorequerido FOREIGN KEY (id_curso_requisito) REFERENCES curso (id_curso)
 ) ENGINE=InnoDB;
 
@@ -253,13 +252,14 @@ CREATE TABLE horario_seccion (
 -- seccion_laboratorio: N:M entre seccion y laboratorio, con datos propios
 -- (horario, costo). Tabla asociativa pura: PK compuesta, sin id propio.
 CREATE TABLE seccion_laboratorio (
+    id_seccion_laboratorio           INT AUTO_INCREMENT PRIMARY KEY,
     dia_semana_seccion_laboratorio   VARCHAR(20) NOT NULL,
     hora_inicio_seccion_laboratorio  TIME NOT NULL,
     hora_fin_seccion_laboratorio     TIME NOT NULL,
     costo_extra_seccion_laboratorio  DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     id_seccion                       INT NOT NULL,
     id_laboratorio                   INT NOT NULL,
-    PRIMARY KEY (id_seccion, id_laboratorio),
+    UNIQUE KEY uq_seccion_laboratorio (id_seccion, id_laboratorio),
     CONSTRAINT fk_secclab_seccion FOREIGN KEY (id_seccion) REFERENCES seccion (id_seccion),
     CONSTRAINT fk_secclab_laboratorio FOREIGN KEY (id_laboratorio) REFERENCES laboratorio (id_laboratorio)
 ) ENGINE=InnoDB;
@@ -365,8 +365,9 @@ INSERT INTO pensum_curso (id_pensum, id_curso, ciclo_pensum_curso, es_obligatori
     (1, 4, 3, TRUE);
 
 -- PRG201 requiere haber aprobado PRG101
-INSERT INTO requisito_curso (tipo_requisito, creditos_minimos_requisito, descripcion_requisito, id_pensum_requisito, id_curso_pensum_requisito, id_curso_requisito) VALUES
-    ('curso_aprobado', NULL, 'Debe haber aprobado Programación I', 1, 3, 2);
+-- (id_pensum_curso_requisito = 5: la 5ta fila insertada en pensum_curso arriba es (1, 3, ...))
+INSERT INTO requisito_curso (tipo_requisito, creditos_minimos_requisito, descripcion_requisito, id_pensum_curso_requisito, id_curso_requisito) VALUES
+    ('curso_aprobado', NULL, 'Debe haber aprobado Programación I', 5, 2);
 
 -- --- Infraestructura -------------------------------------------------------
 INSERT INTO edificio (id_edificio, codigo_edificio, nombre_edificio, sede_edificio, ubicacion_edificio, estado_edificio) VALUES

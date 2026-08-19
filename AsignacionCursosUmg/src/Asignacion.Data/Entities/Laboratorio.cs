@@ -19,7 +19,7 @@ public class Laboratorio
     [Column("estado_laboratorio")]
     public string EstadoLaboratorio { get; set; } = "activo";
 
-    [Column("id_salon")]
+    [Column("id_salon_laboratorio")]
     public int IdSalon { get; set; }
 
     [ForeignKey(nameof(IdSalon))]

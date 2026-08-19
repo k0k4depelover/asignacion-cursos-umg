@@ -22,7 +22,7 @@ public class Estudiante
     [Column("apellidos_estudiante")]
     public required string ApellidosEstudiante { get; set; }
 
-    [Column("fecha_nacimiento")]
+    [Column("fecha_nacimiento_estudiante")]
     public DateTime FechaNacimiento { get; set; }
 
     [Column("direccion_estudiante")]
@@ -31,19 +31,19 @@ public class Estudiante
     [Column("telefono_estudiante")]
     public string? TelefonoEstudiante { get; set; }
 
-    [Column("ciclo_actual")]
+    [Column("ciclo_actual_estudiante")]
     public int CicloActual { get; set; } = 1;
 
     [Column("estado_estudiante")]
     public string EstadoEstudiante { get; set; } = "activo";
 
-    [Column("id_usuario")]
+    [Column("id_usuario_estudiante")]
     public int IdUsuario { get; set; }
 
     [ForeignKey(nameof(IdUsuario))]
     public Usuario? Usuario { get; set; }
 
-    [Column("id_pensum")]
+    [Column("id_pensum_estudiante")]
     public int IdPensum { get; set; }
 
     [ForeignKey(nameof(IdPensum))]

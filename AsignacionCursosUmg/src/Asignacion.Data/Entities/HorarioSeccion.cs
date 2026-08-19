@@ -10,19 +10,19 @@ public class HorarioSeccion
     [Column("id_horario")]
     public int IdHorario { get; set; }
 
-    [Column("dia_semana")]
+    [Column("dia_semana_horario")]
     public required string DiaSemana { get; set; }
 
-    [Column("hora_inicio")]
+    [Column("hora_inicio_horario")]
     public TimeSpan HoraInicio { get; set; }
 
-    [Column("hora_fin")]
+    [Column("hora_fin_horario")]
     public TimeSpan HoraFin { get; set; }
 
-    [Column("tipo_sesion")]
+    [Column("tipo_sesion_horario")]
     public required string TipoSesion { get; set; }
 
-    [Column("id_seccion")]
+    [Column("id_seccion_horario")]
     public int IdSeccion { get; set; }
 
     [ForeignKey(nameof(IdSeccion))]

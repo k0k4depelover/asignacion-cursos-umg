@@ -22,7 +22,7 @@ public class Pensum
     [Column("estado_pensum")]
     public string EstadoPensum { get; set; } = "activo";
 
-    [Column("id_carrera")]
+    [Column("id_carrera_pensum")]
     public int IdCarrera { get; set; }
 
     [ForeignKey(nameof(IdCarrera))]

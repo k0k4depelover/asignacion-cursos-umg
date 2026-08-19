@@ -25,13 +25,13 @@ public class DetalleAsignacion
     [Column("fecha_resultado")]
     public DateTime? FechaResultado { get; set; }
 
-    [Column("id_asignacion")]
+    [Column("id_asignacion_detalle")]
     public int IdAsignacion { get; set; }
 
     [ForeignKey(nameof(IdAsignacion))]
     public Asignacion? Asignacion { get; set; }
 
-    [Column("id_seccion")]
+    [Column("id_seccion_detalle")]
     public int IdSeccion { get; set; }
 
     [ForeignKey(nameof(IdSeccion))]

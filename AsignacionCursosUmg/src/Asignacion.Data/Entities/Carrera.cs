@@ -16,13 +16,13 @@ public class Carrera
     [Column("nombre_carrera")]
     public required string NombreCarrera { get; set; }
 
-    [Column("total_ciclos")]
+    [Column("total_ciclos_carrera")]
     public int TotalCiclos { get; set; }
 
     [Column("estado_carrera")]
     public string EstadoCarrera { get; set; } = "activo";
 
-    [Column("id_facultad")]
+    [Column("id_facultad_carrera")]
     public int IdFacultad { get; set; }
 
     [ForeignKey(nameof(IdFacultad))]

@@ -10,16 +10,16 @@ public class SeccionLaboratorio
     [Column("id_seccion_laboratorio")]
     public int IdSeccionLaboratorio { get; set; }
 
-    [Column("dia_semana")]
+    [Column("dia_semana_seccion_laboratorio")]
     public required string DiaSemana { get; set; }
 
-    [Column("hora_inicio")]
+    [Column("hora_inicio_seccion_laboratorio")]
     public TimeSpan HoraInicio { get; set; }
 
-    [Column("hora_fin")]
+    [Column("hora_fin_seccion_laboratorio")]
     public TimeSpan HoraFin { get; set; }
 
-    [Column("costo_extra")]
+    [Column("costo_extra_seccion_laboratorio")]
     public decimal CostoExtra { get; set; }
 
     [Column("id_seccion")]

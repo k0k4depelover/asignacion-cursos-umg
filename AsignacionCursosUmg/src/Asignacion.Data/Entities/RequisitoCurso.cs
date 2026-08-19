@@ -10,7 +10,7 @@ public class RequisitoCurso
     [Column("id_requisito")]
     public int IdRequisito { get; set; }
 
-    [Column("id_pensum_curso")]
+    [Column("id_pensum_curso_requisito")]
     public int IdPensumCurso { get; set; }
 
     [ForeignKey(nameof(IdPensumCurso))]
@@ -19,13 +19,13 @@ public class RequisitoCurso
     [Column("tipo_requisito")]
     public required string TipoRequisito { get; set; }
 
-    [Column("id_curso_requerido")]
+    [Column("id_curso_requisito")]
     public int IdCursoRequerido { get; set; }
 
     [ForeignKey(nameof(IdCursoRequerido))]
     public Curso? CursoRequerido { get; set; }
 
-    [Column("creditos_minimos")]
+    [Column("creditos_minimos_requisito")]
     public int? CreditosMinimos { get; set; }
 
     [Column("descripcion_requisito")]

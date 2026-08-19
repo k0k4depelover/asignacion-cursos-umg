@@ -16,10 +16,10 @@ public class Edificio
     [Column("nombre_edificio")]
     public required string NombreEdificio { get; set; }
 
-    [Column("sede")]
+    [Column("sede_edificio")]
     public required string Sede { get; set; }
 
-    [Column("ubicacion")]
+    [Column("ubicacion_edificio")]
     public string? Ubicacion { get; set; }
 
     [Column("estado_edificio")]

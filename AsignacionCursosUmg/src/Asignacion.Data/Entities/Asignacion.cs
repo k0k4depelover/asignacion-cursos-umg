@@ -22,7 +22,7 @@ public class Asignacion
     [Column("estado_asignacion")]
     public string EstadoAsignacion { get; set; } = "activo";
 
-    [Column("id_inscripcion")]
+    [Column("id_inscripcion_asignacion")]
     public int IdInscripcion { get; set; }
 
     [ForeignKey(nameof(IdInscripcion))]

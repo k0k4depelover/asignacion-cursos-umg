@@ -19,7 +19,7 @@ public class Salon
     [Column("capacidad_salon")]
     public int CapacidadSalon { get; set; }
 
-    [Column("tipo_espacio")]
+    [Column("tipo_espacio_salon")]
     public required string TipoEspacio { get; set; }
 
     [Column("nivel_salon")]
@@ -28,7 +28,7 @@ public class Salon
     [Column("estado_salon")]
     public string EstadoSalon { get; set; } = "activo";
 
-    [Column("id_edificio")]
+    [Column("id_edificio_salon")]
     public int IdEdificio { get; set; }
 
     [ForeignKey(nameof(IdEdificio))]

@@ -22,10 +22,10 @@ public class PensumCurso
     [ForeignKey(nameof(IdCurso))]
     public Curso? Curso { get; set; }
 
-    [Column("ciclo")]
+    [Column("ciclo_pensum_curso")]
     public int Ciclo { get; set; }
 
-    [Column("es_obligatorio")]
+    [Column("es_obligatorio_pensum_curso")]
     public bool EsObligatorio { get; set; } = true;
 
     public List<RequisitoCurso> RequisitoCursos { get; set; } = new();
